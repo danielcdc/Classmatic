@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="utf-8">
+	<title>Bienvenido</title>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+	<style type="text/css">
+
+		.contenedor{
+			min-height: 100vh;
+			background: rgb(171,171,171);
+			background: linear-gradient(100deg, rgba(171,171,171,1) 0%, rgba(147,147,147,1) 23%, rgba(86,86,80,1) 100%);
+		}
+
+		.formularioContra{
+			height: 300px;
+			width: 600px;
+		}
+
+		.cajaForm{
+			border-radius:180px;
+			background-color: #D1D1D1;
+		}
+
+		input{
+			border:none;
+		}
+
+		input[type=text]{
+			height: 30px;
+			border-radius: 100px;
+		}
+
+		.botonEnvio{
+			width: 120px;
+			height: 50px;
+			background-color: green;
+			border-radius: 100px;
+			background-color: #00D579;
+			font-size: 17pt;
+			box-shadow: 0px 4px #626262;
+		}
+
+
+
+	</style>
+
+</head>
+<body>
+
+	<div class="contenedor d-flex flex-column justify-content-center align-items-center">
+		
+		<p class="h1 text-light my-2">Bienvenido</p>
+		<p class="h3 text-light my-2">Pablo Gómez Reverte</p>
+		<p class="h4 text-light my-2">pagore@gmail.com</p>
+
+		<div class=" cajaForm my-2">
+			
+			<form method="POST" action="#" class="formularioContra d-flex flex-column justify-content-center align-items-center">
+				
+				<input type="text" name="passwd" size="60" class="my-4 text-center" placeholder="Password">
+
+				<input type="text" name="passwdRepe" size="60" class="my-4 text-center" placeholder="Repitela">
+
+				<input type="submit" name="envio" class="mt-4 botonEnvio text-white font-weight-bold" value="Acceder">
+
+
+			</form>
+
+		</div>
+
+	</div>
+
+
+
+
+
+
+
+
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+</html>
