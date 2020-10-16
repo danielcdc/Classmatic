@@ -14,15 +14,21 @@ import java.util.List;
 @NoArgsConstructor @AllArgsConstructor
 public class Alumno extends Usuario {
 
-
-    //private Curso curso;
+    @ManyToOne
+    private Curso curso;
 
     @ManyToMany
     @JoinTable(
             joinColumns = @JoinColumn(name="alumno_id"),
             inverseJoinColumns = @JoinColumn(name="asignatura_id")
     )
-    private List<Asignatura> asignaturas = new ArrayList<>();
+    private List<Asignatura> asignaturas;
+
+    @ManyToOne
+    private List<SituacionExcepcional> situacionesExc;
+
+    @ManyToOne
+    private List<SolicitudAmpliacionMatricula> solicitudesAmp;
 
     //Helpers
 

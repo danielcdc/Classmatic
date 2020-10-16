@@ -5,10 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -25,7 +22,15 @@ public class Asignatura {
     @ManyToMany(mappedBy = "asignaturas")
     private List<Alumno> alumnos;
 
-    //private Curso curso;
+
+    @ManyToOne
+    private Curso curso;
+
+    @ManyToOne
+    private List<SituacionExcepcional> situacionExc;
+
+    @ManyToOne
+    private List<SolicitudAmpliacionMatricula>solicitudesAmp;
 
 
 
