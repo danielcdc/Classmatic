@@ -5,10 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity @Data @Builder
@@ -24,10 +21,10 @@ public class SituacionExcepcional {
     private LocalDateTime fechaResolucion;
     private  String estado;
 
-    @OneToMany(mappedBy = "situacionesExc")
+    @ManyToOne
     private Alumno alumno;
 
-    @OneToMany(mappedBy = "situacionExc")
+    @ManyToOne
     private Asignatura asignatura;
 
 

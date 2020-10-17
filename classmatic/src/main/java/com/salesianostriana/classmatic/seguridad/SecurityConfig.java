@@ -16,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsServiceImp userDetailsServiceImp;
+    private final CustomSuccessHandler customSuccessHandler;
 
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -29,15 +30,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http)throws Exception{
         http
                 .authorizeRequests()
-                .antMatchers("/css/**","/js/**").permitAll()
+                .antMatchers("/").permitAll().and()
+                .authorizeRequests().antMatchers("/console/**").permitAll().and()
+                .authorizeRequests().antMatchers("/css/**","/js/**").permitAll()
                 .antMatchers("/jf/**").hasRole("JF")
                 .antMatchers("/profesor/**").hasRole("PROFESOR")
-                .antMatchers("/ALUMNO/**").hasRole("ALUMNO")
+                .antMatchers("/alumno/**").hasRole("ALUMNO")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/")
+                .loginPage("/login")
                 .permitAll()
+                .successHandler(customSuccessHandler)
                 .and()
                 .logout()
                 .permitAll();

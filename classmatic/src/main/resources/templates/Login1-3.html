@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="utf-8">
 	<title>Login</title>
@@ -16,11 +16,11 @@
 
 		<div class=" cajaFormLogin my-2">
 			
-			<form method="POST" action="#" class="formularioContraLogin d-flex flex-column justify-content-center align-items-center">
+			<form method="POST" action="#" th:action="@{/login}" class="formularioContraLogin d-flex flex-column justify-content-center align-items-center">
 				
-				<input type="text" name="user" size="60" class="my-4 text-center" placeholder="Email/Usuario">
+				<input type="text" id="username" name="username" size="60" class="my-4 text-center" placeholder="Email">
 
-				<input type="text" name="passwd" size="60" class="my-4 text-center" placeholder="Passwd">
+				<input type="password" name="password" id="password" size="60" class="my-4 text-center" placeholder="Passwd">
 
 				<input type="submit" name="envio" class="mt-4 botonEnvio text-white font-weight-bold" value="Acceder">
 

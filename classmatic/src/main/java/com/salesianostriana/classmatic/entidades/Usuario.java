@@ -7,17 +7,14 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.awt.*;
 import java.time.LocalDateTime;
 import java.util.Collection;
 
-@Entity @Data @Builder
-@NoArgsConstructor @AllArgsConstructor
-public class Usuario implements UserDetails {
+@Entity @NoArgsConstructor @AllArgsConstructor @Data
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class Usuario implements UserDetails {
 
     @Id @GeneratedValue
     private long id;
@@ -31,39 +28,44 @@ public class Usuario implements UserDetails {
     private String passdword;
     private LocalDateTime fechaNacimiento;
 
+
+
+    /*
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
     }
 
+     */
+
     @Override
     public String getPassword() {
-        return null;
+        return passdword;
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return email;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 
     //private Image imgPerfil;

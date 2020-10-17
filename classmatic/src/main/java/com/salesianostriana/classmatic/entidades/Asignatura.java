@@ -26,11 +26,23 @@ public class Asignatura {
     @ManyToOne
     private Curso curso;
 
-    @ManyToOne
+    @OneToMany(mappedBy = "asignatura")
     private List<SituacionExcepcional> situacionExc;
 
-    @ManyToOne
+    @OneToMany(mappedBy = "asignatura")
     private List<SolicitudAmpliacionMatricula>solicitudesAmp;
+
+    //Helpers situacionesExcepcionales
+
+    public void addSituacionExcepcional(SituacionExcepcional s){
+        situacionExc.add(s);
+        s.setAsignatura(this);
+    }
+
+    public void removeSituacionExcepcional(SituacionExcepcional s){
+        situacionExc.remove(s);
+        s.setAsignatura(null);
+    }
 
 
 

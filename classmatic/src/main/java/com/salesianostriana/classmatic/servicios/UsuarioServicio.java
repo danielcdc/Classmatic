@@ -13,6 +13,8 @@ public class UsuarioServicio extends ServicioBaseImp <Usuario, Long, UsuarioRepo
 
     private final UsuarioRepositorio usuarioRepositorio;
 
+
+
     public Optional<Usuario> buscarPorEmail(String email) {
         return usuarioRepositorio.findFirstByEmail(email);
     }

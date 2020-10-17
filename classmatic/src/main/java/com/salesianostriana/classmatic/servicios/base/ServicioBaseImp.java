@@ -1,12 +1,17 @@
 package com.salesianostriana.classmatic.servicios.base;
 
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
+
 
 import java.util.List;
 
+
 public abstract class ServicioBaseImp<T, ID, R extends JpaRepository<T, ID>> implements BaseService<T, ID> {
 
-    private R repositorio;
+    @Autowired
+    R repositorio;
 
     /**
      * Almacenamos una nueva entidad a través del repositorio
@@ -17,6 +22,8 @@ public abstract class ServicioBaseImp<T, ID, R extends JpaRepository<T, ID>> imp
     public T save(T t) {
         return repositorio.save(t);
     }
+
+    
 
     /**
      * Localizamos una entidad en base a su Id

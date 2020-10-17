@@ -2,10 +2,7 @@ package com.salesianostriana.classmatic.entidades;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity @Data @Builder
@@ -19,10 +16,10 @@ public class SolicitudAmpliacionMatricula {
     private LocalDateTime fechaResolucion;
     private String estado;
 
-    @OneToMany(mappedBy = "solicitudesAmp")
+    @ManyToOne
     private Alumno alumno;
 
-    @OneToMany(mappedBy = "solicitudesAmp")
+    @ManyToOne
     private Asignatura asignatura;
 
 
