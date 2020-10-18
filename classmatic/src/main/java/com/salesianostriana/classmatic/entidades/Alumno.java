@@ -1,6 +1,7 @@
 package com.salesianostriana.classmatic.entidades;
 
 import lombok.*;
+import org.hibernate.annotations.Fetch;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -23,16 +24,23 @@ public class Alumno extends Usuario {
     @ManyToOne
     private Curso curso;
 
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     @ManyToMany
     @JoinTable(
             joinColumns = @JoinColumn(name="alumno_id"),
             inverseJoinColumns = @JoinColumn(name="asignatura_id")
     )
+
     private List<Asignatura> asignaturas;
 
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     @OneToMany(mappedBy = "alumno")
     private List<SituacionExcepcional> situacionesExc;
 
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     @OneToMany(mappedBy = "alumno")
     private List<SolicitudAmpliacionMatricula> solicitudesAmp;
 

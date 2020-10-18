@@ -50,7 +50,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         } else if (isProfesor(roles)) {
             url = "/profesor/";
         } else if(isJf(roles)){
-            url="/jf/";
+            url="/jf/adminInicio";
         } else{
             url = "/acceso-denegado";
         }

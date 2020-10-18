@@ -29,10 +29,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     protected void configure(HttpSecurity http)throws Exception{
         http
-                .authorizeRequests()
-                .antMatchers("/").permitAll().and()
-                .authorizeRequests().antMatchers("/console/**").permitAll().and()
-                .authorizeRequests().antMatchers("/css/**","/js/**").permitAll()
+
+                .authorizeRequests().antMatchers("/","/css/**","/js/**","/h2-console","imgs/**","/invitacion").permitAll()
                 .antMatchers("/jf/**").hasRole("JF")
                 .antMatchers("/profesor/**").hasRole("PROFESOR")
                 .antMatchers("/alumno/**").hasRole("ALUMNO")
@@ -44,6 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(customSuccessHandler)
                 .and()
                 .logout()
+                .logoutUrl("/logout")
                 .permitAll();
 
         http.csrf().disable();

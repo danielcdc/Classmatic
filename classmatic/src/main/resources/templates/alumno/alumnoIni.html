@@ -1,11 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 	<title>Alumno</title>
 </head>
 <body>
 
 	<h1>Eres Alumno</h1>
+
+	<form th:action="@{/logout}" method="POST" id="logoutForm"></form>
+	<h1>
+		Bienvenido <span sec:authentication="name">Usuario</span> a la zona de administración.
+	</h1>
+	<a href="javascript:document.getElementById('logoutForm').submit()">Salir</a>
 
 </body>
 </html>

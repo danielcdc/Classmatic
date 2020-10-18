@@ -14,10 +14,15 @@ public class UsuarioController {
         return "Login1-3";
     }
 
-    /*
+    @GetMapping("/login")
+    public String iniciar2(){
+        return "Login1-3";
+    }
+
+
     @GetMapping("/invitacion")
     public String aceptarInvitacion(){
         return "PrimerAcceso-2";
     }
-    */
+
 }
