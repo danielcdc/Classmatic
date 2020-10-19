@@ -7,6 +7,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.persistence.*;
 import java.lang.reflect.Array;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -87,7 +88,7 @@ public class Alumno extends Usuario {
     }
 
     @Builder
-    public Alumno(long id, String nombre, String apellidos, String email, String passdword, LocalDateTime fechaNacimiento, Curso curso, List<Asignatura> asignaturas, List<SituacionExcepcional> situacionesExc, List<SolicitudAmpliacionMatricula> solicitudesAmp) {
+    public Alumno(long id, String nombre, String apellidos, String email, String passdword, LocalDate/*Time*/ fechaNacimiento, Curso curso, List<Asignatura> asignaturas, List<SituacionExcepcional> situacionesExc, List<SolicitudAmpliacionMatricula> solicitudesAmp) {
         super(id, nombre, apellidos, email, passdword, fechaNacimiento);
         this.curso = curso;
         this.asignaturas = asignaturas;

@@ -4,11 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.awt.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 
@@ -26,7 +28,9 @@ public abstract class Usuario implements UserDetails {
     @Column(unique = true)
     private String email;
     private String passdword;
-    private LocalDateTime fechaNacimiento;
+
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    private LocalDate/*Time*/ fechaNacimiento;
 
 
 

@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 	<meta charset="utf-8">
 	<title>InicioAdmin</title>
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-	<link rel="stylesheet" type="text/css" href="../css/estilos.css">
+	<!--<link rel="stylesheet" type="text/css" href="../css/estilos.css">-->
+	<link rel="stylesheet" th:href="@{/css/estilos.css}">
 
 </head>
 <body class="mx-0 my-0">
@@ -20,7 +21,7 @@
 			</div>
 			<div class="col-6 d-flex flex-row justify-content-end">
 				
-				<h3 class="px-2">NombreUsuarioAutenticado</h3>
+				<h3 class="px-2" sec:authentication="">NombreUsuarioAutenticado</h3>
 				<!--Logout-->
 				<form th:action="@{/logout}" method="POST" id="logoutForm"></form>
 				<a href="javascript:document.getElementById('logoutForm').submit()" class="text-dark text-decoration-none"><h3>Logout</h3></a>
@@ -30,14 +31,14 @@
 
 		<div class="row d-flex flex-row justify-content-around">
 
-			<a href="www.google.es" class="col-3 botonInicioAdmin d-flex flex-row justify-content-center align-items-center text-decoration-none" id="botonIniAdminTit">
+			<a href="www.google.es" class="h1 text-muted col-3 botonInicioAdmin d-flex flex-row justify-content-center align-items-center text-decoration-none" id="botonIniAdminTit">
 				<div >
-					<span class="h1 text-muted">Títulos</span>
+					Títulos
 				</div>
 			</a>
-			<a th:href="@{/jf/adminAlumnos}" class="col-3 botonInicioAdmin d-flex flex-row justify-content-center align-items-center text-decoration-none" id="botonIniAdminUsu">
+			<a th:href="@{/jf/adminAlumnos}" class="h1 text-muted col-3 botonInicioAdmin d-flex flex-row justify-content-center align-items-center text-decoration-none" id="botonIniAdminUsu">
 				<div >
-					<span class="h1 text-muted">Usuarios</span>
+					Usuarios
 				</div>
 			</a>
 		</div>

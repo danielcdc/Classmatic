@@ -18,7 +18,7 @@
 	border:none;
 }
 
-.formularioContraLogin input[type=text]{
+.formularioContraLogin input[type=text],.formularioContraLogin input[type=password]{
 	height: 30px;
 	border-radius: 100px;
 }
@@ -64,4 +64,12 @@ a{
 
 ul{
 	list-style: none;
+}
+
+.addAlumno{
+	background-color: #D1D1D1;
+	border-radius:180px;
+}
+.addAlumno form input, .addAlumno form select{
+	border-radius: 100px;
 }

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8">
     <title>Profesores</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <link rel="stylesheet" type="text/css" href="../css/estilos.css">
+    <!--<link rel="stylesheet" type="text/css" href="../css/estilos.css">-->
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
 </head>
 <body class="mx-0 my-0">
 
@@ -14,9 +15,9 @@
     <div class="row">
         <div class="col-6 d-flex flex-row">
             <h1>></h1>
-            <h1>HOME</h1>
+            <a th:href="@{/jf/adminInicio}" class="text-white"><h1>HOME</h1></a>
             <h1>></h1>
-            <h1>ALUMNOS</h1>
+            <h1>PROFESORES</h1>
         </div>
         <div class="col-6 d-flex flex-row justify-content-end">
 
@@ -30,19 +31,19 @@
 
     <div class="row d-flex flex-row justify-content-around">
 
-        <a  class="col-3 botonInicioAdmin bg-primary d-flex flex-row justify-content-center align-items-center text-decoration-none" id="">
+        <a th:href="@{/jf/adminProfesores/addProfesor}" class="h1 text-white col-3 botonInicioAdmin bg-primary d-flex flex-row justify-content-center align-items-center text-decoration-none" id="">
             <div >
-                <span class="h1 text-white">Añadir</span>
+                Añadir
             </div>
         </a>
-        <a th:href="@{/jf/adminAlumnos}" class="col-3 botonInicioAdmin bg-primary d-flex flex-row justify-content-center align-items-center text-decoration-none" id="">
+        <a th:href="@{/jf/adminAlumnos}" class="h1 text-white col-3 botonInicioAdmin bg-primary d-flex flex-row justify-content-center align-items-center text-decoration-none" id="">
             <div >
-                <span class="h1 text-white">Alumnos</span>
+                Alumnos
             </div>
         </a>
-        <a th:href="@{/jf/adminProfesores}" class="col-3 botonInicioAdmin bg-primary d-flex flex-row justify-content-center align-items-center text-decoration-none" id="">
+        <a th:href="@{/jf/adminProfesores}" class="h1 text-white col-3 botonInicioAdmin bg-primary d-flex flex-row justify-content-center align-items-center text-decoration-none" id="">
             <div >
-                <span class="h1 text-white">Profesores</span>
+                Profesores
             </div>
         </a>
     </a>
@@ -55,8 +56,8 @@
 
                 <div th:text="${profesor.nombre}+' '+${profesor.apellidos}" class="col-3 text-center">Nombre</div>
                 <div th:text="${profesor.esJefe}?'JF':'No JF'" class="col-3 text-center">JefeEstudio</div>
-                <div class="col-3 text-center"><a >Editar</a></div>
-                <div class="col-3 text-center"><a >Borrar</a></div>
+                <div class="col-3 text-center"><a th:href="@{/jf/adminProfesores/modificarProfesor/{id}(id=${profesor.id})}">Editar</a></div>
+                <div class="col-3 text-center"><a th:href="@{/jf/adminProfesores/eliminarProfesor/{id}(id=${profesor.id})}">Borrar</a></div>
 
             </li>
         </ul>

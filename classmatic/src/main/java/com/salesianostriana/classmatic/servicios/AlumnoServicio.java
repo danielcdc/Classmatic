@@ -14,4 +14,6 @@ public class AlumnoServicio extends ServicioBaseImp<Alumno, Long, AlumnoReposito
 
     private final AlumnoRepositorio alumnoRepositorio;
 
+
+
 }
