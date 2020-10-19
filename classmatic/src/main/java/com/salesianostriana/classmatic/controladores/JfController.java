@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
+
 @Controller
 @RequestMapping("/jf/")
 public class JfController {
@@ -75,6 +77,34 @@ public class JfController {
     @PostMapping("/adminProfesores/addProfesor")
     public String crearProfesor(@ModelAttribute("profesorForm")Profesor profesor, Model model){
         profesorServicio.save(profesor);
+        return accederProfesores( model);
+    }
+
+    //Editar alumno
+    @GetMapping("/adminAlumnos/editarAlumno/{id}")
+    public String accederEditarAlumno(@PathVariable Long id, Model model){
+        model.addAttribute("alumno",alumnoServicio.findById(id));
+        return "jf/modificarAlumno";
+    }
+
+    @PostMapping("/adminAlumnos/editarAlumno/{id}")
+    public String modificarAlumno(@PathVariable Long id, @ModelAttribute("alumno")Alumno alumno, Model model){
+        profesorServicio.editarAlumno(alumnoServicio.findById(id),alumno);
+        alumnoServicio.edit(alumnoServicio.findById(id));
+        return accederAlumnos( model);
+    }
+
+    //Editar profesor
+    @GetMapping("/adminProfesores/modificarProfesor/{id}")
+    public String accederModificarProfesor(@PathVariable Long id, Model model){
+        model.addAttribute("profesor", profesorServicio.findById(id));
+        return "jf/adminModificarProfesor";
+    }
+
+    @PostMapping("/adminProfesores/modificarProfesor/{id}")
+    public String modificarProfesor(@PathVariable Long  id, Model model, @ModelAttribute("profesor")Profesor profesor){
+        profesorServicio.editarProfesor(profesorServicio.findById(id),profesor);
+        profesorServicio.edit(profesorServicio.findById(id));
         return accederProfesores( model);
     }
 

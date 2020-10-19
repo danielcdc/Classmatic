@@ -35,4 +35,6 @@ public class Profesor extends Usuario {
         super(id, nombre, apellidos, email, passdword, fechaNacimiento);
         this.esJefe = esJefe;
     }
+
+
 }

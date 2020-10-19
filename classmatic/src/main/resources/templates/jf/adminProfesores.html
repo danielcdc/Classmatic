@@ -56,7 +56,7 @@
 
                 <div th:text="${profesor.nombre}+' '+${profesor.apellidos}" class="col-3 text-center">Nombre</div>
                 <div th:text="${profesor.esJefe}?'JF':'No JF'" class="col-3 text-center">JefeEstudio</div>
-                <div class="col-3 text-center"><a >Editar</a></div>
+                <div class="col-3 text-center"><a th:href="@{/jf/adminProfesores/modificarProfesor/{id}(id=${profesor.id})}">Editar</a></div>
                 <div class="col-3 text-center"><a th:href="@{/jf/adminProfesores/eliminarProfesor/{id}(id=${profesor.id})}">Borrar</a></div>
 
             </li>
