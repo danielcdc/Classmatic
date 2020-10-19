@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -35,6 +36,12 @@ public class JfController {
     public String accederProfesores(Model model){
         model.addAttribute("profesores",profesorServicio.findAll());
         return "jf/adminProfesores";
+    }
+
+    @GetMapping("/adminAlumnos/eliminarAlumno/{id}")
+    public String eliminarUsuarioAlumno(Model model,@PathVariable Long id){
+        alumnoServicio.deleteById(id);
+        return accederAlumnos(model);
     }
 
 }
