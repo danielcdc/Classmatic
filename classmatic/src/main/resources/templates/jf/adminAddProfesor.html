@@ -2,11 +2,12 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8">
-    <title>Profesores</title>
+    <title>AddAlumno</title>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <!--<link rel="stylesheet" type="text/css" href="../css/estilos.css">-->
     <link rel="stylesheet" th:href="@{/css/estilos.css}">
+
 </head>
 <body class="mx-0 my-0">
 
@@ -17,7 +18,9 @@
             <h1>></h1>
             <a th:href="@{/jf/adminInicio}" class="text-white"><h1>HOME</h1></a>
             <h1>></h1>
-            <h1>PROFESORES</h1>
+            <a th:href="@{/jf/adminProfesores}" class="text-white"><h1>PROFESORES</h1></a>
+            <h1>></h1>
+            <h1>AÑADIR</h1>
         </div>
         <div class="col-6 d-flex flex-row justify-content-end">
 
@@ -29,38 +32,26 @@
         </div>
     </div>
 
-    <div class="row d-flex flex-row justify-content-around">
+    <div class="addAlumno my-2 container-fluid d-flex align-items-center justify-content-center col-6 offset-3" >
 
-        <a th:href="@{/jf/adminProfesores/addProfesor}" class="h1 text-white col-3 botonInicioAdmin bg-primary d-flex flex-row justify-content-center align-items-center text-decoration-none" id="">
-            <div >
-                Añadir
-            </div>
-        </a>
-        <a th:href="@{/jf/adminAlumnos}" class="h1 text-white col-3 botonInicioAdmin bg-primary d-flex flex-row justify-content-center align-items-center text-decoration-none" id="">
-            <div >
-                Alumnos
-            </div>
-        </a>
-        <a th:href="@{/jf/adminProfesores}" class="h1 text-white col-3 botonInicioAdmin bg-primary d-flex flex-row justify-content-center align-items-center text-decoration-none" id="">
-            <div >
-                Profesores
-            </div>
-        </a>
-    </a>
-    </div>
+        <form method="POST" th:action="@{/jf/adminProfesores/addProfesor}" th:object="${profesorForm}"  class=" d-flex flex-column justify-content-center align-items-center">
 
-    <div class="container-fluid d-flex flex-column">
+            <input th:field="*{nombre}" type="text" name="nombre" size="60" class="my-4 text-center" placeholder="Nombre">
 
-        <ul>
-            <li th:each="profesor : ${profesores}" class="container-fluid d-flex flex-row align-items-center cajaListarElementos col-10 offset-1 mt-3">
+            <input th:field="*{apellidos}" type="text" name="apellidos" size="60" class="my-4 text-center" placeholder="Apellidos">
 
-                <div th:text="${profesor.nombre}+' '+${profesor.apellidos}" class="col-3 text-center">Nombre</div>
-                <div th:text="${profesor.esJefe}?'JF':'No JF'" class="col-3 text-center">JefeEstudio</div>
-                <div class="col-3 text-center"><a >Editar</a></div>
-                <div class="col-3 text-center"><a th:href="@{/jf/adminProfesores/eliminarProfesor/{id}(id=${profesor.id})}">Borrar</a></div>
+            <input th:field="*{email}" type="email" name="email" size="60" class="my-4 text-center" placeholder="Email">
 
-            </li>
-        </ul>
+            <input  type="date" th:field="*{fechaNacimiento}"  name="fechaNac" size="60" class="my-4 text-center" placeholder="FechaNacimiento">
+
+            <input type="checkbox" th:field="*{esJefe}" value="Jefe de Estudios">
+
+            <input type="submit" name="envio" class="my-4 botonEnvio text-white font-weight-bold" value="Añadir">
+
+
+        </form>
+
+
 
     </div>
 

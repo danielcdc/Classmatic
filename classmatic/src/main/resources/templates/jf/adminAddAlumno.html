@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+	<meta charset="utf-8">
+	<title>AddAlumno</title>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+	<link rel="stylesheet" th:href="@{/css/estilos.css}">
+
+</head>
+<body class="mx-0 my-0">
+
+	<div class="contenedor container-fluid">
+		
+		<div class="row">
+			<div class="col-6 d-flex flex-row">
+				<h1>></h1>
+				<a th:href="@{/jf/adminInicio}" class="text-white"><h1>HOME</h1></a>
+				<h1>></h1>
+				<a th:href="@{/jf/adminAlumnos}" class="text-white"><h1>ALUMNOS</h1></a>
+				<h1>></h1>
+				<h1>AÑADIR</h1>
+			</div>
+			<div class="col-6 d-flex flex-row justify-content-end">
+				
+				<h3 class="px-2">NombreUsuarioAutenticado</h3>
+				<!--Logout-->
+				<form th:action="@{/logout}" method="POST" id="logoutForm"></form>
+				<a href="javascript:document.getElementById('logoutForm').submit()" class="text-dark text-decoration-none"><h3>Logout</h3></a>
+			
+			</div>
+		</div>	
+
+		<div class="addAlumno my-2 container-fluid d-flex align-items-center justify-content-center col-6 offset-3" >
+			
+			<form method="POST" th:action="@{/jf/adminAlumnos/addAlumno}" th:object="${alumnoForm}"  class=" d-flex flex-column justify-content-center align-items-center">
+				
+				<input th:field="*{nombre}" type="text" name="nombre" size="60" class="my-4 text-center" placeholder="Nombre">
+
+				<input th:field="*{apellidos}" type="text" name="apellidos" size="60" class="my-4 text-center" placeholder="Apellidos">
+
+				<input th:field="*{email}" type="email" name="email" size="60" class="my-4 text-center" placeholder="Email">
+
+				<input  type="date" th:field="*{fechaNacimiento}"  name="fechaNac" size="60" class="my-4 text-center" placeholder="FechaNacimiento">
+				<!--th:field="*{fechaNacimiento}"--><!--@DateTimeFormat(pattern = "yyyy-MM-dd")-->
+				<select name="titulo"  class="my-4 text-center" placeholder="Título">
+					<option value="">TítuloX</option>
+				</select>
+
+				<select name="curso"  class="my-4 text-center" placeholder="Curso">
+					<option value="">CursoX</option>
+				</select>
+
+				<input type="submit" name="envio" class="my-4 botonEnvio text-white font-weight-bold" value="Añadir">
+
+
+			</form>
+
+
+
+		</div>	
+
+	</div>
+
+
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+</html>

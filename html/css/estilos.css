@@ -17,6 +17,13 @@
 .formularioContraLogin input{
 	border:none;
 }
+.addAlumno{
+	background-color: #D1D1D1;
+	border-radius:180px;
+}
+.addAlumno form input, .addAlumno form select{
+	border-radius: 100px;
+}
 
 .formularioContraLogin input[type=text]{
 	height: 30px;

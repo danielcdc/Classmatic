@@ -5,6 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.persistence.Entity;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
@@ -30,7 +31,7 @@ public class Profesor extends Usuario {
     }
 
     @Builder
-    public Profesor(long id, String nombre, String apellidos, String email, String passdword, LocalDateTime fechaNacimiento, boolean esJefe) {
+    public Profesor(long id, String nombre, String apellidos, String email, String passdword, LocalDate/*Time*/ fechaNacimiento, boolean esJefe) {
         super(id, nombre, apellidos, email, passdword, fechaNacimiento);
         this.esJefe = esJefe;
     }
