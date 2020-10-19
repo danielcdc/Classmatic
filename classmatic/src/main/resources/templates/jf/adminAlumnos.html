@@ -32,17 +32,17 @@
 
 		<div class="row d-flex flex-row justify-content-around">
 
-			<a th:href="@{/jf/adminAlumnos/addAlumno}"  class="h1 text-white col-3 botonInicioAdmin bg-primary d-flex flex-row justify-content-center align-items-center text-decoration-none" id="">
+			<a th:href="@{/jf/adminAlumnos/addAlumno}"  class="h1 text-white col-3 botonInicioAdmin bg-primary d-flex flex-row justify-content-center align-items-center text-decoration-none" >
 				<div>
 					Añadir
 				</div>
 			</a>
-			<a th:href="@{/jf/adminAlumnos}" class="h1 text-white col-3 botonInicioAdmin bg-primary d-flex flex-row justify-content-center align-items-center text-decoration-none" id="">
+			<a th:href="@{/jf/adminAlumnos}" class="h1 text-white col-3 botonInicioAdmin bg-primary d-flex flex-row justify-content-center align-items-center text-decoration-none" >
 				<div >
 					Alumnos
 				</div>
 			</a>
-			<a th:href="@{/jf/adminProfesores}" class="h1 text-white col-3 botonInicioAdmin bg-primary d-flex flex-row justify-content-center align-items-center text-decoration-none" id="">
+			<a th:href="@{/jf/adminProfesores}" class="h1 text-white col-3 botonInicioAdmin bg-primary d-flex flex-row justify-content-center align-items-center text-decoration-none" >
 				<div >
 					Profesores
 				</div>
@@ -54,9 +54,9 @@
 			<ul>
 				<li th:each="alumno : ${alumnos}" class="container-fluid d-flex flex-row align-items-center cajaListarElementos col-10 offset-1 mt-3">
 
-					<div th:text="${alumno.nombre}+' '+${alumno.apellidos}" class="col-2 text-center">Nombre</div>
-					<div class="col-2 text-center">Título</div>
-					<div class="col-2 text-center">Curso</div>
+					<div th:text="${alumno.nombre}+' '+${alumno.apellidos}" class="col-3 text-center">Nombre</div>
+					<div class="col-3 text-center" th:text="${alumno.curso.nombre}">Curso</div>
+					<!--#vars.get('home.about.title')--><!--th:text="${alumno.curso}"-->
 					<div class="col-2 text-center">Peticiones</div>
 					<div class="col-2 text-center"><a th:href="@{/jf/adminAlumnos/editarAlumno/{id}(id=${alumno.id})}">Editar</a></div>
 					<div class="col-2 text-center"><a th:href="@{/jf/adminAlumnos/eliminarAlumno/{id}(id=${alumno.id})}">Borrar</a></div>
