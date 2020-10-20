@@ -40,33 +40,64 @@ public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRep
     public void borrarTitulo(TituloServicio tituloServicio, CursoServicio cursoServicio,
                              AlumnoServicio alumnoServicio, AsignaturaServicio asignaturaServicio,
                              Long id){
+        /*
         for(Curso curso : cursoServicio.findAll()){
             if(curso.getTitulo().getId()== id){
                 //Desvincular alumnos y asignaturas
                 for(Alumno a : alumnoServicio.findAll()){
                     if(a.getCurso().getId() == curso.getId()){
                         curso.removeAlumno(a);
+                        alumnoServicio.edit(a);
 
                     }
                 }
                 for(Asignatura a : asignaturaServicio.findAll()){
                     if(a.getCurso().getId() == curso.getId()){
-                        //curso.removeAsignatura(a);
+                        curso.removeAsignatura(a);
+                        asignaturaServicio.edit(a);
                         for(Alumno al: alumnoServicio.findAll()){
 
-                            for(Asignatura as : al.getAsignaturas()){
+                            /*for(Asignatura as : al.getAsignaturas()){
                                 if(as.getId() == a.getId()){
-                                    al.removeAsignatura(a);
+                                    al.removeAsignatura(as);
+                                }
+                            }
+                            for(int i=0;i<al.getAsignaturas().size();i++){
+                                if(al.getAsignaturas().get(i).getId() == a.getId()){
+                                    al.removeAsignatura(al.getAsignaturas().get(i));
+                                    alumnoServicio.edit(al);
+                                    asignaturaServicio.edit(al.getAsignaturas().get(i));
                                 }
                             }
                         asignaturaServicio.delete(a);
-                        }
                     }
                 }
-                cursoServicio.delete(curso);
             }
-        }
+            cursoServicio.delete(curso);*/
+        /*if(!cursoServicio.findById(id).getAlumnos().isEmpty()){*/
+            for(Alumno al : cursoServicio.findById(id).getAlumnos()){
+                if(al.getCurso().getId() == cursoServicio.findById(id).getId()){
+                    cursoServicio.findById(id).removeAlumno(al);
+                    alumnoServicio.edit(al);
+                }
+            }
+        //}
+
+        /*if(!cursoServicio.findById(id).getAsignaturas().isEmpty()) {*/
+            for (Asignatura as : cursoServicio.findById(id).getAsignaturas()) {
+                for (Alumno al : as.getAlumnos()) {
+                    al.removeAsignatura(as);
+                    alumnoServicio.edit(al);
+                }
+                cursoServicio.findById(id).removeAsignatura(as);
+                asignaturaServicio.edit(as);
+                asignaturaServicio.delete(as);
+            }
+        //}
+        cursoServicio.deleteById(id);
     }
-
-
 }
+
+
+
+
