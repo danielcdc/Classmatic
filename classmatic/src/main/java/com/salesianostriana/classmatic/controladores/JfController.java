@@ -1,6 +1,7 @@
 package com.salesianostriana.classmatic.controladores;
 
 import com.salesianostriana.classmatic.entidades.Alumno;
+import com.salesianostriana.classmatic.entidades.Curso;
 import com.salesianostriana.classmatic.entidades.Profesor;
 import com.salesianostriana.classmatic.entidades.Titulo;
 import com.salesianostriana.classmatic.servicios.*;
@@ -166,7 +167,25 @@ public class JfController {
     @GetMapping("/adminTitulos/adminCursos/{id}")
     public String accederCursos(@PathVariable Long id, Model model){
         model.addAttribute("cursos", tituloServicio.findById(id).getCursos());
+        model.addAttribute("idTitulo",id);
         return "jf/adminCursos";
+    }
+
+    //Anyadir Curso a un titulo
+    @GetMapping("/adminTitulos/adminCursos/addCurso/{id}")
+    public String accederCrearAddCurso(@PathVariable Long id, Model model){
+        model.addAttribute("curso", new Curso());
+        model.addAttribute("idTitulo", id);
+        return "jf/adminAddCurso";
+    }
+
+    @PostMapping("/adminTitulos/adminCursos/addCurso/{id}")
+    public String crearCurso(@ModelAttribute("curso")Curso curso, @PathVariable Long id, Model model){
+        /*cursoServicio.save(curso);
+        tituloServicio.findById(id).addCurso(curso);
+        cursoServicio.edit(curso);*/
+        profesorServicio.anyadirCurso(cursoServicio, tituloServicio, curso, id);
+        return accederCursos( id, model);
     }
 
 }

@@ -44,35 +44,11 @@ public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRep
                              AlumnoServicio alumnoServicio, AsignaturaServicio asignaturaServicio,
                              Long id){
 
-        /*if(!cursoServicio.findById(id).getAlumnos().isEmpty()){
-            for(Alumno al : cursoServicio.findById(id).getAlumnos()){
-                if(al.getCurso().getId() == id){
-                    cursoServicio.findById(id).removeAlumno(al);
-                    alumnoServicio.edit(al);
-                }
-            }
-        }
-
-        /*if(!cursoServicio.findById(id).getAsignaturas().isEmpty()) {
-            for (Asignatura as : cursoServicio.findById(id).getAsignaturas()) {
-                for (Alumno al : as.getAlumnos()) {
-                    al.removeAsignatura(as);
-                    alumnoServicio.edit(al);
-                }
-                cursoServicio.findById(id).removeAsignatura(as);
-                asignaturaServicio.edit(as);
-                asignaturaServicio.delete(as);
-            }
-        }
-        cursoServicio.deleteById(id);*/
         List<Alumno> listaAl=new ArrayList<Alumno>();
         List<Asignatura> listaAs=new ArrayList<Asignatura>();
         List<Curso>listaCu=new ArrayList<Curso>();
         Titulo t=tituloServicio.findById(id);
-
-
-
-        //desvincular titulo y sus cursos
+       //desvincular titulo y sus cursos
         for(int j=0;j<t.getCursos().size();j++){
 
                 //desvinculo curso y sus asignaturas
@@ -99,11 +75,7 @@ public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRep
                         alumnoServicio.edit(al);
                     }
                 }
-
                 listaCu.add(t.getCursos().get(j));
-
-
-
         }
         for(Curso cu : listaCu){
             t.removeCurso(cu);
@@ -111,9 +83,12 @@ public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRep
             cursoServicio.delete(cu);
         }
         tituloServicio.delete(t);
+    }
 
-
-
+    public void anyadirCurso(CursoServicio cursoServicio, TituloServicio tituloServicio, Curso curso, Long id){
+        cursoServicio.save(curso);
+        tituloServicio.findById(id).addCurso(curso);
+        cursoServicio.edit(curso);
     }
 }
 

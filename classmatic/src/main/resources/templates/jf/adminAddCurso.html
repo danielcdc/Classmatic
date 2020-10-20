@@ -2,7 +2,7 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8">
-    <title>Títulos</title>
+    <title>Añadir curso</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 
@@ -20,7 +20,9 @@
             <h1>></h1>
             <a th:href="@{/jf/adminTitulos}" class="text-white"><h1>TITULOS</h1></a>
             <h1>></h1>
-            <h1>Cursos</h1>
+            <a th:href="@{/jf/adminTitulos/adminCursos/{id}(id=${idTitulo})}" class="text-white"><h1>CURSOS</h1></a><!--Cambiar peticion-->
+            <h1>></h1>
+            <h1>AÑADIR</h1>
         </div>
         <div class="col-6 d-flex flex-row justify-content-end">
 
@@ -32,26 +34,20 @@
         </div>
     </div>
 
-    <div class="row d-flex flex-row justify-content-around">
-        <!--Cambiar peticion-->
-        <a th:href="@{/jf/adminTitulos/adminCursos/addCurso/{id}(id=${idTitulo})}"  class="h1 text-white col-3 botonInicioAdmin bg-primary d-flex flex-row justify-content-center align-items-center text-decoration-none" >
-            <div>
-                Añadir
-            </div>
-        </a>
+    <div class="addAlumno my-2 container-fluid d-flex align-items-center justify-content-center col-6 offset-3" >
 
-    </div>
+        <form method="POST" th:action="@{/jf/adminTitulos/adminCursos/addCurso/{id}(id=${idTitulo})}" th:object="${curso}"  class=" d-flex flex-column justify-content-center align-items-center">
 
-    <div class="d-flex flex-wrap flex-row justify-content-around cajaCuadros container-fluid">
+            <input th:field="*{nombre}" type="text" name="nombre" size="60" class="my-4 text-center" placeholder="Nombre">
 
-        <div class="mx-3 col-3  d-flex flex-column justify-content-center align-items-center cajaElemento" th:each="curso : ${cursos}">
 
-            <h3 class="my-3 pt-3" th:text="${curso.nombre}">Nombre</h3>
-            <!--Cambiar peticiones-->
-            <a class="text-white my-3 " th:href="@{/jf/adminTitulos/editTitulo/{id}(id=${curso.id})}"><div class="botonEnvio d-flex justify-content-center align-items-center">Editar</div></a>
-            <a class="text-white my-3 py-3" th:href="@{/jf/adminTitulos/eliminarTitulo/{id}(id=${curso.id})}"><div class="botonEnvio bg-danger d-flex justify-content-center align-items-center">Eliminar</div></a>
 
-        </div>
+            <input type="submit" name="envio" class="my-4 botonEnvio text-white font-weight-bold" value="Añadir">
+
+
+        </form>
+
+
 
     </div>
 
