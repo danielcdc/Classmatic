@@ -55,8 +55,7 @@
 				<li th:each="alumno : ${alumnos}" class="container-fluid d-flex flex-row align-items-center cajaListarElementos col-10 offset-1 mt-3">
 
 					<div th:text="${alumno.nombre}+' '+${alumno.apellidos}" class="col-3 text-center">Nombre</div>
-					<div class="col-3 text-center" th:text="${alumno.curso.nombre}">Curso</div>
-					<!--#vars.get('home.about.title')--><!--th:text="${alumno.curso}"-->
+					<div class="col-3 text-center" >Curso</div><!--th:text="${alumno.curso.nombre}"-->
 					<div class="col-2 text-center">Peticiones</div>
 					<div class="col-2 text-center"><a th:href="@{/jf/adminAlumnos/editarAlumno/{id}(id=${alumno.id})}">Editar</a></div>
 					<div class="col-2 text-center"><a th:href="@{/jf/adminAlumnos/eliminarAlumno/{id}(id=${alumno.id})}">Borrar</a></div>

@@ -73,3 +73,18 @@ ul{
 .addAlumno form input, .addAlumno form select{
 	border-radius: 100px;
 }
+
+.cajaCuadros{
+    width : 100%;
+    max-width:100%;
+
+
+}
+
+.cajaElemento{
+    background-color: white;
+    margin : 30px;
+    height : 200px;
+    border-radius:30px;
+
+}
