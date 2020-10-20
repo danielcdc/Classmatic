@@ -1,8 +1,6 @@
 package com.salesianostriana.classmatic.servicios;
 
-import com.salesianostriana.classmatic.entidades.Alumno;
-import com.salesianostriana.classmatic.entidades.Profesor;
-import com.salesianostriana.classmatic.entidades.Titulo;
+import com.salesianostriana.classmatic.entidades.*;
 import com.salesianostriana.classmatic.repositorios.ProfesorRepositorio;
 import com.salesianostriana.classmatic.servicios.base.ServicioBaseImp;
 import lombok.RequiredArgsConstructor;
@@ -37,6 +35,37 @@ public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRep
         t.setNombre(tit.getNombre());
         t.setNivelAcademico(tit.getNivelAcademico());
         tituloServicio.edit(t);
+    }
+
+    public void borrarTitulo(TituloServicio tituloServicio, CursoServicio cursoServicio,
+                             AlumnoServicio alumnoServicio, AsignaturaServicio asignaturaServicio,
+                             Long id){
+        for(Curso curso : cursoServicio.findAll()){
+            if(curso.getTitulo().getId()== id){
+                //Desvincular alumnos y asignaturas
+                for(Alumno a : alumnoServicio.findAll()){
+                    if(a.getCurso().getId() == curso.getId()){
+                        curso.removeAlumno(a);
+
+                    }
+                }
+                for(Asignatura a : asignaturaServicio.findAll()){
+                    if(a.getCurso().getId() == curso.getId()){
+                        //curso.removeAsignatura(a);
+                        for(Alumno al: alumnoServicio.findAll()){
+
+                            for(Asignatura as : al.getAsignaturas()){
+                                if(as.getId() == a.getId()){
+                                    al.removeAsignatura(a);
+                                }
+                            }
+                        asignaturaServicio.delete(a);
+                        }
+                    }
+                }
+                cursoServicio.delete(curso);
+            }
+        }
     }
 
 

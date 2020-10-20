@@ -3,9 +3,7 @@ package com.salesianostriana.classmatic.controladores;
 import com.salesianostriana.classmatic.entidades.Alumno;
 import com.salesianostriana.classmatic.entidades.Profesor;
 import com.salesianostriana.classmatic.entidades.Titulo;
-import com.salesianostriana.classmatic.servicios.AlumnoServicio;
-import com.salesianostriana.classmatic.servicios.ProfesorServicio;
-import com.salesianostriana.classmatic.servicios.TituloServicio;
+import com.salesianostriana.classmatic.servicios.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +23,12 @@ public class JfController {
 
     @Autowired
     TituloServicio tituloServicio;
+
+    @Autowired
+    CursoServicio cursoServicio;
+
+    @Autowired
+    AsignaturaServicio asignaturaServicio;
 
     @GetMapping("/adminInicio")
     public String iniciarAdmin(){
@@ -120,6 +124,7 @@ public class JfController {
         return "jf/adminTitulos";
     }
 
+    //Anyadir Titulo
     @GetMapping("/adminTitulos/addTitulo")
     public String accederAddTitulo(Model model){
         model.addAttribute("titulo",new Titulo());
@@ -132,6 +137,7 @@ public class JfController {
         return accederTitulos(model);
     }
 
+    //Editar Titulo
     @GetMapping("/adminTitulos/editTitulo/{id}")
     public String accederEditarTitulo(Model model, @PathVariable Long id){
         model.addAttribute("titulo", tituloServicio.findById(id));
@@ -142,6 +148,18 @@ public class JfController {
     public String modificarTitulo(@ModelAttribute("titulo")Titulo titulo,Model  model, @PathVariable Long id){
         profesorServicio.editarTitulo(tituloServicio.findById(id),titulo, tituloServicio);
         return accederTitulos(model);
+    }
+
+    //Eliminar Titulo
+    @GetMapping("/adminTitulos/eliminarTitulo/{id}")
+    public String eliminarTitulo(@PathVariable Long id, Model model){
+        //tituloServicio.delete(tituloServicio.findById(id));
+        /*
+        * Crear método borrar titulo en profesorServicio que borre en cascada los elementos que compongan
+        * el título a borrar
+        * */
+        profesorServicio.borrarTitulo(tituloServicio, cursoServicio, alumnoServicio, asignaturaServicio, id );
+        return accederTitulos( model);
     }
 
 }
