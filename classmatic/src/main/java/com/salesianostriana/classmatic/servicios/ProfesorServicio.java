@@ -7,6 +7,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service @RequiredArgsConstructor
 public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRepositorio> {
 
@@ -40,50 +43,17 @@ public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRep
     public void borrarTitulo(TituloServicio tituloServicio, CursoServicio cursoServicio,
                              AlumnoServicio alumnoServicio, AsignaturaServicio asignaturaServicio,
                              Long id){
-        /*
-        for(Curso curso : cursoServicio.findAll()){
-            if(curso.getTitulo().getId()== id){
-                //Desvincular alumnos y asignaturas
-                for(Alumno a : alumnoServicio.findAll()){
-                    if(a.getCurso().getId() == curso.getId()){
-                        curso.removeAlumno(a);
-                        alumnoServicio.edit(a);
 
-                    }
-                }
-                for(Asignatura a : asignaturaServicio.findAll()){
-                    if(a.getCurso().getId() == curso.getId()){
-                        curso.removeAsignatura(a);
-                        asignaturaServicio.edit(a);
-                        for(Alumno al: alumnoServicio.findAll()){
-
-                            /*for(Asignatura as : al.getAsignaturas()){
-                                if(as.getId() == a.getId()){
-                                    al.removeAsignatura(as);
-                                }
-                            }
-                            for(int i=0;i<al.getAsignaturas().size();i++){
-                                if(al.getAsignaturas().get(i).getId() == a.getId()){
-                                    al.removeAsignatura(al.getAsignaturas().get(i));
-                                    alumnoServicio.edit(al);
-                                    asignaturaServicio.edit(al.getAsignaturas().get(i));
-                                }
-                            }
-                        asignaturaServicio.delete(a);
-                    }
-                }
-            }
-            cursoServicio.delete(curso);*/
-        /*if(!cursoServicio.findById(id).getAlumnos().isEmpty()){*/
+        /*if(!cursoServicio.findById(id).getAlumnos().isEmpty()){
             for(Alumno al : cursoServicio.findById(id).getAlumnos()){
-                if(al.getCurso().getId() == cursoServicio.findById(id).getId()){
+                if(al.getCurso().getId() == id){
                     cursoServicio.findById(id).removeAlumno(al);
                     alumnoServicio.edit(al);
                 }
             }
-        //}
+        }
 
-        /*if(!cursoServicio.findById(id).getAsignaturas().isEmpty()) {*/
+        /*if(!cursoServicio.findById(id).getAsignaturas().isEmpty()) {
             for (Asignatura as : cursoServicio.findById(id).getAsignaturas()) {
                 for (Alumno al : as.getAlumnos()) {
                     al.removeAsignatura(as);
@@ -93,8 +63,57 @@ public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRep
                 asignaturaServicio.edit(as);
                 asignaturaServicio.delete(as);
             }
-        //}
-        cursoServicio.deleteById(id);
+        }
+        cursoServicio.deleteById(id);*/
+        List<Alumno> listaAl=new ArrayList<Alumno>();
+        List<Asignatura> listaAs=new ArrayList<Asignatura>();
+        List<Curso>listaCu=new ArrayList<Curso>();
+        Titulo t=tituloServicio.findById(id);
+
+
+
+        //desvincular titulo y sus cursos
+        for(int j=0;j<t.getCursos().size();j++){
+
+                //desvinculo curso y sus asignaturas
+                if(!t.getCursos().get(j).getAsignaturas().isEmpty()){
+                    for(int i=0;i<t.getCursos().get(j).getAsignaturas().size();i++){
+
+
+                        listaAs.add(t.getCursos().get(j).getAsignaturas().get(i));
+                    }
+                    for(Asignatura as : listaAs){
+                        t.getCursos().get(j).removeAsignatura(as);
+                        asignaturaServicio.edit(as);
+                    }
+                }
+                if(!t.getCursos().get(j).getAlumnos().isEmpty()){
+                    for(int i=0;i<t.getCursos().get(j).getAlumnos().size();i++){
+
+
+                        listaAl.add(t.getCursos().get(j).getAlumnos().get(i));
+
+                    }
+                    for(Alumno al : listaAl){
+                        t.getCursos().get(j).removeAlumno(al);
+                        alumnoServicio.edit(al);
+                    }
+                }
+
+                listaCu.add(t.getCursos().get(j));
+
+
+
+        }
+        for(Curso cu : listaCu){
+            t.removeCurso(cu);
+            cursoServicio.edit(cu);
+            cursoServicio.delete(cu);
+        }
+        tituloServicio.delete(t);
+
+
+
     }
 }
 

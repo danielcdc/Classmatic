@@ -32,8 +32,8 @@ public class Titulo {
     }
 
     public void removeCurso(Curso c){
-        cursos.remove(c);
         c.setTitulo(null);
+        cursos.remove(c);
     }
 
 
