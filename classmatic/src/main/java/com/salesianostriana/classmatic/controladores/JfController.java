@@ -162,4 +162,11 @@ public class JfController {
         return accederTitulos( model);
     }
 
+    //Visualizacion de Cçcursos de TituloX
+    @GetMapping("/adminTitulos/adminCursos/{id}")
+    public String accederCursos(@PathVariable Long id, Model model){
+        model.addAttribute("cursos", tituloServicio.findById(id).getCursos());
+        return "jf/adminCursos";
+    }
+
 }

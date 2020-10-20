@@ -18,7 +18,9 @@
             <h1>></h1>
             <a th:href="@{/jf/adminInicio}" class="text-white"><h1>HOME</h1></a>
             <h1>></h1>
-            <h1>TITULOS</h1>
+            <a th:href="@{/jf/adminTitulos}" class="text-white"><h1>TITULOS</h1></a>
+            <h1>></h1>
+            <h1>Cursos</h1>
         </div>
         <div class="col-6 d-flex flex-row justify-content-end">
 
@@ -31,7 +33,7 @@
     </div>
 
     <div class="row d-flex flex-row justify-content-around">
-
+        <!--Cambiar peticion-->
         <a th:href="@{/jf/adminTitulos/addTitulo}"  class="h1 text-white col-3 botonInicioAdmin bg-primary d-flex flex-row justify-content-center align-items-center text-decoration-none" >
             <div>
                 Añadir
@@ -42,14 +44,14 @@
 
     <div class="d-flex flex-wrap flex-row justify-content-around cajaCuadros container-fluid">
 
-        <div class="mx-3 col-3  d-flex flex-column justify-content-center align-items-center cajaElemento" th:each="titulo : ${titulos}">
-            <a th:href="@{/jf/adminTitulos/adminCursos/{id}(id=${titulo.id})}">
-                <h3 class="my-3 pt-3 text-dark" th:text="${titulo.nombre}">Nombre</h3>
-            </a>
-            <a class="text-white my-3 " th:href="@{/jf/adminTitulos/editTitulo/{id}(id=${titulo.id})}"><div class="botonEnvio d-flex justify-content-center align-items-center">Editar</div></a>
-            <a class="text-white my-3 py-3" th:href="@{/jf/adminTitulos/eliminarTitulo/{id}(id=${titulo.id})}"><div class="botonEnvio bg-danger d-flex justify-content-center align-items-center">Eliminar</div></a>
+        <div class="mx-3 col-3  d-flex flex-column justify-content-center align-items-center cajaElemento" th:each="curso : ${cursos}">
 
-        </div></a>
+            <h3 class="my-3 pt-3" th:text="${curso.nombre}">Nombre</h3>
+            <!--Cambiar peticiones-->
+            <a class="text-white my-3 " th:href="@{/jf/adminTitulos/editTitulo/{id}(id=${curso.id})}"><div class="botonEnvio d-flex justify-content-center align-items-center">Editar</div></a>
+            <a class="text-white my-3 py-3" th:href="@{/jf/adminTitulos/eliminarTitulo/{id}(id=${curso.id})}"><div class="botonEnvio bg-danger d-flex justify-content-center align-items-center">Eliminar</div></a>
+
+        </div>
 
     </div>
 
