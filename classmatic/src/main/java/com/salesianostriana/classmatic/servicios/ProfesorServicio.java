@@ -90,6 +90,11 @@ public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRep
         tituloServicio.findById(id).addCurso(curso);
         cursoServicio.edit(curso);
     }
+
+    public void editarCurso(Curso c, Curso cur, CursoServicio cursoServicio){
+        c.setNombre(cur.getNombre());
+        cursoServicio.edit(c);
+    }
 }
 
 

@@ -188,4 +188,17 @@ public class JfController {
         return accederCursos( id, model);
     }
 
+    //Editar Curso
+    @GetMapping("/adminCursos/editCurso/{id}")
+    public String accederEditarCurso(@PathVariable Long id, Model model){
+        model.addAttribute("curso",cursoServicio.findById(id));
+        return "jf/adminModificarCurso";
+    }
+
+    @PostMapping("/adminCursos/editCurso/{id}")
+    public String modificarCurso(@ModelAttribute("curso")Curso curso, Model model, @PathVariable Long id){
+        profesorServicio.editarCurso(cursoServicio.findById(id), curso, cursoServicio);
+        return accederCursos(cursoServicio.findById(id).getTitulo().getId(),  model);
+    }
+
 }
