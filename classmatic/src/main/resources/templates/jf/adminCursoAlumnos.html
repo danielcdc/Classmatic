@@ -57,7 +57,7 @@
             <h3 class="my-3  col-5" th:text="${alumno.nombre}+' '+${alumno.apellidos}">Nombre</h3>
             <!--Cambiar peticiones-->
             <a class="text-white my-3 offset-3 col-2" ><div class="botonEnvio d-flex justify-content-center align-items-center">Editar</div></a>
-            <a class="text-white my-3 py-3 col-2" ><div class="botonEnvio bg-danger d-flex justify-content-center align-items-center">Eliminar</div></a>
+            <a class="text-white my-3 py-3 col-2" th:href="@{/jf/adminAlumnos/eliminarAlumnoDeCurso/{id}(id=${alumno.id})}"><div class="botonEnvio bg-danger d-flex justify-content-center align-items-center">Eliminar</div></a>
 
         </div>
 
