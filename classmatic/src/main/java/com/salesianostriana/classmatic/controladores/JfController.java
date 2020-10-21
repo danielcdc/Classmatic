@@ -190,6 +190,9 @@ public class JfController {
     //Editar Curso
     @GetMapping("/adminCursos/editCurso/{id}")
     public String accederEditarCurso(@PathVariable Long id, Model model){
+        Curso c=cursoServicio.findById(id);
+        model.addAttribute("idTitulo",c.getTitulo().getId());
+        model.addAttribute("nombreTitulo",c.getTitulo().getNombre());
         model.addAttribute("curso",cursoServicio.findById(id));
         return "jf/adminModificarCurso";
     }
@@ -234,6 +237,7 @@ public class JfController {
         model.addAttribute("idCurso",id);
         model.addAttribute("nombreCurso",c.getNombre());
         model.addAttribute("idTitulo",c.getTitulo().getId());
+        model.addAttribute("nombreTitulo",c.getTitulo().getNombre());
         return "jf/adminAddAsignatura";
     }
 
@@ -246,7 +250,12 @@ public class JfController {
     //Modificar Asignatura
     @GetMapping("/adminAsignaturas/editAsignatura/{id}")
     public String accederEditarAsignatura(@PathVariable Long id, Model model){
-        model.addAttribute("asignatura",asignaturaServicio.findById(id));
+        Asignatura as=asignaturaServicio.findById(id);
+        model.addAttribute("asignatura",as);
+        model.addAttribute("nombreCurso", as.getCurso().getNombre());
+        model.addAttribute("idCurso", as.getCurso().getId());
+        model.addAttribute("idTitulo",as.getCurso().getTitulo().getId());
+        model.addAttribute("nombreTitulo",as.getCurso().getTitulo().getNombre());
         return "jf/adminModificarAsignatura";
     }
 

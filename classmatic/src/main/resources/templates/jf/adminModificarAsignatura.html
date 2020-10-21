@@ -20,11 +20,11 @@
             <h1>></h1>
             <a th:href="@{/jf/adminTitulos}" class="text-white"><h1>TITULOS</h1></a>
             <h1>></h1>
-            <a th:href="@{/jf/adminTitulos/adminCursos/{id}(id=${idTitulo})}" class="text-white"><h1>CURSOS</h1></a><!--Cambiar peticion-->
+            <a th:href="@{/jf/adminTitulos/adminCursos/{id}(id=${idTitulo})}" class="text-white"><h1 th:text="${nombreTitulo}">Nombre titulo</h1></a><!--Cambiar peticion-->
             <h1>></h1>
-            <h1 th:text="${nombreCurso}" class="text-white">Cursos</h1>
+            <a th:href="@{/jf/adminAsignnaturas{id}(id=${idCurso})}"><h1 th:text="${nombreCurso}" class="text-white">Curso</h1></a>
             <h1>></h1>
-            <h1>AÑADIR</h1>
+            <h1 th:text="${asignatura.nombre}" class="text-white">Nombre asignatura</h1>
         </div>
         <div class="col-6 d-flex flex-row justify-content-end">
 
