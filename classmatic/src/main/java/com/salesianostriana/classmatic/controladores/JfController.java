@@ -47,10 +47,11 @@ public class JfController {
         return "jf/adminProfesores";
     }
 
-    //Eliminar Alumno de lista alumnos----------------------------Requiere modificacion-----------------------IMPORTANTE
+    //Eliminar Alumno de lista alumnos
     @GetMapping("/adminAlumnos/eliminarAlumno/{id}")
     public String eliminarUsuarioAlumno(Model model,@PathVariable Long id){
-        alumnoServicio.deleteById(id);
+        //alumnoServicio.deleteById(id);
+        profesorServicio.eliminarAlumno(alumnoServicio, asignaturaServicio, cursoServicio,id);
         return accederAlumnos(model);
     }
 

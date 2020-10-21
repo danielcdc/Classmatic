@@ -155,6 +155,7 @@ public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRep
         asignaturaServicio.edit(as);
     }
 
+    //Habra que modificarlo cuando se metan solicitudes de situacionesExcepcionales
     public void eliminarAlumno(AlumnoServicio alumnoServicio,
                                AsignaturaServicio asignaturaServicio,
                                CursoServicio cursoServicio,
