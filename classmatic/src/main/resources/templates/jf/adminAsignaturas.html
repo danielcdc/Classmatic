@@ -51,7 +51,7 @@
             <h3 class="my-3  col-5" th:text="${asignatura.nombre}">Nombre</h3>
             <h3 class="my-3  col-1" th:text="${asignatura.nHorasSemanales}"></h3>
             <!--Cambiar peticiones-->
-            <a class="text-white my-3 col-3" ><div class="botonEnvio d-flex justify-content-center align-items-center">Editar</div></a>
+            <a class="text-white my-3 col-3" th:href="@{/jf/adminAsignaturas/editAsignatura/{id}(id=${asignatura.id})}"><div class="botonEnvio d-flex justify-content-center align-items-center">Editar</div></a>
             <a class="text-white my-3 py-3 col-3" th:href="@{/jf/adminAsignaturas/eliminarAsignatura/{id}(id=${asignatura.id})}"><div class="botonEnvio bg-danger d-flex justify-content-center align-items-center">Eliminar</div></a>
 
         </div>

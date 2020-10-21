@@ -146,7 +146,14 @@ public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRep
         cursoServicio.edit(c);
     }
 
-
+    public void editarAsignatura(Long id,
+                                 AsignaturaServicio asignaturaServicio,
+                                 Asignatura asignatura){
+        Asignatura as=asignaturaServicio.findById(id);
+        as.setNombre(asignatura.getNombre());
+        as.setNHorasSemanales(asignatura.getNHorasSemanales());
+        asignaturaServicio.edit(as);
+    }
 
 
 }
