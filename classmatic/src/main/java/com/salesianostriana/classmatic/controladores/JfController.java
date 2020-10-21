@@ -209,4 +209,14 @@ public class JfController {
         return accederCursos( profesorServicio.eliminarCurso(cursoServicio.findById(id), asignaturaServicio, alumnoServicio, cursoServicio),  model);
     }
 
+    //Accedr a listado asignaturas
+    @GetMapping("/adminAsignnaturas{id}")
+    public String accederAsignaturas(@PathVariable Long id, Model model){
+        model.addAttribute("asignaturas",cursoServicio.findById(id).getAsignaturas());
+        return "jf/adminAsignaturas";
+    }
+
+
+
+
 }
