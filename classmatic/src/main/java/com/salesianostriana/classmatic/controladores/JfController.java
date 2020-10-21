@@ -168,6 +168,7 @@ public class JfController {
     public String accederCursos(@PathVariable Long id, Model model){
         model.addAttribute("cursos", tituloServicio.findById(id).getCursos());
         model.addAttribute("idTitulo",id);
+        model.addAttribute("nombreTitulo",tituloServicio.findById(id).getNombre());
         return "jf/adminCursos";
     }
 
@@ -213,7 +214,16 @@ public class JfController {
     @GetMapping("/adminAsignnaturas{id}")
     public String accederAsignaturas(@PathVariable Long id, Model model){
         model.addAttribute("asignaturas",cursoServicio.findById(id).getAsignaturas());
+        model.addAttribute("nombreCurso",cursoServicio.findById(id).getNombre());
+        model.addAttribute("idTitulo", cursoServicio.findById(id).getTitulo().getId());
+        model.addAttribute("nombreTitulo",cursoServicio.findById(id).getTitulo().getNombre());
         return "jf/adminAsignaturas";
+    }
+
+    //Eliminar Asignatura
+    @GetMapping("/adminAsignaturas/eliminarAsignatura/{id}")
+    public String eliminarAsinatura(@PathVariable Long id, Model model){
+        return accederAsignaturas(profesorServicio.eliminarAsignatura(id, asignaturaServicio, cursoServicio, alumnoServicio), model);
     }
 
 

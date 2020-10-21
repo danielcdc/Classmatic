@@ -118,6 +118,27 @@ public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRep
         cursoServicio.delete(c);
         return id;
     }
+
+    public Long eliminarAsignatura(Long id, AsignaturaServicio asignaturaServicio,
+                                   CursoServicio cursoServicio,
+                                   AlumnoServicio alumnoServicio){
+        Asignatura as=asignaturaServicio.findById(id);
+        List<Alumno>listaAl=new ArrayList<Alumno>();
+        listaAl.addAll(as.getAlumnos());
+        for(Alumno a: listaAl){
+            a.removeAsignatura(as);
+            alumnoServicio.edit(a);
+        }
+        Curso c=as.getCurso();
+        c.removeAsignatura(as);
+        cursoServicio.edit(c);
+        asignaturaServicio.delete(as);
+        return c.getId();
+    }
+
+
+
+
 }
 
 
