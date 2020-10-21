@@ -136,6 +136,16 @@ public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRep
         return c.getId();
     }
 
+    public void crearAsignatura(Long id, Asignatura as,
+                                AsignaturaServicio asignaturaServicio,
+                                CursoServicio cursoServicio){
+        Curso c=cursoServicio.findById(id);
+        asignaturaServicio.save(as);
+        c.addAsignatura(as);
+        asignaturaServicio.edit(as);
+        cursoServicio.edit(c);
+    }
+
 
 
 

@@ -1,9 +1,6 @@
 package com.salesianostriana.classmatic.controladores;
 
-import com.salesianostriana.classmatic.entidades.Alumno;
-import com.salesianostriana.classmatic.entidades.Curso;
-import com.salesianostriana.classmatic.entidades.Profesor;
-import com.salesianostriana.classmatic.entidades.Titulo;
+import com.salesianostriana.classmatic.entidades.*;
 import com.salesianostriana.classmatic.servicios.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -213,10 +210,12 @@ public class JfController {
     //Accedr a listado asignaturas
     @GetMapping("/adminAsignnaturas{id}")
     public String accederAsignaturas(@PathVariable Long id, Model model){
-        model.addAttribute("asignaturas",cursoServicio.findById(id).getAsignaturas());
-        model.addAttribute("nombreCurso",cursoServicio.findById(id).getNombre());
-        model.addAttribute("idTitulo", cursoServicio.findById(id).getTitulo().getId());
-        model.addAttribute("nombreTitulo",cursoServicio.findById(id).getTitulo().getNombre());
+        Curso c=cursoServicio.findById(id);
+        model.addAttribute("asignaturas",c.getAsignaturas());
+        model.addAttribute("nombreCurso",c.getNombre());
+        model.addAttribute("idCurso",id);
+        model.addAttribute("idTitulo", c.getTitulo().getId());
+        model.addAttribute("nombreTitulo",c.getTitulo().getNombre());
         return "jf/adminAsignaturas";
     }
 
@@ -224,6 +223,23 @@ public class JfController {
     @GetMapping("/adminAsignaturas/eliminarAsignatura/{id}")
     public String eliminarAsinatura(@PathVariable Long id, Model model){
         return accederAsignaturas(profesorServicio.eliminarAsignatura(id, asignaturaServicio, cursoServicio, alumnoServicio), model);
+    }
+
+    //anyadir asignatura
+    @GetMapping("/adminAsignaturas/addAsignatura/{id}")
+    public String accederAddAsignatura(@PathVariable Long id, Model model){
+        Curso c=cursoServicio.findById(id);
+        model.addAttribute("asignatura", new Asignatura());
+        model.addAttribute("idCurso",id);
+        model.addAttribute("nombreCurso",c.getNombre());
+        model.addAttribute("idTitulo",c.getTitulo().getId());
+        return "jf/adminAddAsignatura";
+    }
+
+    @PostMapping("/adminAsignaturas/addAsignatura/{id}")
+    public String crearAsignatura(@ModelAttribute("asignatura")Asignatura asignatura, Model model, @PathVariable Long id){
+        profesorServicio.crearAsignatura(id, asignatura, asignaturaServicio, cursoServicio);
+        return accederAsignaturas( id,  model);
     }
 
 
