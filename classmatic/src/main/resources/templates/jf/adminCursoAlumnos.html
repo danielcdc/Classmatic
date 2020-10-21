@@ -2,7 +2,7 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8">
-    <title>Asignaturas</title>
+    <title>Alumnos</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 
@@ -36,15 +36,15 @@
 
     <div class="row d-flex flex-row justify-content-around">
         <!--Cambiar peticion-->
-        <a th:href="@{/jf/adminAsignaturas/addAsignatura/{id}(id=${idCurso})}"  class="h1 text-white col-3 botonInicioAdmin bg-primary d-flex flex-row justify-content-center align-items-center text-decoration-none" >
+        <a th:href="@{/jf/adminAsignnaturas{id}(id=${idCurso})}"  class="h1 text-white col-3 botonInicioAdmin bg-primary d-flex flex-row justify-content-center align-items-center text-decoration-none" >
             <div>
                 Añadir
             </div>
         </a>
-        <!--Anyadir peticion de alumnos del curso-->
-        <a th:href="@{/jf/adminAlumnos/accederAlumnos/{id}(id=${idCurso})}" class="h1 text-white col-3 botonInicioAdmin bg-info d-flex flex-row justify-content-center align-items-center text-decoration-none" >
+        <!--Anyadir peticion de asignaturas del curso-->
+        <a th:href="@{/jf/adminAsignnaturas{id}(id=${idCurso})}" class="h1 text-white col-3 botonInicioAdmin bg-info d-flex flex-row justify-content-center align-items-center text-decoration-none" >
             <div>
-                Alumnos
+                Asignaturas
             </div>
         </a>
 
@@ -52,13 +52,12 @@
 
     <div class="d-flex flex-column justify-content-center align-items-center  cajaCuadros container-fluid w-100">
 
-        <div class="mx-3  col-10 offset-1 container-fluid  d-flex flex-row justify-content-around align-items-center cajaElemento" th:each="asignatura : ${asignaturas}">
+        <div class="mx-3  col-10 offset-1 container-fluid  d-flex flex-row justify-content-around align-items-center cajaElemento" th:each="alumno : ${alumnos}">
 
-            <h3 class="my-3  col-5" th:text="${asignatura.nombre}">Nombre</h3>
-            <h3 class="my-3  col-1" th:text="${asignatura.nHorasSemanales}"></h3>
+            <h3 class="my-3  col-5" th:text="${alumno.nombre}+' '+${alumno.apellidos}">Nombre</h3>
             <!--Cambiar peticiones-->
-            <a class="text-white my-3 col-3" th:href="@{/jf/adminAsignaturas/editAsignatura/{id}(id=${asignatura.id})}"><div class="botonEnvio d-flex justify-content-center align-items-center">Editar</div></a>
-            <a class="text-white my-3 py-3 col-3" th:href="@{/jf/adminAsignaturas/eliminarAsignatura/{id}(id=${asignatura.id})}"><div class="botonEnvio bg-danger d-flex justify-content-center align-items-center">Eliminar</div></a>
+            <a class="text-white my-3 offset-3 col-2" ><div class="botonEnvio d-flex justify-content-center align-items-center">Editar</div></a>
+            <a class="text-white my-3 py-3 col-2" ><div class="botonEnvio bg-danger d-flex justify-content-center align-items-center">Eliminar</div></a>
 
         </div>
 

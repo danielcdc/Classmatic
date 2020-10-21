@@ -256,7 +256,29 @@ public class JfController {
         return accederAsignaturas(asignaturaServicio.findById(id).getCurso().getId(),  model);
     }
 
+    /*
+    @GetMapping("/adminAsignnaturas{id}")
+    public String accederAsignaturas(@PathVariable Long id, Model model){
+        Curso c=cursoServicio.findById(id);
+        model.addAttribute("asignaturas",c.getAsignaturas());
+        model.addAttribute("nombreCurso",c.getNombre());
+        model.addAttribute("idCurso",id);
+        model.addAttribute("idTitulo", c.getTitulo().getId());
+        model.addAttribute("nombreTitulo",c.getTitulo().getNombre());
+        return "jf/adminAsignaturas";
+    }
+     */
 
-
+    //Acceder a alumnos de una clase
+    @GetMapping("/adminAlumnos/accederAlumnos/{id}")
+    public String accederAlumnos(@PathVariable Long id, Model model){
+        Curso c=cursoServicio.findById(id);
+        model.addAttribute("alumnos",c.getAlumnos());
+        model.addAttribute("idCurso",id);
+        model.addAttribute("nombreCurso", c.getNombre());
+        model.addAttribute("idTitulo",c.getTitulo().getId());
+        model.addAttribute("nombreTitulo",c.getTitulo().getNombre());
+        return "jf/adminCursoAlumnos";
+    }
 
 }
