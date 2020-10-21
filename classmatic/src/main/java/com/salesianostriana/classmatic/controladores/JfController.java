@@ -201,4 +201,12 @@ public class JfController {
         return accederCursos(cursoServicio.findById(id).getTitulo().getId(),  model);
     }
 
+    //Eliminar Curso
+
+    @GetMapping("/eliminarCurso/{id}")
+    public String eliminarCurso(@PathVariable Long id, Model model){
+        //Long idT=profesorServicio.eliminarCurso(cursoServicio.findById(id), asignaturaServicio, alumnoServicio, cursoServicio);
+        return accederCursos( profesorServicio.eliminarCurso(cursoServicio.findById(id), asignaturaServicio, alumnoServicio, cursoServicio),  model);
+    }
+
 }

@@ -49,7 +49,7 @@
             <h3 class="my-3 pt-3" th:text="${curso.nombre}">Nombre</h3>
             <!--Cambiar peticiones-->
             <a class="text-white my-3 " th:href="@{/jf/adminCursos/editCurso/{id}(id=${curso.id})}"><div class="botonEnvio d-flex justify-content-center align-items-center">Editar</div></a>
-            <a class="text-white my-3 py-3" th:href="@{/jf/adminTitulos/eliminarTitulo/{id}(id=${curso.id})}"><div class="botonEnvio bg-danger d-flex justify-content-center align-items-center">Eliminar</div></a>
+            <a class="text-white my-3 py-3" th:href="@{/jf/eliminarCurso/{id}(id=${curso.id})}"><div class="botonEnvio bg-danger d-flex justify-content-center align-items-center">Eliminar</div></a>
 
         </div>
 
