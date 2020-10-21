@@ -1,8 +1,6 @@
 package com.salesianostriana.classmatic.controladores;
 
-import com.salesianostriana.classmatic.entidades.Alumno;
-import com.salesianostriana.classmatic.entidades.Profesor;
-import com.salesianostriana.classmatic.entidades.Titulo;
+import com.salesianostriana.classmatic.entidades.*;
 import com.salesianostriana.classmatic.servicios.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -52,7 +50,8 @@ public class JfController {
     //Eliminar Alumno de lista alumnos
     @GetMapping("/adminAlumnos/eliminarAlumno/{id}")
     public String eliminarUsuarioAlumno(Model model,@PathVariable Long id){
-        alumnoServicio.deleteById(id);
+        //alumnoServicio.deleteById(id);
+        profesorServicio.eliminarAlumno(alumnoServicio, asignaturaServicio, cursoServicio,id);
         return accederAlumnos(model);
     }
 
@@ -160,6 +159,144 @@ public class JfController {
         * */
         profesorServicio.borrarTitulo(tituloServicio, cursoServicio, alumnoServicio, asignaturaServicio, id );
         return accederTitulos( model);
+    }
+
+    //Visualizacion de Cçcursos de TituloX
+    @GetMapping("/adminTitulos/adminCursos/{id}")
+    public String accederCursos(@PathVariable Long id, Model model){
+        model.addAttribute("cursos", tituloServicio.findById(id).getCursos());
+        model.addAttribute("idTitulo",id);
+        model.addAttribute("nombreTitulo",tituloServicio.findById(id).getNombre());
+        return "jf/adminCursos";
+    }
+
+    //Anyadir Curso a un titulo
+    @GetMapping("/adminTitulos/adminCursos/addCurso/{id}")
+    public String accederCrearAddCurso(@PathVariable Long id, Model model){
+        model.addAttribute("curso", new Curso());
+        model.addAttribute("idTitulo", id);
+        return "jf/adminAddCurso";
+    }
+
+    @PostMapping("/adminTitulos/adminCursos/addCurso/{id}")
+    public String crearCurso(@ModelAttribute("curso")Curso curso, @PathVariable Long id, Model model){
+        /*cursoServicio.save(curso);
+        tituloServicio.findById(id).addCurso(curso);
+        cursoServicio.edit(curso);*/
+        profesorServicio.anyadirCurso(cursoServicio, tituloServicio, curso, id);
+        return accederCursos( id, model);
+    }
+
+    //Editar Curso
+    @GetMapping("/adminCursos/editCurso/{id}")
+    public String accederEditarCurso(@PathVariable Long id, Model model){
+        Curso c=cursoServicio.findById(id);
+        model.addAttribute("idTitulo",c.getTitulo().getId());
+        model.addAttribute("nombreTitulo",c.getTitulo().getNombre());
+        model.addAttribute("curso",cursoServicio.findById(id));
+        return "jf/adminModificarCurso";
+    }
+
+    @PostMapping("/adminCursos/editCurso/{id}")
+    public String modificarCurso(@ModelAttribute("curso")Curso curso, Model model, @PathVariable Long id){
+        profesorServicio.editarCurso(cursoServicio.findById(id), curso, cursoServicio);
+        return accederCursos(cursoServicio.findById(id).getTitulo().getId(),  model);
+    }
+
+    //Eliminar Curso
+
+    @GetMapping("/eliminarCurso/{id}")
+    public String eliminarCurso(@PathVariable Long id, Model model){
+        //Long idT=profesorServicio.eliminarCurso(cursoServicio.findById(id), asignaturaServicio, alumnoServicio, cursoServicio);
+        return accederCursos( profesorServicio.eliminarCurso(cursoServicio.findById(id), asignaturaServicio, alumnoServicio, cursoServicio),  model);
+    }
+
+    //Accedr a listado asignaturas
+    @GetMapping("/adminAsignnaturas{id}")
+    public String accederAsignaturas(@PathVariable Long id, Model model){
+        Curso c=cursoServicio.findById(id);
+        model.addAttribute("asignaturas",c.getAsignaturas());
+        model.addAttribute("nombreCurso",c.getNombre());
+        model.addAttribute("idCurso",id);
+        model.addAttribute("idTitulo", c.getTitulo().getId());
+        model.addAttribute("nombreTitulo",c.getTitulo().getNombre());
+        return "jf/adminAsignaturas";
+    }
+
+    //Eliminar Asignatura
+    @GetMapping("/adminAsignaturas/eliminarAsignatura/{id}")
+    public String eliminarAsinatura(@PathVariable Long id, Model model){
+        return accederAsignaturas(profesorServicio.eliminarAsignatura(id, asignaturaServicio, cursoServicio, alumnoServicio), model);
+    }
+
+    //Anyadir asignatura
+    @GetMapping("/adminAsignaturas/addAsignatura/{id}")
+    public String accederAddAsignatura(@PathVariable Long id, Model model){
+        Curso c=cursoServicio.findById(id);
+        model.addAttribute("asignatura", new Asignatura());
+        model.addAttribute("idCurso",id);
+        model.addAttribute("nombreCurso",c.getNombre());
+        model.addAttribute("idTitulo",c.getTitulo().getId());
+        model.addAttribute("nombreTitulo",c.getTitulo().getNombre());
+        return "jf/adminAddAsignatura";
+    }
+
+    @PostMapping("/adminAsignaturas/addAsignatura/{id}")
+    public String crearAsignatura(@ModelAttribute("asignatura")Asignatura asignatura, Model model, @PathVariable Long id){
+        profesorServicio.crearAsignatura(id, asignatura, asignaturaServicio, cursoServicio);
+        return accederAsignaturas( id,  model);
+    }
+
+    //Modificar Asignatura
+    @GetMapping("/adminAsignaturas/editAsignatura/{id}")
+    public String accederEditarAsignatura(@PathVariable Long id, Model model){
+        Asignatura as=asignaturaServicio.findById(id);
+        model.addAttribute("asignatura",as);
+        model.addAttribute("nombreCurso", as.getCurso().getNombre());
+        model.addAttribute("idCurso", as.getCurso().getId());
+        model.addAttribute("idTitulo",as.getCurso().getTitulo().getId());
+        model.addAttribute("nombreTitulo",as.getCurso().getTitulo().getNombre());
+        return "jf/adminModificarAsignatura";
+    }
+
+    @PostMapping("/adminAsignaturas/editAsignatura/{id}")
+    public String editarAsignatura(@ModelAttribute("asignatura")Asignatura asignatura,Model model,
+                                   @PathVariable Long id){
+        profesorServicio.editarAsignatura(id, asignaturaServicio, asignatura);
+        return accederAsignaturas(asignaturaServicio.findById(id).getCurso().getId(),  model);
+    }
+
+    /*
+    @GetMapping("/adminAsignnaturas{id}")
+    public String accederAsignaturas(@PathVariable Long id, Model model){
+        Curso c=cursoServicio.findById(id);
+        model.addAttribute("asignaturas",c.getAsignaturas());
+        model.addAttribute("nombreCurso",c.getNombre());
+        model.addAttribute("idCurso",id);
+        model.addAttribute("idTitulo", c.getTitulo().getId());
+        model.addAttribute("nombreTitulo",c.getTitulo().getNombre());
+        return "jf/adminAsignaturas";
+    }
+     */
+
+    //Acceder a alumnos de una clase
+    @GetMapping("/adminAlumnos/accederAlumnos/{id}")
+    public String accederAlumnos(@PathVariable Long id, Model model){
+        Curso c=cursoServicio.findById(id);
+        model.addAttribute("alumnos",c.getAlumnos());
+        model.addAttribute("idCurso",id);
+        model.addAttribute("nombreCurso", c.getNombre());
+        model.addAttribute("idTitulo",c.getTitulo().getId());
+        model.addAttribute("nombreTitulo",c.getTitulo().getNombre());
+        return "jf/adminCursoAlumnos";
+    }
+
+    //Eliminar alumno desde curso
+    @GetMapping("/adminAlumnos/eliminarAlumnoDeCurso/{id}")
+    public String eliminarAlumnoDeCurso(@PathVariable Long id, Model model){
+        Long idCurso=alumnoServicio.findById(id).getCurso().getId();
+        profesorServicio.eliminarAlumno(alumnoServicio, asignaturaServicio, cursoServicio, id);
+        return accederAlumnos(idCurso,  model);
     }
 
 }

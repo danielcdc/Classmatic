@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8">
+    <title>Asignaturas</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+    <!--<link rel="stylesheet" type="text/css" href="../css/estilos.css">-->
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body class="mx-0 my-0">
+
+<div class="contenedor container-fluid">
+
+    <div class="row">
+        <div class="col-6 d-flex flex-row flex-wrap">
+            <h1>></h1>
+            <a th:href="@{/jf/adminInicio}" class="text-white"><h1>HOME</h1></a>
+            <h1>></h1>
+            <a th:href="@{/jf/adminTitulos}" class="text-white"><h1>TITULOS</h1></a>
+            <h1>></h1>
+            <a th:href="@{/jf/adminTitulos/adminCursos/{id}(id=${idTitulo})}"  class="text-white"><h1 th:text="${nombreTitulo}">NombreTitulo</h1></a>
+            <h1>></h1>
+            <h1 th:text="${nombreCurso}" class="text-white">Cursos</h1><!--Poner el nombre del curso al que pertenecen-->
+        </div>
+        <div class="col-6 d-flex flex-row justify-content-end">
+
+            <h3 class="px-2">NombreUsuarioAutenticado</h3>
+            <!--Logout-->
+            <form th:action="@{/logout}" method="POST" id="logoutForm"></form>
+            <a href="javascript:document.getElementById('logoutForm').submit()" class="text-dark text-decoration-none"><h3>Logout</h3></a>
+
+        </div>
+    </div>
+
+    <div class="row d-flex flex-row justify-content-around">
+        <!--Cambiar peticion-->
+        <a th:href="@{/jf/adminAsignaturas/addAsignatura/{id}(id=${idCurso})}"  class="h1 text-white col-3 botonInicioAdmin bg-primary d-flex flex-row justify-content-center align-items-center text-decoration-none" >
+            <div>
+                Añadir
+            </div>
+        </a>
+        <!--Anyadir peticion de alumnos del curso-->
+        <a th:href="@{/jf/adminAlumnos/accederAlumnos/{id}(id=${idCurso})}" class="h1 text-white col-3 botonInicioAdmin bg-info d-flex flex-row justify-content-center align-items-center text-decoration-none" >
+            <div>
+                Alumnos
+            </div>
+        </a>
+
+    </div>
+
+    <div class="d-flex flex-column justify-content-center align-items-center  cajaCuadros container-fluid w-100">
+
+        <div class="mx-3  col-10 offset-1 container-fluid  d-flex flex-row justify-content-around align-items-center cajaElemento" th:each="asignatura : ${asignaturas}">
+
+            <h3 class="my-3  col-5" th:text="${asignatura.nombre}">Nombre</h3>
+            <h3 class="my-3  col-1" th:text="${asignatura.nHorasSemanales}"></h3>
+            <!--Cambiar peticiones-->
+            <a class="text-white my-3 col-3" th:href="@{/jf/adminAsignaturas/editAsignatura/{id}(id=${asignatura.id})}"><div class="botonEnvio d-flex justify-content-center align-items-center">Editar</div></a>
+            <a class="text-white my-3 py-3 col-3" th:href="@{/jf/adminAsignaturas/eliminarAsignatura/{id}(id=${asignatura.id})}"><div class="botonEnvio bg-danger d-flex justify-content-center align-items-center">Eliminar</div></a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+</html>

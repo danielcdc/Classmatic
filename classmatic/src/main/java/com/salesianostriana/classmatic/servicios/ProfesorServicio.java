@@ -7,6 +7,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service @RequiredArgsConstructor
 public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRepositorio> {
 
@@ -40,62 +43,136 @@ public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRep
     public void borrarTitulo(TituloServicio tituloServicio, CursoServicio cursoServicio,
                              AlumnoServicio alumnoServicio, AsignaturaServicio asignaturaServicio,
                              Long id){
-        /*
-        for(Curso curso : cursoServicio.findAll()){
-            if(curso.getTitulo().getId()== id){
-                //Desvincular alumnos y asignaturas
-                for(Alumno a : alumnoServicio.findAll()){
-                    if(a.getCurso().getId() == curso.getId()){
-                        curso.removeAlumno(a);
-                        alumnoServicio.edit(a);
 
+        List<Alumno> listaAl=new ArrayList<Alumno>();
+        List<Asignatura> listaAs=new ArrayList<Asignatura>();
+        List<Curso>listaCu=new ArrayList<Curso>();
+        Titulo t=tituloServicio.findById(id);
+       //desvincular titulo y sus cursos
+        for(int j=0;j<t.getCursos().size();j++){
+
+                //desvinculo curso y sus asignaturas
+                if(!t.getCursos().get(j).getAsignaturas().isEmpty()){
+                    for(int i=0;i<t.getCursos().get(j).getAsignaturas().size();i++){
+
+
+                        listaAs.add(t.getCursos().get(j).getAsignaturas().get(i));
+                    }
+                    for(Asignatura as : listaAs){
+                        t.getCursos().get(j).removeAsignatura(as);
+                        asignaturaServicio.edit(as);
                     }
                 }
-                for(Asignatura a : asignaturaServicio.findAll()){
-                    if(a.getCurso().getId() == curso.getId()){
-                        curso.removeAsignatura(a);
-                        asignaturaServicio.edit(a);
-                        for(Alumno al: alumnoServicio.findAll()){
+                if(!t.getCursos().get(j).getAlumnos().isEmpty()){
+                    for(int i=0;i<t.getCursos().get(j).getAlumnos().size();i++){
 
-                            /*for(Asignatura as : al.getAsignaturas()){
-                                if(as.getId() == a.getId()){
-                                    al.removeAsignatura(as);
-                                }
-                            }
-                            for(int i=0;i<al.getAsignaturas().size();i++){
-                                if(al.getAsignaturas().get(i).getId() == a.getId()){
-                                    al.removeAsignatura(al.getAsignaturas().get(i));
-                                    alumnoServicio.edit(al);
-                                    asignaturaServicio.edit(al.getAsignaturas().get(i));
-                                }
-                            }
-                        asignaturaServicio.delete(a);
+
+                        listaAl.add(t.getCursos().get(j).getAlumnos().get(i));
+
+                    }
+                    for(Alumno al : listaAl){
+                        t.getCursos().get(j).removeAlumno(al);
+                        alumnoServicio.edit(al);
                     }
                 }
-            }
-            cursoServicio.delete(curso);*/
-        /*if(!cursoServicio.findById(id).getAlumnos().isEmpty()){*/
-            for(Alumno al : cursoServicio.findById(id).getAlumnos()){
-                if(al.getCurso().getId() == cursoServicio.findById(id).getId()){
-                    cursoServicio.findById(id).removeAlumno(al);
-                    alumnoServicio.edit(al);
-                }
-            }
-        //}
-
-        /*if(!cursoServicio.findById(id).getAsignaturas().isEmpty()) {*/
-            for (Asignatura as : cursoServicio.findById(id).getAsignaturas()) {
-                for (Alumno al : as.getAlumnos()) {
-                    al.removeAsignatura(as);
-                    alumnoServicio.edit(al);
-                }
-                cursoServicio.findById(id).removeAsignatura(as);
-                asignaturaServicio.edit(as);
-                asignaturaServicio.delete(as);
-            }
-        //}
-        cursoServicio.deleteById(id);
+                listaCu.add(t.getCursos().get(j));
+        }
+        for(Curso cu : listaCu){
+            t.removeCurso(cu);
+            cursoServicio.edit(cu);
+            cursoServicio.delete(cu);
+        }
+        tituloServicio.delete(t);
     }
+
+    public void anyadirCurso(CursoServicio cursoServicio, TituloServicio tituloServicio, Curso curso, Long id){
+        cursoServicio.save(curso);
+        tituloServicio.findById(id).addCurso(curso);
+        cursoServicio.edit(curso);
+    }
+
+    public void editarCurso(Curso c, Curso cur, CursoServicio cursoServicio){
+        c.setNombre(cur.getNombre());
+        cursoServicio.edit(c);
+    }
+
+    public Long eliminarCurso(Curso c,AsignaturaServicio asignaturaServicio,
+                              AlumnoServicio alumnoServicio, CursoServicio cursoServicio){
+        List<Asignatura> listaAs=new ArrayList<Asignatura>();
+        List<Alumno> listaAl=new ArrayList<Alumno>();
+        //List<Asignatura> listaAs=c.getAsignaturas();
+        //List<Alumno> listaAl=c.getAlumnos();
+        listaAs.addAll(c.getAsignaturas());
+        listaAl.addAll(c.getAlumnos());
+
+
+        for(Asignatura as : listaAs)/*for(int i=0;i<c.getAsignaturas().size();i++)*/{
+            c.removeAsignatura(as);
+            asignaturaServicio.edit(as);
+        }
+        for(Alumno al : listaAl){
+            c.removeAlumno(al);
+            alumnoServicio.edit(al);
+        }
+        Long id=c.getTitulo().getId();
+        cursoServicio.delete(c);
+        return id;
+    }
+
+    public Long eliminarAsignatura(Long id, AsignaturaServicio asignaturaServicio,
+                                   CursoServicio cursoServicio,
+                                   AlumnoServicio alumnoServicio){
+        Asignatura as=asignaturaServicio.findById(id);
+        List<Alumno>listaAl=new ArrayList<Alumno>();
+        listaAl.addAll(as.getAlumnos());
+        for(Alumno a: listaAl){
+            a.removeAsignatura(as);
+            alumnoServicio.edit(a);
+        }
+        Curso c=as.getCurso();
+        c.removeAsignatura(as);
+        cursoServicio.edit(c);
+        asignaturaServicio.delete(as);
+        return c.getId();
+    }
+
+    public void crearAsignatura(Long id, Asignatura as,
+                                AsignaturaServicio asignaturaServicio,
+                                CursoServicio cursoServicio){
+        Curso c=cursoServicio.findById(id);
+        asignaturaServicio.save(as);
+        c.addAsignatura(as);
+        asignaturaServicio.edit(as);
+        cursoServicio.edit(c);
+    }
+
+    public void editarAsignatura(Long id,
+                                 AsignaturaServicio asignaturaServicio,
+                                 Asignatura asignatura){
+        Asignatura as=asignaturaServicio.findById(id);
+        as.setNombre(asignatura.getNombre());
+        as.setNHorasSemanales(asignatura.getNHorasSemanales());
+        asignaturaServicio.edit(as);
+    }
+
+    //Habra que modificarlo cuando se metan solicitudes de situacionesExcepcionales
+    public void eliminarAlumno(AlumnoServicio alumnoServicio,
+                               AsignaturaServicio asignaturaServicio,
+                               CursoServicio cursoServicio,
+                               Long id){
+        Alumno al=alumnoServicio.findById(id);
+        List<Asignatura>listaAs=new ArrayList<Asignatura>();
+        Curso c=al.getCurso();
+        c.removeAlumno(al);
+        cursoServicio.edit(c);
+        for(Asignatura as : listaAs){
+            al.removeAsignatura(as);
+            asignaturaServicio.edit(as);
+        }
+        alumnoServicio.delete(al);
+    }
+
+
 }
 
 
