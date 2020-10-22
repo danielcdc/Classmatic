@@ -28,6 +28,7 @@ public class JfController {
     @Autowired
     AsignaturaServicio asignaturaServicio;
 
+
     @GetMapping("/adminInicio")
     public String iniciarAdmin(){
         return "jf/adminInicio";
@@ -88,17 +89,44 @@ public class JfController {
         return accederProfesores( model);
     }
 
-    //Editar alumno
-    @GetMapping("/adminAlumnos/editarAlumno/{id}")
+    //Editar alumno ---------------Le paso el alumno, curso, titulo, titulos
+    /*@GetMapping("/adminAlumnos/editarAlumno/{id}")
     public String accederEditarAlumno(@PathVariable Long id, Model model){
-        model.addAttribute("alumno",alumnoServicio.findById(id));
+        Alumno al=alumnoServicio.findById(id);
+        model.addAttribute("alumno",al);
+        model.addAttribute("curso",al.getCurso());
+        model.addAttribute("titulo",al.getCurso().getTitulo());
+        model.addAttribute("cursos",cursoServicio.findAll());
+        model.addAttribute("titulos",tituloServicio.findAll());
+        return "jf/modificarAlumno";
+    }*/
+
+    @GetMapping("/adminAlumnos/editarAlumno/{id}")
+    public String accederEditarAlumno(@PathVariable Long id, Model model,boolean error){
+        Alumno al=alumnoServicio.findById(id);
+        model.addAttribute("alumno",al);
+        model.addAttribute("curso",al.getCurso());
+        model.addAttribute("cursos",cursoServicio.findAll());
+        /*model.addAttribute("titulo",al.getCurso().getTitulo());
+        model.addAttribute("cursos",cursoServicio.findAll());
+        model.addAttribute("titulos",tituloServicio.findAll());
+        model.addAttribute("error",error);*/
         return "jf/modificarAlumno";
     }
 
     @PostMapping("/adminAlumnos/editarAlumno/{id}")
-    public String modificarAlumno(@PathVariable Long id, @ModelAttribute("alumno")Alumno alumno, Model model){
-        profesorServicio.editarAlumno(alumnoServicio.findById(id),alumno, alumnoServicio);
-        //alumnoServicio.edit(alumnoServicio.findById(id));
+    public String modificarAlumno(@PathVariable Long id,
+                                  @ModelAttribute("alumno")Alumno alumno,
+                                  /*@ModelAttribute("titulo")Titulo titulo,*/
+                                  @ModelAttribute("curso")Curso curso,
+                                  Model model){
+        //if(curso.getTitulo().equals(titulo)){
+        profesorServicio.editarAlumno(alumnoServicio.findById(id),alumno,
+                alumnoServicio/*, titulo, curso, cursoServicio*/, cursoServicio,curso);
+        //    return accederAlumnos( model);
+        //}else{
+        //    return accederEditarAlumno( id,  model,true);
+        //}
         return accederAlumnos( model);
     }
 
@@ -298,5 +326,7 @@ public class JfController {
         profesorServicio.eliminarAlumno(alumnoServicio, asignaturaServicio, cursoServicio, id);
         return accederAlumnos(idCurso,  model);
     }
+
+
 
 }

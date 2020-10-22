@@ -43,15 +43,15 @@
             <input th:field="*{email}"th:value="*{email}" type="email" name="email" size="60" class="my-4 text-center" placeholder="Email">
 
             <input  type="date" th:field="*{fechaNacimiento}" th:value="*{fechaNacimiento}"  name="fechaNac" size="60" class="my-4 text-center" placeholder="FechaNacimiento">
-            <!--th:field="*{fechaNacimiento}"--><!--@DateTimeFormat(pattern = "yyyy-MM-dd")-->
-            <select name="titulo"  class="my-4 text-center" placeholder="Título">
-                <option value="">TítuloX</option>
-            </select>
 
-            <select name="curso"  class="my-4 text-center" placeholder="Curso">
-                <option value="">CursoX</option>
-            </select>
+            <!--<select  name="titulo" th:field="${titulo}"  class="my-4 text-center" placeholder="Título">
+                <option th:each="tituloX : ${titulos}" th:value="${tituloX}" th:text="${tituloX.nombre}">TítuloX</option>
+            </select>-->
 
+            <select th:field="${curso}" name="curso"  class="my-4 text-center" placeholder="Curso">
+                <option th:each="cadaCurso : ${cursos}" th:text="${cadaCurso.nombre}" th:value="${cadaCurso}">CursoX</option>
+            </select>
+            <!--<div th:if="${error}">Error: el curso debe estar en el titulo seleccionado.</div>-->
             <input type="submit" name="envio" class="my-4 botonEnvio text-white font-weight-bold" value="Añadir">
 
 
