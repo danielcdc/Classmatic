@@ -44,14 +44,13 @@
 
             <input  type="date" th:field="*{fechaNacimiento}" th:value="*{fechaNacimiento}"  name="fechaNac" size="60" class="my-4 text-center" placeholder="FechaNacimiento">
 
-            <!--<select  name="titulo" th:field="${titulo}"  class="my-4 text-center" placeholder="Título">
-                <option th:each="tituloX : ${titulos}" th:value="${tituloX}" th:text="${tituloX.nombre}">TítuloX</option>
-            </select>-->
+            <div>Título actual: <span th:text="*{curso.titulo.nombre}"></span></div>
 
-            <select th:field="${curso}" name="curso"  class="my-4 text-center" placeholder="Curso">
-                <option th:each="cadaCurso : ${cursos}" th:text="${cadaCurso.nombre}" th:value="${cadaCurso}">CursoX</option>
+            <div>Curso actual: <span th:text="*{curso.nombre}"></span></div>
+            <select th:field="*{curso.id}" class="my-4 text-center" placeholder="Curso">
+                <option  th:each="cadaCurso : ${cursos}" th:text="${cadaCurso.nombre}" th:value="${cadaCurso.id}" th:selected="${cadaCurso.nombre} == *{curso.nombre}">CursoX</option>
             </select>
-            <!--<div th:if="${error}">Error: el curso debe estar en el titulo seleccionado.</div>-->
+
             <input type="submit" name="envio" class="my-4 botonEnvio text-white font-weight-bold" value="Añadir">
 
 

@@ -15,14 +15,19 @@ public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRep
 
     private final ProfesorRepositorio profesorReporitorio;
 
-    public void editarAlumno(Alumno a, Alumno al, AlumnoServicio alumnoServicio/*,
-                             Titulo titulo*/, CursoServicio cursoServicio,Curso curso) {
+    public void editarAlumno(Alumno a, Alumno al, AlumnoServicio alumnoServicio, CursoServicio cursoServicio) {
         a.setNombre(al.getNombre());
         a.setApellidos(al.getApellidos());
         a.setEmail(al.getEmail());
         a.setFechaNacimiento(al.getFechaNacimiento());
-        curso.addAlumno(a);
-        cursoServicio.edit(curso);
+        Curso cAnt=a.getCurso();
+        Curso cNew=cursoServicio.findById(al.getCurso().getId());
+        if(!cAnt.equals(cNew)){
+            cAnt.removeAlumno(a);
+            cNew.addAlumno(a);
+            cursoServicio.edit(cAnt);
+            cursoServicio.edit(cNew);
+        }
         alumnoServicio.edit(a);
 
     }
