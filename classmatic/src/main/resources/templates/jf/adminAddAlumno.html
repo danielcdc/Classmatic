@@ -43,13 +43,12 @@
 				<input th:field="*{email}" type="email" name="email" size="60" class="my-4 text-center" placeholder="Email">
 
 				<input  type="date" th:field="*{fechaNacimiento}"  name="fechaNac" size="60" class="my-4 text-center" placeholder="FechaNacimiento">
-				<!--th:field="*{fechaNacimiento}"--><!--@DateTimeFormat(pattern = "yyyy-MM-dd")-->
-				<select name="titulo"  class="my-4 text-center" placeholder="Título">
-					<option value="">TítuloX</option>
-				</select>
 
-				<select name="curso"  class="my-4 text-center" placeholder="Curso">
+				<!--<select name="curso"  class="my-4 text-center" placeholder="Curso">
 					<option value="">CursoX</option>
+				</select>-->
+				<select th:field="*{curso.id}" class="my-4 text-center" placeholder="Curso">
+					<option  th:each="cadaCurso : ${cursos}" th:text="${cadaCurso.nombre}" th:value="${cadaCurso.id}">CursoX</option>
 				</select>
 
 				<input type="submit" name="envio" class="my-4 botonEnvio text-white font-weight-bold" value="Añadir">

@@ -15,6 +15,39 @@ public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRep
 
     private final ProfesorRepositorio profesorReporitorio;
 
+
+    public void anyadirAlumno(Alumno alumnoForm, AlumnoServicio alumnoServicio, CursoServicio cursoServicio){
+        Alumno a=new Alumno();
+        Curso c=cursoServicio.findById(alumnoForm.getCurso().getId());
+        a.setNombre(alumnoForm.getNombre());
+        a.setApellidos(alumnoForm.getApellidos());
+        a.setFechaNacimiento(alumnoForm.getFechaNacimiento());
+        a.setCurso(c);
+        a.setEmail(alumnoForm.getEmail());
+        a.setAsignaturas(new ArrayList<Asignatura>());
+        a.setSolicitudesAmp(new ArrayList<SolicitudAmpliacionMatricula>());
+        a.setSituacionesExc(new ArrayList<SituacionExcepcional>());
+        c.addAlumno(a);
+        alumnoServicio.edit(a);
+        cursoServicio.edit(c);
+    }
+
+    public void anyaidrAlumnoACurso(AlumnoServicio alumnoServicio, CursoServicio cursoServicio,
+                                    Alumno al, Long id){
+        Alumno a=new Alumno();
+        Curso c=cursoServicio.findById(id);
+        a.setNombre(al.getNombre());
+        a.setApellidos(al.getApellidos());
+        a.setFechaNacimiento(al.getFechaNacimiento());
+        a.setCurso(c);
+        a.setEmail(al.getEmail());
+        a.setAsignaturas(new ArrayList<Asignatura>());
+        a.setSolicitudesAmp(new ArrayList<SolicitudAmpliacionMatricula>());
+        a.setSituacionesExc(new ArrayList<SituacionExcepcional>());
+        alumnoServicio.edit(a);
+        cursoServicio.edit(c);
+    }
+
     public void editarAlumno(Alumno a, Alumno al, AlumnoServicio alumnoServicio, CursoServicio cursoServicio) {
         a.setNombre(al.getNombre());
         a.setApellidos(al.getApellidos());
@@ -29,8 +62,16 @@ public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRep
             cursoServicio.edit(cNew);
         }
         alumnoServicio.edit(a);
-
     }
+
+    public void editarAlumnoMenosCurso(Alumno a, Alumno al, AlumnoServicio alumnoServicio, CursoServicio cursoServicio) {
+        a.setNombre(al.getNombre());
+        a.setApellidos(al.getApellidos());
+        a.setEmail(al.getEmail());
+        a.setFechaNacimiento(al.getFechaNacimiento());
+        alumnoServicio.edit(a);
+    }
+
 
     public void editarProfesor(Profesor p, Profesor pr, ProfesorServicio profesorServicio) {
         p.setNombre(pr.getNombre());
