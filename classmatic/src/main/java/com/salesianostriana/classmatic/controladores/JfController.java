@@ -35,6 +35,7 @@ public class JfController {
     UsuarioServicio usuarioServicio;
 
 
+
     @GetMapping("/adminInicio")
     public String iniciarAdmin(){
         return "jf/adminInicio";
@@ -80,10 +81,10 @@ public class JfController {
         return "jf/adminAddAlumno";
     }
 
-    @PostMapping("/adminAlumnos/addAlumno")
+    @PostMapping("/adminAlumnos/addAlumno")//-----------------------------------------------------IMPLEMENTAR VALIDACION
     public String crearAlumno(@ModelAttribute("alumnoForm")Alumno alumno, Model model){
         //alumnoServicio.save(alumno);
-        profesorServicio.anyadirAlumno(alumno, alumnoServicio, cursoServicio, usuarioServicio);
+        profesorServicio.anyadirAlumno(alumno, alumnoServicio, cursoServicio, usuarioServicio, envioEmailServicio);
         return accederAlumnos(model);
     }
 
@@ -94,10 +95,10 @@ public class JfController {
         return "jf/adminAddProfesor";
     }
 
-    @PostMapping("/adminProfesores/addProfesor")
+    @PostMapping("/adminProfesores/addProfesor")//------------------------------------------------IMPLEMENTAR VALIDACION
     public String crearProfesor(@ModelAttribute("profesorForm")Profesor profesor, Model model){
         //profesorServicio.save(profesor);
-        profesorServicio.anyadirProfesor(new Profesor(),profesor, usuarioServicio);
+        profesorServicio.anyadirProfesor(new Profesor(),profesor, usuarioServicio, envioEmailServicio);
         return accederProfesores( model);
     }
 
@@ -334,7 +335,7 @@ public class JfController {
     }
 */
     //Anyadir alumno a curso
-    @GetMapping("/adminAlumnosCurso/addAlumnoACurso/{id}")
+    @GetMapping("/adminAlumnosCurso/addAlumnoACurso/{id}")//--------------------------------------IMPLEMENTAR VALIDACION
     public String addAlumnoAAcurso(@PathVariable Long id, Model model){
         Curso c=cursoServicio.findById(id);
         model.addAttribute("idCurso",id);
@@ -347,7 +348,7 @@ public class JfController {
 
     @PostMapping("/adminAlumnosCurso/addAlumnoACurso/{id}")
     public String addAlumnoACurso(@PathVariable Long id, @ModelAttribute("alumno")Alumno alumno, Model model){
-        profesorServicio.anyaidrAlumnoACurso(alumnoServicio, cursoServicio,alumno,id, usuarioServicio);
+        profesorServicio.anyaidrAlumnoACurso(alumnoServicio, cursoServicio,alumno,id, usuarioServicio, envioEmailServicio);
         return accederAlumnos(id,  model);
     }
 

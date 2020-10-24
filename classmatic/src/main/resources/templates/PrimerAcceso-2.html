@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 	<meta charset="utf-8">
 	<title>Bienvenido</title>
@@ -15,16 +15,16 @@
 	<div class="contenedor d-flex flex-column justify-content-center align-items-center">
 		
 		<p class="h1 text-light my-2">Bienvenido</p>
-		<p class="h3 text-light my-2">Pablo Gómez Reverte</p>
-		<p class="h4 text-light my-2">pagore@gmail.com</p>
+		<!--<p class="h3 text-light my-2">Pablo Gómez Reverte</p>
+		<p class="h4 text-light my-2">pagore@gmail.com</p>-->
 
 		<div class=" cajaFormLogin my-2">
 			
 			<form method="POST" action="#" class="formularioContraLogin d-flex flex-column justify-content-center align-items-center">
-				
-				<input type="text" name="passwd" size="60" class="my-4 text-center" placeholder="Password">
 
-				<input type="text" name="passwdRepe" size="60" class="my-4 text-center" placeholder="Repitela">
+				<input th:field="${codigo}" type="text" size="60" class="my-4 text-center" placeholder="Código">
+
+				<input th:text="${contrasenya}" type="text" name="passwd" size="60" class="my-4 text-center" placeholder="Password">
 
 				<input type="submit" name="envio" class="mt-4 botonEnvio text-white font-weight-bold" value="Acceder">
 

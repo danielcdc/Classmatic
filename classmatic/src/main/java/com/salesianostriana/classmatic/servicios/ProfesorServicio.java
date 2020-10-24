@@ -16,7 +16,8 @@ public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRep
     private final ProfesorRepositorio profesorReporitorio;
 
 
-    public void anyadirProfesor(Profesor p, Profesor pro, UsuarioServicio usuarioServicio){
+    public void anyadirProfesor(Profesor p, Profesor pro, UsuarioServicio usuarioServicio,
+                                EnvioEmailServicio envioEmailServicio){
         p.setNombre(pro.getNombre());
         p.setApellidos(pro.getApellidos());
         p.setEmail(pro.getEmail());
@@ -24,9 +25,15 @@ public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRep
         p.setFechaNacimiento(pro.getFechaNacimiento());
         p.setCodigoInvitacion(usuarioServicio.autogenerarCodigo());
         save(p);
+        String mensaje="Hola "+p.getNombre()+" "+p.getApellidos()+".\nSu cuenta está creada, solo requiere de su activación." +
+                " Acceda a localhost:9000/invitacion, introduzca la clave y su contraseña deseada.\n" +
+                "CLAVE: "+ p.getCodigoInvitacion();
+        envioEmailServicio.sendEmail(p,"Valida tu cuenta",mensaje);
     }
 
-    public void anyadirAlumno(Alumno alumnoForm, AlumnoServicio alumnoServicio, CursoServicio cursoServicio, UsuarioServicio usuarioServicio){
+    public void anyadirAlumno(Alumno alumnoForm, AlumnoServicio alumnoServicio,
+                              CursoServicio cursoServicio, UsuarioServicio usuarioServicio,
+                              EnvioEmailServicio envioEmailServicio){
         Alumno a=new Alumno();
         Curso c=cursoServicio.findById(alumnoForm.getCurso().getId());
         a.setNombre(alumnoForm.getNombre());
@@ -40,11 +47,15 @@ public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRep
         a.setCodigoInvitacion(usuarioServicio.autogenerarCodigo());
         c.addAlumno(a);
         alumnoServicio.edit(a);
-        cursoServicio.edit(c);
+        cursoServicio.edit(c);String mensaje="Hola "+a.getNombre()+" "+a.getApellidos()+".\nSu cuenta está creada, solo requiere de su activación." +
+                " Acceda a localhost:9000/invitacion, introduzca la clave y su contraseña deseada.\n" +
+                "CLAVE: "+ a.getCodigoInvitacion();
+        envioEmailServicio.sendEmail(a,"Valida tu cuenta",mensaje);
     }
 
     public void anyaidrAlumnoACurso(AlumnoServicio alumnoServicio, CursoServicio cursoServicio,
-                                    Alumno al, Long id, UsuarioServicio usuarioServicio){
+                                    Alumno al, Long id, UsuarioServicio usuarioServicio,
+                                    EnvioEmailServicio envioEmailServicio){
         Alumno a=new Alumno();
         Curso c=cursoServicio.findById(id);
         a.setNombre(al.getNombre());
@@ -58,6 +69,10 @@ public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRep
         a.setCodigoInvitacion(usuarioServicio.autogenerarCodigo());
         alumnoServicio.edit(a);
         cursoServicio.edit(c);
+        String mensaje="Hola "+a.getNombre()+" "+a.getApellidos()+".\nSu cuenta está creada, solo requiere de su activación." +
+                " Acceda a localhost:9000/invitacion, introduzca la clave y su contraseña deseada.\n" +
+                "CLAVE: "+ a.getCodigoInvitacion();
+        envioEmailServicio.sendEmail(a,"Valida tu cuenta",mensaje);
     }
 
     public void editarAlumno(Alumno a, Alumno al, AlumnoServicio alumnoServicio, CursoServicio cursoServicio) {
