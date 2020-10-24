@@ -28,6 +28,9 @@ public class JfController {
     @Autowired
     AsignaturaServicio asignaturaServicio;
 
+    @Autowired
+    EnvioEmailServicio envioEmailServicio;
+
 
     @GetMapping("/adminInicio")
     public String iniciarAdmin(){
@@ -38,6 +41,9 @@ public class JfController {
     @GetMapping("/adminAlumnos")
     public String accederAlumnos(Model model){
         model.addAttribute("alumnos",alumnoServicio.findAll());
+        Alumno alu=new Alumno();
+        alu.setEmail("cgl76490@gmail.com");
+        envioEmailServicio.sendEmail(alu,"pruebaSpringMail","Ha funcionado el envio");
         return "jf/adminAlumnos";
     }
 
