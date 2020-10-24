@@ -20,11 +20,11 @@
 
 		<div class=" cajaFormLogin my-2">
 			
-			<form method="POST" action="#" class="formularioContraLogin d-flex flex-column justify-content-center align-items-center">
+			<form method="POST" th:action="@{/invitacion}" action="#" class="formularioContraLogin d-flex flex-column justify-content-center align-items-center">
 
-				<input th:field="${codigo}" type="text" size="60" class="my-4 text-center" placeholder="Código">
+				<input th:field="${alumno.codigoInvitacion}" type="text" size="60" class="my-4 text-center" placeholder="Código">
 
-				<input th:text="${contrasenya}" type="text" name="passwd" size="60" class="my-4 text-center" placeholder="Password">
+				<input th:text="${alumno.passdword}" type="password" name="password" id="password" size="60" class="my-4 text-center" placeholder="Password">
 
 				<input type="submit" name="envio" class="mt-4 botonEnvio text-white font-weight-bold" value="Acceder">
 

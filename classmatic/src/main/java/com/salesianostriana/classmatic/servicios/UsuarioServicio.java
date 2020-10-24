@@ -1,5 +1,6 @@
 package com.salesianostriana.classmatic.servicios;
 
+import com.salesianostriana.classmatic.entidades.Alumno;
 import com.salesianostriana.classmatic.entidades.Usuario;
 import com.salesianostriana.classmatic.servicios.base.ServicioBaseImp;
 import lombok.RequiredArgsConstructor;
@@ -26,9 +27,9 @@ public class UsuarioServicio extends ServicioBaseImp <Usuario, Long, UsuarioRepo
 
 
     public int autogenerarCodigo(){
-        Integer codigo;
+        int codigo;
         boolean rechazado=true;
-        List<Integer> usados=new ArrayList<Integer>();
+        List<Integer> usados=new ArrayList<>();
         for(Usuario us : findAll()){
             usados.add(us.getCodigoInvitacion());
         }
@@ -54,7 +55,9 @@ public class UsuarioServicio extends ServicioBaseImp <Usuario, Long, UsuarioRepo
         for(int i=0;i<listaU.size()&&!parar;i++){
             if(listaU.get(i).getCodigoInvitacion() == codigo){
                 listaU.get(i).setHabilitado(true);
+                System.out.println("La contrasenya es......................."+contrasenya);
                 listaU.get(i).setPassdword(passWordEncoder.encode(contrasenya));
+                listaU.get(i).setHabilitado(true);
                 edit(listaU.get(i));
                 parar=true;
                 //verificado=true;

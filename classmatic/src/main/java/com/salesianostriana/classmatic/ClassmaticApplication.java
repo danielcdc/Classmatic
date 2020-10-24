@@ -35,9 +35,10 @@ public class ClassmaticApplication {
 			a1.setSituacionesExc(new ArrayList<SituacionExcepcional>());
 			a1.setSolicitudesAmp(new ArrayList<SolicitudAmpliacionMatricula>());
 			//a1.setCurso(new Curso());
+			alumnoServicio.save(a1);
 			a1.setHabilitado(true);
 			a1.setCodigoInvitacion(1);
-			alumnoServicio.save(a1);
+			alumnoServicio.edit(a1);
 
 			Alumno a2 =new Alumno();
 			a2.setNombre("Laura");

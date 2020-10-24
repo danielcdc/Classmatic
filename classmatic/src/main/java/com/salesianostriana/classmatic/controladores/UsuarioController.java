@@ -1,5 +1,6 @@
 package com.salesianostriana.classmatic.controladores;
 
+import com.salesianostriana.classmatic.entidades.Alumno;
 import com.salesianostriana.classmatic.entidades.Usuario;
 import com.salesianostriana.classmatic.servicios.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,16 +30,21 @@ public class UsuarioController {
 
     @GetMapping("/invitacion")
     public String aceptarInvitacion(Model model){
-        Integer codigo=0;
-        model.addAttribute("codigo", codigo);
-        model.addAttribute("contrasenya", new String());
+        //int codigo= 0;
+        //model.addAttribute("codigo", codigo);
+        //model.addAttribute("contrasenya", new String());
+        //Alumno a=new Alumno();
+        //model.addAttribute("contra",a.getPassdword());
+        //model.addAttribute("codigo",a.getCodigoInvitacion());
+        model.addAttribute("alumno",new Alumno());
         return "PrimerAcceso-2";
     }
 
-    @PostMapping()
-    public String validar(@ModelAttribute("codigo")Integer codigo,@ModelAttribute("contrasenya")String contrasenya){
-        usuarioServicio.aceptarValidacion(codigo,contrasenya);
-        return iniciar();
+    @PostMapping("/invitacion")
+    public String validar(/*@ModelAttribute("codigo")int codigo,@ModelAttribute("contrasenya")String contrasenya*/
+                            @ModelAttribute("alumno")Alumno alumno){
+        usuarioServicio.aceptarValidacion(alumno.getCodigoInvitacion(),/*((Usuario)alumno).getPassdword()*/"1234");
+        return this.iniciar();
 
     }
 

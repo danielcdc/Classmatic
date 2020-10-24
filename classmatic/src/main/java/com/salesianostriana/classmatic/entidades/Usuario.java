@@ -74,7 +74,7 @@ public abstract class Usuario implements UserDetails {
         return habilitado;
     }
 
-    //private Image imgPerfil;
+
 
 
 
