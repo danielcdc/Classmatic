@@ -35,6 +35,8 @@ public class ClassmaticApplication {
 			a1.setSituacionesExc(new ArrayList<SituacionExcepcional>());
 			a1.setSolicitudesAmp(new ArrayList<SolicitudAmpliacionMatricula>());
 			//a1.setCurso(new Curso());
+			a1.setHabilitado(true);
+			a1.setCodigoInvitacion(1);
 			alumnoServicio.save(a1);
 
 			Alumno a2 =new Alumno();
@@ -47,6 +49,8 @@ public class ClassmaticApplication {
 			a2.setSituacionesExc(new ArrayList<SituacionExcepcional>());
 			a2.setSolicitudesAmp(new ArrayList<SolicitudAmpliacionMatricula>());
 			//a2.setCurso(new Curso());
+			a2.setHabilitado(true);
+			a2.setCodigoInvitacion(2);
 			alumnoServicio.save(a2);
 
 			Alumno a3 =new Alumno();
@@ -59,6 +63,8 @@ public class ClassmaticApplication {
 			a3.setSituacionesExc(new ArrayList<SituacionExcepcional>());
 			a3.setSolicitudesAmp(new ArrayList<SolicitudAmpliacionMatricula>());
 			//a3.setCurso(new Curso());
+			a3.setHabilitado(true);
+			a3.setCodigoInvitacion(3);
 			alumnoServicio.save(a3);
 
 			Alumno a4 =new Alumno();
@@ -71,6 +77,8 @@ public class ClassmaticApplication {
 			a4.setSituacionesExc(new ArrayList<SituacionExcepcional>());
 			a4.setSolicitudesAmp(new ArrayList<SolicitudAmpliacionMatricula>());
 			//a3.setCurso(new Curso());
+			a4.setHabilitado(true);
+			a4.setCodigoInvitacion(4);
 			alumnoServicio.save(a4);
 
 			Alumno a5 =new Alumno();
@@ -83,6 +91,8 @@ public class ClassmaticApplication {
 			a5.setSituacionesExc(new ArrayList<SituacionExcepcional>());
 			a5.setSolicitudesAmp(new ArrayList<SolicitudAmpliacionMatricula>());
 			//a3.setCurso(new Curso());
+			a5.setHabilitado(true);
+			a5.setCodigoInvitacion(5);
 			alumnoServicio.save(a5);
 
 			Alumno a6 =new Alumno();
@@ -95,6 +105,8 @@ public class ClassmaticApplication {
 			a6.setSituacionesExc(new ArrayList<SituacionExcepcional>());
 			a6.setSolicitudesAmp(new ArrayList<SolicitudAmpliacionMatricula>());
 			//a3.setCurso(new Curso());
+			a6.setHabilitado(true);
+			a6.setCodigoInvitacion(6);
 			alumnoServicio.save(a6);
 
 			Alumno a7 =new Alumno();
@@ -107,6 +119,8 @@ public class ClassmaticApplication {
 			a7.setSituacionesExc(new ArrayList<SituacionExcepcional>());
 			a7.setSolicitudesAmp(new ArrayList<SolicitudAmpliacionMatricula>());
 			//a3.setCurso(new Curso());
+			a7.setHabilitado(true);
+			a7.setCodigoInvitacion(7);
 			alumnoServicio.save(a7);
 
 			Alumno a8 =new Alumno();
@@ -119,6 +133,8 @@ public class ClassmaticApplication {
 			a8.setSituacionesExc(new ArrayList<SituacionExcepcional>());
 			a8.setSolicitudesAmp(new ArrayList<SolicitudAmpliacionMatricula>());
 			//a3.setCurso(new Curso());
+			a8.setHabilitado(true);
+			a8.setCodigoInvitacion(8);
 			alumnoServicio.save(a8);
 
 
@@ -383,6 +399,8 @@ public class ClassmaticApplication {
 			p1.setFechaNacimiento(LocalDate/*Time*/.of(1987,8,23/*,17,0*/));
 			p1.setPassdword(passWordEncoder.encode("1234"));
 			p1.setEsJefe(false);
+			p1.setHabilitado(true);
+			p1.setCodigoInvitacion(11);
 			profesorServicio.save(p1);
 
 			Profesor p3=new Profesor();
@@ -392,6 +410,8 @@ public class ClassmaticApplication {
 			p3.setFechaNacimiento(LocalDate/*Time*/.of(1987,8,23/*,17,0*/));
 			p3.setPassdword(passWordEncoder.encode("1234"));
 			p3.setEsJefe(false);
+			p3.setHabilitado(true);
+			p3.setCodigoInvitacion(13);
 			profesorServicio.save(p3);
 
 			Profesor p4=new Profesor();
@@ -401,6 +421,8 @@ public class ClassmaticApplication {
 			p4.setFechaNacimiento(LocalDate/*Time*/.of(1987,8,23/*,17,0*/));
 			p4.setPassdword(passWordEncoder.encode("1234"));
 			p4.setEsJefe(false);
+			p4.setHabilitado(true);
+			p4.setCodigoInvitacion(14);
 			profesorServicio.save(p4);
 
 
@@ -411,6 +433,8 @@ public class ClassmaticApplication {
 			p2.setFechaNacimiento(LocalDate/*Time*/.of(1983,2,8/*,20,30*/));
 			p2.setPassdword(passWordEncoder.encode("admin"));
 			p2.setEsJefe(true);
+			p2.setHabilitado(true);
+			p2.setCodigoInvitacion(12);
 			profesorServicio.save(p2);
 
 			Profesor p5=new Profesor();
@@ -420,6 +444,8 @@ public class ClassmaticApplication {
 			p5.setFechaNacimiento(LocalDate/*Time*/.of(1983,2,8/*,20,30*/));
 			p5.setPassdword(passWordEncoder.encode("admin"));
 			p5.setEsJefe(true);
+			p5.setHabilitado(true);
+			p5.setCodigoInvitacion(15);
 			profesorServicio.save(p5);
 
 		};

@@ -31,6 +31,9 @@ public class JfController {
     @Autowired
     EnvioEmailServicio envioEmailServicio;
 
+    @Autowired
+    UsuarioServicio usuarioServicio;
+
 
     @GetMapping("/adminInicio")
     public String iniciarAdmin(){
@@ -41,9 +44,9 @@ public class JfController {
     @GetMapping("/adminAlumnos")
     public String accederAlumnos(Model model){
         model.addAttribute("alumnos",alumnoServicio.findAll());
-        Alumno alu=new Alumno();
+        /*Alumno alu=new Alumno();
         alu.setEmail("cgl76490@gmail.com");
-        envioEmailServicio.sendEmail(alu,"pruebaSpringMail","Ha funcionado el envio");
+        envioEmailServicio.sendEmail(alu,"pruebaSpringMail","Ha funcionado el envio");*///Esto era una prueba de envio de email
         return "jf/adminAlumnos";
     }
 
@@ -80,7 +83,7 @@ public class JfController {
     @PostMapping("/adminAlumnos/addAlumno")
     public String crearAlumno(@ModelAttribute("alumnoForm")Alumno alumno, Model model){
         //alumnoServicio.save(alumno);
-        profesorServicio.anyadirAlumno(alumno, alumnoServicio, cursoServicio);
+        profesorServicio.anyadirAlumno(alumno, alumnoServicio, cursoServicio, usuarioServicio);
         return accederAlumnos(model);
     }
 
@@ -93,7 +96,8 @@ public class JfController {
 
     @PostMapping("/adminProfesores/addProfesor")
     public String crearProfesor(@ModelAttribute("profesorForm")Profesor profesor, Model model){
-        profesorServicio.save(profesor);
+        //profesorServicio.save(profesor);
+        profesorServicio.anyadirProfesor(new Profesor(),profesor, usuarioServicio);
         return accederProfesores( model);
     }
 
@@ -126,7 +130,7 @@ public class JfController {
 
     @PostMapping("/adminProfesores/modificarProfesor/{id}")
     public String modificarProfesor(@PathVariable Long  id, Model model, @ModelAttribute("profesor")Profesor profesor){
-        profesorServicio.editarProfesor(profesorServicio.findById(id),profesor, profesorServicio);
+        profesorServicio.editarProfesor(profesorServicio.findById(id),profesor);
         //profesorServicio.edit(profesorServicio.findById(id));
         return accederProfesores( model);
     }
@@ -343,7 +347,7 @@ public class JfController {
 
     @PostMapping("/adminAlumnosCurso/addAlumnoACurso/{id}")
     public String addAlumnoACurso(@PathVariable Long id, @ModelAttribute("alumno")Alumno alumno, Model model){
-        profesorServicio.anyaidrAlumnoACurso(alumnoServicio, cursoServicio,alumno,id);
+        profesorServicio.anyaidrAlumnoACurso(alumnoServicio, cursoServicio,alumno,id, usuarioServicio);
         return accederAlumnos(id,  model);
     }
 

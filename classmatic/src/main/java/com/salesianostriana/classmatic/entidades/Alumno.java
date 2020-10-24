@@ -88,8 +88,8 @@ public class Alumno extends Usuario {
     }
 
     @Builder
-    public Alumno(long id, String nombre, String apellidos, String email, String passdword, LocalDate/*Time*/ fechaNacimiento, Curso curso, List<Asignatura> asignaturas, List<SituacionExcepcional> situacionesExc, List<SolicitudAmpliacionMatricula> solicitudesAmp) {
-        super(id, nombre, apellidos, email, passdword, fechaNacimiento);
+    public Alumno(long id, String nombre, String apellidos, String email, String passdword, LocalDate/*Time*/ fechaNacimiento, Curso curso, List<Asignatura> asignaturas, List<SituacionExcepcional> situacionesExc, List<SolicitudAmpliacionMatricula> solicitudesAmp, boolean habilitado,int codigoInvitacion) {
+        super(id, nombre, apellidos, email, passdword, fechaNacimiento,habilitado, codigoInvitacion);
         this.curso = curso;
         this.asignaturas = asignaturas;
         this.situacionesExc = situacionesExc;

@@ -32,6 +32,8 @@ public abstract class Usuario implements UserDetails {
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private LocalDate/*Time*/ fechaNacimiento;
 
+    private boolean habilitado=false;
+    private int codigoInvitacion;
 
 
     /*
@@ -69,7 +71,7 @@ public abstract class Usuario implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return habilitado;
     }
 
     //private Image imgPerfil;

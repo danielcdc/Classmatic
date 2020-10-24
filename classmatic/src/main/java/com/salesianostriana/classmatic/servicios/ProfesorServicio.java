@@ -16,7 +16,17 @@ public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRep
     private final ProfesorRepositorio profesorReporitorio;
 
 
-    public void anyadirAlumno(Alumno alumnoForm, AlumnoServicio alumnoServicio, CursoServicio cursoServicio){
+    public void anyadirProfesor(Profesor p, Profesor pro, UsuarioServicio usuarioServicio){
+        p.setNombre(pro.getNombre());
+        p.setApellidos(pro.getApellidos());
+        p.setEmail(pro.getEmail());
+        p.setEsJefe(pro.isEsJefe());
+        p.setFechaNacimiento(pro.getFechaNacimiento());
+        p.setCodigoInvitacion(usuarioServicio.autogenerarCodigo());
+        save(p);
+    }
+
+    public void anyadirAlumno(Alumno alumnoForm, AlumnoServicio alumnoServicio, CursoServicio cursoServicio, UsuarioServicio usuarioServicio){
         Alumno a=new Alumno();
         Curso c=cursoServicio.findById(alumnoForm.getCurso().getId());
         a.setNombre(alumnoForm.getNombre());
@@ -27,13 +37,14 @@ public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRep
         a.setAsignaturas(new ArrayList<Asignatura>());
         a.setSolicitudesAmp(new ArrayList<SolicitudAmpliacionMatricula>());
         a.setSituacionesExc(new ArrayList<SituacionExcepcional>());
+        a.setCodigoInvitacion(usuarioServicio.autogenerarCodigo());
         c.addAlumno(a);
         alumnoServicio.edit(a);
         cursoServicio.edit(c);
     }
 
     public void anyaidrAlumnoACurso(AlumnoServicio alumnoServicio, CursoServicio cursoServicio,
-                                    Alumno al, Long id){
+                                    Alumno al, Long id, UsuarioServicio usuarioServicio){
         Alumno a=new Alumno();
         Curso c=cursoServicio.findById(id);
         a.setNombre(al.getNombre());
@@ -44,6 +55,7 @@ public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRep
         a.setAsignaturas(new ArrayList<Asignatura>());
         a.setSolicitudesAmp(new ArrayList<SolicitudAmpliacionMatricula>());
         a.setSituacionesExc(new ArrayList<SituacionExcepcional>());
+        a.setCodigoInvitacion(usuarioServicio.autogenerarCodigo());
         alumnoServicio.edit(a);
         cursoServicio.edit(c);
     }
@@ -73,13 +85,13 @@ public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRep
     }
 
 
-    public void editarProfesor(Profesor p, Profesor pr, ProfesorServicio profesorServicio) {
+    public void editarProfesor(Profesor p, Profesor pr) {
         p.setNombre(pr.getNombre());
         p.setApellidos(pr.getApellidos());
         p.setEmail(pr.getEmail());
         p.setFechaNacimiento(pr.getFechaNacimiento());
         p.setEsJefe(pr.isEsJefe());
-        profesorServicio.edit(p);
+        edit(p);
 
     }
 
