@@ -43,7 +43,8 @@ public class UsuarioController {
     @PostMapping("/invitacion")
     public String validar(/*@ModelAttribute("codigo")int codigo,@ModelAttribute("contrasenya")String contrasenya*/
                             @ModelAttribute("alumno")Alumno alumno){
-        usuarioServicio.aceptarValidacion(alumno.getCodigoInvitacion(),/*((Usuario)alumno).getPassdword()*/"1234");
+        System.out.println("La contrasenya es:"+alumno.getPassdword());
+        usuarioServicio.aceptarValidacion(alumno.getCodigoInvitacion(),((Usuario)alumno).getPassdword());
         return this.iniciar();
 
     }
