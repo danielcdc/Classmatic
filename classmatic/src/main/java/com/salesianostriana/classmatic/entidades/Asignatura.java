@@ -22,6 +22,9 @@ public class Asignatura {
     @ManyToMany(mappedBy = "asignaturas")
     private List<Alumno> alumnos;
 
+    @ManyToOne
+    private Horario horario;
+
 
     @ManyToOne
     private Curso curso;
