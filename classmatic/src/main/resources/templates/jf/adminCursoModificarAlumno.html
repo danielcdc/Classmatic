@@ -2,7 +2,7 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8">
-    <title>AddAlumno</title>
+    <title>Modificar Alumno a curso</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
@@ -14,18 +14,22 @@
 <div class="contenedor container-fluid">
 
     <div class="row">
-        <div class="col-6 d-flex flex-row">
+        <div class="col-6 d-flex flex-row flex-wrap">
             <h1>></h1>
             <a th:href="@{/jf/adminInicio}" class="text-white"><h1>HOME</h1></a>
             <h1>></h1>
-            <a th:href="@{/jf/adminAlumnos}" class="text-white"><h1>ALUMNOS</h1></a>
+            <a th:href="@{/jf/adminTitulos}" class="text-white"><h1>TITULOS</h1></a>
             <h1>></h1>
-            <h1 th:text="${alumno.nombre}+' '+${alumno.apellidos}">nombreAlumno</h1>
+            <a th:href="@{/jf/adminTitulos/adminCursos/{id}(id=${idTitulo})}"  class="text-white"><h1 th:text="${nombreTitulo}">NombreTitulo</h1></a>
+            <h1>></h1>
+            <a th:href="@{/jf/adminAlumnos/accederAlumnos/{id}(id=${idCurso})}"><h1 th:text="${nombreCurso}" class="text-white">Nombre curso</h1></a>
+            <h1>></h1>
+            <h1 th:text="${alumno.nombre}+' '+${alumno.apellidos}" class="text-white">Modificar alumno</h1>
         </div>
         <div class="col-6 d-flex flex-row justify-content-end">
 
             <h3 class="px-2">NombreUsuarioAutenticado</h3>
-            <!--Logout-->
+
             <form th:action="@{/logout}" method="POST" id="logoutForm"></form>
             <a href="javascript:document.getElementById('logoutForm').submit()" class="text-dark text-decoration-none"><h3>Logout</h3></a>
 
@@ -34,22 +38,16 @@
 
     <div class="addAlumno my-2 container-fluid d-flex align-items-center justify-content-center col-6 offset-3" >
 
-        <form method="POST" th:action="@{/jf/adminAlumnos/editarAlumno/{id}(id=${alumno.id})}" th:object="${alumno}"  class=" d-flex flex-column justify-content-center align-items-center">
+        <form method="POST" th:action="@{/jf/adminAlumnosCurso/editAlumnoACurso/{id}(id=${alumno.id})}" th:object="${alumno}"  class=" d-flex flex-column justify-content-center align-items-center">
 
-            <input th:field="*{nombre}" th:value="*{nombre}" type="text" name="nombre" size="60" class="my-4 text-center"  placeholder="Nombre">
+            <input th:field="*{nombre}" type="text" name="nombre" size="60" class="my-4 text-center" placeholder="Nombre">
 
-            <input th:field="*{apellidos}" th:value="*{apellidos}" type="text" name="apellidos" size="60" class="my-4 text-center" placeholder="Apellidos">
+            <input th:field="*{apellidos}" type="text" name="apellidos" size="60" class="my-4 text-center" placeholder="Apellidos">
 
-            <input th:field="*{email}"th:value="*{email}" type="email" name="email" size="60" class="my-4 text-center" placeholder="Email">
+            <input th:field="*{email}" type="email" name="email" size="60" class="my-4 text-center" placeholder="Email">
 
-            <input  type="date" th:field="*{fechaNacimiento}" th:value="*{fechaNacimiento}"  name="fechaNac" size="60" class="my-4 text-center" placeholder="FechaNacimiento">
+            <input  type="date" th:field="*{fechaNacimiento}"  name="fechaNac" size="60" class="my-4 text-center" placeholder="FechaNacimiento">
 
-            <div>Título actual: <span th:text="*{curso.titulo.nombre}"></span></div>
-
-            <div>Curso actual: <span th:text="*{curso.nombre}"></span></div>
-            <select th:field="*{curso.id}" class="my-4 text-center" placeholder="Curso">
-                <option  th:each="cadaCurso : ${cursos}" th:text="${cadaCurso.nombre}" th:value="${cadaCurso.id}" th:selected="${cadaCurso.nombre} == *{curso.nombre}">CursoX</option>
-            </select>
 
             <input type="submit" name="envio" class="my-4 botonEnvio text-white font-weight-bold" value="Añadir">
 
@@ -59,6 +57,7 @@
 
 
     </div>
+
 
 </div>
 

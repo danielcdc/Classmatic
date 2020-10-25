@@ -31,8 +31,8 @@ public class Profesor extends Usuario {
     }
 
     @Builder
-    public Profesor(long id, String nombre, String apellidos, String email, String passdword, LocalDate/*Time*/ fechaNacimiento, boolean esJefe) {
-        super(id, nombre, apellidos, email, passdword, fechaNacimiento);
+    public Profesor(long id, String nombre, String apellidos, String email, String passdword, LocalDate/*Time*/ fechaNacimiento, boolean esJefe, boolean habilitado, int codigoInvitacion) {
+        super(id, nombre, apellidos, email, passdword, fechaNacimiento, habilitado, codigoInvitacion);
         this.esJefe = esJefe;
     }
 

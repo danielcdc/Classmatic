@@ -15,22 +15,98 @@ public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRep
 
     private final ProfesorRepositorio profesorReporitorio;
 
-    public void editarAlumno(Alumno a, Alumno al, AlumnoServicio alumnoServicio) {
+
+    public void anyadirProfesor(Profesor p, Profesor pro, UsuarioServicio usuarioServicio,
+                                EnvioEmailServicio envioEmailServicio){
+        p.setNombre(pro.getNombre());
+        p.setApellidos(pro.getApellidos());
+        p.setEmail(pro.getEmail());
+        p.setEsJefe(pro.isEsJefe());
+        p.setFechaNacimiento(pro.getFechaNacimiento());
+        p.setCodigoInvitacion(usuarioServicio.autogenerarCodigo());
+        save(p);
+        String mensaje="Hola "+p.getNombre()+" "+p.getApellidos()+".\nSu cuenta está creada, solo requiere de su activación." +
+                " Acceda a localhost:9000/invitacion, introduzca la clave y su contraseña deseada.\n" +
+                "CLAVE: "+ p.getCodigoInvitacion();
+        envioEmailServicio.sendEmail(p,"Valida tu cuenta",mensaje);
+    }
+
+    public void anyadirAlumno(Alumno alumnoForm, AlumnoServicio alumnoServicio,
+                              CursoServicio cursoServicio, UsuarioServicio usuarioServicio,
+                              EnvioEmailServicio envioEmailServicio){
+        Alumno a=new Alumno();
+        Curso c=cursoServicio.findById(alumnoForm.getCurso().getId());
+        a.setNombre(alumnoForm.getNombre());
+        a.setApellidos(alumnoForm.getApellidos());
+        a.setFechaNacimiento(alumnoForm.getFechaNacimiento());
+        a.setCurso(c);
+        a.setEmail(alumnoForm.getEmail());
+        a.setAsignaturas(new ArrayList<Asignatura>());
+        a.setSolicitudesAmp(new ArrayList<SolicitudAmpliacionMatricula>());
+        a.setSituacionesExc(new ArrayList<SituacionExcepcional>());
+        a.setCodigoInvitacion(usuarioServicio.autogenerarCodigo());
+        c.addAlumno(a);
+        alumnoServicio.edit(a);
+        cursoServicio.edit(c);String mensaje="Hola "+a.getNombre()+" "+a.getApellidos()+".\nSu cuenta está creada, solo requiere de su activación." +
+                " Acceda a localhost:9000/invitacion, introduzca la clave y su contraseña deseada.\n" +
+                "CLAVE: "+ a.getCodigoInvitacion();
+        envioEmailServicio.sendEmail(a,"Valida tu cuenta",mensaje);
+    }
+
+    public void anyaidrAlumnoACurso(AlumnoServicio alumnoServicio, CursoServicio cursoServicio,
+                                    Alumno al, Long id, UsuarioServicio usuarioServicio,
+                                    EnvioEmailServicio envioEmailServicio){
+        Alumno a=new Alumno();
+        Curso c=cursoServicio.findById(id);
+        a.setNombre(al.getNombre());
+        a.setApellidos(al.getApellidos());
+        a.setFechaNacimiento(al.getFechaNacimiento());
+        a.setCurso(c);
+        a.setEmail(al.getEmail());
+        a.setAsignaturas(new ArrayList<Asignatura>());
+        a.setSolicitudesAmp(new ArrayList<SolicitudAmpliacionMatricula>());
+        a.setSituacionesExc(new ArrayList<SituacionExcepcional>());
+        a.setCodigoInvitacion(usuarioServicio.autogenerarCodigo());
+        alumnoServicio.edit(a);
+        cursoServicio.edit(c);
+        String mensaje="Hola "+a.getNombre()+" "+a.getApellidos()+".\nSu cuenta está creada, solo requiere de su activación." +
+                " Acceda a localhost:9000/invitacion, introduzca la clave y su contraseña deseada.\n" +
+                "CLAVE: "+ a.getCodigoInvitacion();
+        envioEmailServicio.sendEmail(a,"Valida tu cuenta",mensaje);
+    }
+
+    public void editarAlumno(Alumno a, Alumno al, AlumnoServicio alumnoServicio, CursoServicio cursoServicio) {
+        a.setNombre(al.getNombre());
+        a.setApellidos(al.getApellidos());
+        a.setEmail(al.getEmail());
+        a.setFechaNacimiento(al.getFechaNacimiento());
+        Curso cAnt=a.getCurso();
+        Curso cNew=cursoServicio.findById(al.getCurso().getId());
+        if(!cAnt.equals(cNew)){
+            cAnt.removeAlumno(a);
+            cNew.addAlumno(a);
+            cursoServicio.edit(cAnt);
+            cursoServicio.edit(cNew);
+        }
+        alumnoServicio.edit(a);
+    }
+
+    public void editarAlumnoMenosCurso(Alumno a, Alumno al, AlumnoServicio alumnoServicio, CursoServicio cursoServicio) {
         a.setNombre(al.getNombre());
         a.setApellidos(al.getApellidos());
         a.setEmail(al.getEmail());
         a.setFechaNacimiento(al.getFechaNacimiento());
         alumnoServicio.edit(a);
-
     }
 
-    public void editarProfesor(Profesor p, Profesor pr, ProfesorServicio profesorServicio) {
+
+    public void editarProfesor(Profesor p, Profesor pr) {
         p.setNombre(pr.getNombre());
         p.setApellidos(pr.getApellidos());
         p.setEmail(pr.getEmail());
         p.setFechaNacimiento(pr.getFechaNacimiento());
         p.setEsJefe(pr.isEsJefe());
-        profesorServicio.edit(p);
+        edit(p);
 
     }
 

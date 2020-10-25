@@ -1,19 +1,15 @@
 package com.salesianostriana.classmatic.entidades;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity @Data @Builder
 @NoArgsConstructor @AllArgsConstructor
+@EqualsAndHashCode(exclude={"curso"})
+@ToString(exclude = {"curso"})
 public class Titulo {
 
     @Id @GeneratedValue
@@ -22,7 +18,7 @@ public class Titulo {
     private String nombre;
     private String nivelAcademico;
 
-    @OneToMany(mappedBy = "titulo")
+    @OneToMany(mappedBy = "titulo", fetch = FetchType.EAGER)
     private List<Curso> cursos = new ArrayList();
 
     //Helpers curso

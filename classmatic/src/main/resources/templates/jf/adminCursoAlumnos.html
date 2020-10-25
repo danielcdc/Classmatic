@@ -35,8 +35,8 @@
     </div>
 
     <div class="row d-flex flex-row justify-content-around">
-        <!--Cambiar peticion-->
-        <a th:href="@{/jf/adminAsignnaturas{id}(id=${idCurso})}"  class="h1 text-white col-3 botonInicioAdmin bg-primary d-flex flex-row justify-content-center align-items-center text-decoration-none" >
+        <!--Meter peticion de creacion de alumno @{/jf/adminAlumnosCurso/addAlumnoACurso/{id}(id=${idCurso})}-->
+        <a th:href="@{/jf/adminAlumnosCurso/addAlumnoACurso/{id}(id=${idCurso})}" class="h1 text-white col-3 botonInicioAdmin bg-primary d-flex flex-row justify-content-center align-items-center text-decoration-none" >
             <div>
                 Añadir
             </div>
@@ -56,7 +56,7 @@
 
             <h3 class="my-3  col-5" th:text="${alumno.nombre}+' '+${alumno.apellidos}">Nombre</h3>
             <!--Cambiar peticiones-->
-            <a class="text-white my-3 offset-3 col-2" ><div class="botonEnvio d-flex justify-content-center align-items-center">Editar</div></a>
+            <a class="text-white my-3 offset-3 col-2" th:href="@{/jf/adminAlumnosCurso/editAlumnoACurso/{id}(id=${alumno.id})}"><div class="botonEnvio d-flex justify-content-center align-items-center">Editar</div></a>
             <a class="text-white my-3 py-3 col-2" th:href="@{/jf/adminAlumnos/eliminarAlumnoDeCurso/{id}(id=${alumno.id})}"><div class="botonEnvio bg-danger d-flex justify-content-center align-items-center">Eliminar</div></a>
 
         </div>

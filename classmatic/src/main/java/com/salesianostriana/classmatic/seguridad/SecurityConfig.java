@@ -29,8 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     protected void configure(HttpSecurity http)throws Exception{
         http
-
-                .authorizeRequests().antMatchers("/","/css/**","/js/**","/h2-console","imgs/**","/invitacion").permitAll()
+                .authorizeRequests().antMatchers("/","/css/**","/js/**"/*,"/h2-console"*/,"imgs/**","/invitacion/**").permitAll()
                 .antMatchers("/jf/**").hasRole("JF")
                 .antMatchers("/profesor/**").hasRole("PROFESOR")
                 .antMatchers("/alumno/**").hasRole("ALUMNO")

@@ -1,16 +1,14 @@
 package com.salesianostriana.classmatic.entidades;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
-@Data @Entity @Builder
+@Entity @Data @Builder
 @NoArgsConstructor @AllArgsConstructor
+ @EqualsAndHashCode(exclude={"titulo","asignaturas","alumnos"})
+@ToString(exclude = {"titulo","asignaturas","alumnos"})
 public class Curso {
 
     @Id @GeneratedValue
