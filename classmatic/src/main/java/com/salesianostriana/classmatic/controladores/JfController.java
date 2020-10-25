@@ -31,6 +31,10 @@ public class JfController {
     @Autowired
     EnvioEmailServicio envioEmailServicio;
 
+    @Autowired
+    UsuarioServicio usuarioServicio;
+
+
 
     @GetMapping("/adminInicio")
     public String iniciarAdmin(){
@@ -41,9 +45,9 @@ public class JfController {
     @GetMapping("/adminAlumnos")
     public String accederAlumnos(Model model){
         model.addAttribute("alumnos",alumnoServicio.findAll());
-        Alumno alu=new Alumno();
+        /*Alumno alu=new Alumno();
         alu.setEmail("cgl76490@gmail.com");
-        envioEmailServicio.sendEmail(alu,"pruebaSpringMail","Ha funcionado el envio");
+        envioEmailServicio.sendEmail(alu,"pruebaSpringMail","Ha funcionado el envio");*///Esto era una prueba de envio de email
         return "jf/adminAlumnos";
     }
 
@@ -77,10 +81,10 @@ public class JfController {
         return "jf/adminAddAlumno";
     }
 
-    @PostMapping("/adminAlumnos/addAlumno")
+    @PostMapping("/adminAlumnos/addAlumno")//-----------------------------------------------------IMPLEMENTAR VALIDACION
     public String crearAlumno(@ModelAttribute("alumnoForm")Alumno alumno, Model model){
         //alumnoServicio.save(alumno);
-        profesorServicio.anyadirAlumno(alumno, alumnoServicio, cursoServicio);
+        profesorServicio.anyadirAlumno(alumno, alumnoServicio, cursoServicio, usuarioServicio, envioEmailServicio);
         return accederAlumnos(model);
     }
 
@@ -91,9 +95,10 @@ public class JfController {
         return "jf/adminAddProfesor";
     }
 
-    @PostMapping("/adminProfesores/addProfesor")
+    @PostMapping("/adminProfesores/addProfesor")//------------------------------------------------IMPLEMENTAR VALIDACION
     public String crearProfesor(@ModelAttribute("profesorForm")Profesor profesor, Model model){
-        profesorServicio.save(profesor);
+        //profesorServicio.save(profesor);
+        profesorServicio.anyadirProfesor(new Profesor(),profesor, usuarioServicio, envioEmailServicio);
         return accederProfesores( model);
     }
 
@@ -126,7 +131,7 @@ public class JfController {
 
     @PostMapping("/adminProfesores/modificarProfesor/{id}")
     public String modificarProfesor(@PathVariable Long  id, Model model, @ModelAttribute("profesor")Profesor profesor){
-        profesorServicio.editarProfesor(profesorServicio.findById(id),profesor, profesorServicio);
+        profesorServicio.editarProfesor(profesorServicio.findById(id),profesor);
         //profesorServicio.edit(profesorServicio.findById(id));
         return accederProfesores( model);
     }
@@ -330,7 +335,7 @@ public class JfController {
     }
 */
     //Anyadir alumno a curso
-    @GetMapping("/adminAlumnosCurso/addAlumnoACurso/{id}")
+    @GetMapping("/adminAlumnosCurso/addAlumnoACurso/{id}")//--------------------------------------IMPLEMENTAR VALIDACION
     public String addAlumnoAAcurso(@PathVariable Long id, Model model){
         Curso c=cursoServicio.findById(id);
         model.addAttribute("idCurso",id);
@@ -343,7 +348,7 @@ public class JfController {
 
     @PostMapping("/adminAlumnosCurso/addAlumnoACurso/{id}")
     public String addAlumnoACurso(@PathVariable Long id, @ModelAttribute("alumno")Alumno alumno, Model model){
-        profesorServicio.anyaidrAlumnoACurso(alumnoServicio, cursoServicio,alumno,id);
+        profesorServicio.anyaidrAlumnoACurso(alumnoServicio, cursoServicio,alumno,id, usuarioServicio, envioEmailServicio);
         return accederAlumnos(id,  model);
     }
 
