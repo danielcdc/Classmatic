@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootApplication
 public class ClassmaticApplication {
@@ -21,7 +22,8 @@ public class ClassmaticApplication {
 
 	@Bean
 	public CommandLineRunner init(AlumnoServicio alumnoServicio, ProfesorServicio profesorServicio, PasswordEncoder passWordEncoder,
-								  AsignaturaServicio asignaturaServicio, CursoServicio cursoServicio, TituloServicio tituloServicio){
+								  AsignaturaServicio asignaturaServicio, CursoServicio cursoServicio, TituloServicio tituloServicio,
+								  HorarioServicio horarioServicio){
 		return args -> {
 
 			//Creacion alumnos de prueba
@@ -144,6 +146,7 @@ public class ClassmaticApplication {
 			//Creacion asignaturas de prueba
 
 			Asignatura as1 = new Asignatura();
+			as1.setHorarios(new ArrayList<Horario>());
 			as1.setNombre("Sistema Informáticos");
 			as1.setNHorasSemanales(8);
 			as1.setAlumnos(new ArrayList<Alumno>());
@@ -157,6 +160,7 @@ public class ClassmaticApplication {
 
 
 			Asignatura as2 = new Asignatura();
+			as2.setHorarios(new ArrayList<Horario>());
 			as2.setNombre("Bases de Datos");
 			as2.setNHorasSemanales(8);
 			as2.setAlumnos(new ArrayList<Alumno>());
@@ -169,6 +173,7 @@ public class ClassmaticApplication {
 			alumnoServicio.edit(a2);
 
 			Asignatura as3 = new Asignatura();
+			as3.setHorarios(new ArrayList<Horario>());
 			as3.setNombre("Programación");
 			as3.setNHorasSemanales(8);
 			as3.setAlumnos(new ArrayList<Alumno>());
@@ -181,6 +186,7 @@ public class ClassmaticApplication {
 			alumnoServicio.edit(a2);
 
 			Asignatura as4 = new Asignatura();
+			as4.setHorarios(new ArrayList<Horario>());
 			as4.setNombre("Lenguajes de Marcas");
 			as4.setNHorasSemanales(8);
 			as4.setAlumnos(new ArrayList<Alumno>());
@@ -192,7 +198,47 @@ public class ClassmaticApplication {
 			alumnoServicio.edit(a1);
 			alumnoServicio.edit(a2);
 
+			Asignatura as13 = new Asignatura();
+			as13.setHorarios(new ArrayList<Horario>());
+			as13.setNombre("Entornos de Desarrollo");
+			as13.setNHorasSemanales(8);
+			as13.setAlumnos(new ArrayList<Alumno>());
+			as13.setSituacionExc(new ArrayList<SituacionExcepcional>());
+			as13.setSolicitudesAmp(new ArrayList<SolicitudAmpliacionMatricula>());
+			a1.addAsignatura(as13);
+			a2.addAsignatura(as13);
+			asignaturaServicio.save(as13);
+			alumnoServicio.edit(a1);
+			alumnoServicio.edit(a2);
+
+			Asignatura as14 = new Asignatura();
+			as14.setHorarios(new ArrayList<Horario>());
+			as14.setNombre("Formacion y Orientacion Laboral");
+			as14.setNHorasSemanales(8);
+			as14.setAlumnos(new ArrayList<Alumno>());
+			as14.setSituacionExc(new ArrayList<SituacionExcepcional>());
+			as14.setSolicitudesAmp(new ArrayList<SolicitudAmpliacionMatricula>());
+			a1.addAsignatura(as14);
+			a2.addAsignatura(as14);
+			asignaturaServicio.save(as14);
+			alumnoServicio.edit(a1);
+			alumnoServicio.edit(a2);
+
+			Asignatura as100 = new Asignatura();
+			as100.setHorarios(new ArrayList<Horario>());
+			as100.setNombre("Formacion y Orientacion Personal");
+			as100.setNHorasSemanales(8);
+			as100.setAlumnos(new ArrayList<Alumno>());
+			as100.setSituacionExc(new ArrayList<SituacionExcepcional>());
+			as100.setSolicitudesAmp(new ArrayList<SolicitudAmpliacionMatricula>());
+			a1.addAsignatura(as100);
+			a2.addAsignatura(as100);
+			asignaturaServicio.save(as100);
+			alumnoServicio.edit(a1);
+			alumnoServicio.edit(a2);
+
 			Asignatura as5 = new Asignatura();
+			as5.setHorarios(new ArrayList<Horario>());
 			as5.setNombre("Diseño de Interfaces");
 			as5.setNHorasSemanales(8);
 			as5.setAlumnos(new ArrayList<Alumno>());
@@ -205,6 +251,7 @@ public class ClassmaticApplication {
 			alumnoServicio.edit(a4);
 
 			Asignatura as6 = new Asignatura();
+			as6.setHorarios(new ArrayList<Horario>());
 			as6.setNombre("Programación Multimedia y Dispositivos Móviles");
 			as6.setNHorasSemanales(8);
 			as6.setAlumnos(new ArrayList<Alumno>());
@@ -217,6 +264,7 @@ public class ClassmaticApplication {
 			alumnoServicio.edit(a3);
 
 			Asignatura as7 = new Asignatura();
+			as7.setHorarios(new ArrayList<Horario>());
 			as7.setNombre("Sistemas de Gestión Empresarial");
 			as7.setNHorasSemanales(8);
 			as7.setAlumnos(new ArrayList<Alumno>());
@@ -229,6 +277,7 @@ public class ClassmaticApplication {
 			alumnoServicio.edit(a4);
 
 			Asignatura as8 = new Asignatura();
+			as8.setHorarios(new ArrayList<Horario>());
 			as8.setNombre("Empresa");
 			as8.setNHorasSemanales(8);
 			as8.setAlumnos(new ArrayList<Alumno>());
@@ -240,7 +289,61 @@ public class ClassmaticApplication {
 			alumnoServicio.edit(a3);
 			alumnoServicio.edit(a4);
 
+			Asignatura as15 = new Asignatura();
+			as15.setHorarios(new ArrayList<Horario>());
+			as15.setNombre("Acceso a Datos");
+			as15.setNHorasSemanales(8);
+			as15.setAlumnos(new ArrayList<Alumno>());
+			as15.setSituacionExc(new ArrayList<SituacionExcepcional>());
+			as15.setSolicitudesAmp(new ArrayList<SolicitudAmpliacionMatricula>());
+			a3.addAsignatura(as15);
+			a4.addAsignatura(as15);
+			asignaturaServicio.save(as15);
+			alumnoServicio.edit(a3);
+			alumnoServicio.edit(a4);
+
+			Asignatura as16 = new Asignatura();
+			as16.setHorarios(new ArrayList<Horario>());
+			as16.setNombre("Programacion de Servicios y Procesos");
+			as16.setNHorasSemanales(8);
+			as16.setAlumnos(new ArrayList<Alumno>());
+			as16.setSituacionExc(new ArrayList<SituacionExcepcional>());
+			as16.setSolicitudesAmp(new ArrayList<SolicitudAmpliacionMatricula>());
+			a3.addAsignatura(as16);
+			a4.addAsignatura(as16);
+			asignaturaServicio.save(as16);
+			alumnoServicio.edit(a3);
+			alumnoServicio.edit(a4);
+
+			Asignatura as17 = new Asignatura();
+			as17.setHorarios(new ArrayList<Horario>());
+			as17.setNombre("Ingles");
+			as17.setNHorasSemanales(8);
+			as17.setAlumnos(new ArrayList<Alumno>());
+			as17.setSituacionExc(new ArrayList<SituacionExcepcional>());
+			as17.setSolicitudesAmp(new ArrayList<SolicitudAmpliacionMatricula>());
+			a3.addAsignatura(as17);
+			a4.addAsignatura(as17);
+			asignaturaServicio.save(as17);
+			alumnoServicio.edit(a3);
+			alumnoServicio.edit(a4);
+
+			Asignatura as18 = new Asignatura();
+			as18.setHorarios(new ArrayList<Horario>());
+			as18.setNombre("Formacion y Orientacion Personal");
+			as18.setNHorasSemanales(8);
+			as18.setAlumnos(new ArrayList<Alumno>());
+			as18.setSituacionExc(new ArrayList<SituacionExcepcional>());
+			as18.setSolicitudesAmp(new ArrayList<SolicitudAmpliacionMatricula>());
+			a3.addAsignatura(as18);
+			a4.addAsignatura(as18);
+			asignaturaServicio.save(as18);
+			alumnoServicio.edit(a3);
+			alumnoServicio.edit(a4);
+
+
 			Asignatura as9 = new Asignatura();
+			as9.setHorarios(new ArrayList<Horario>());
 			as9.setNombre("Ofimática");
 			as9.setNHorasSemanales(8);
 			as9.setAlumnos(new ArrayList<Alumno>());
@@ -253,6 +356,7 @@ public class ClassmaticApplication {
 			alumnoServicio.edit(a6);
 
 			Asignatura as10 = new Asignatura();
+			as10.setHorarios(new ArrayList<Horario>());
 			as10.setNombre("Comunicación y Atención al Cliente");
 			as10.setNHorasSemanales(8);
 			as10.setAlumnos(new ArrayList<Alumno>());
@@ -265,6 +369,7 @@ public class ClassmaticApplication {
 			alumnoServicio.edit(a6);
 
 			Asignatura as11 = new Asignatura();
+			as11.setHorarios(new ArrayList<Horario>());
 			as11.setNombre("Gestión Financiera");
 			as11.setNHorasSemanales(8);
 			as11.setAlumnos(new ArrayList<Alumno>());
@@ -277,6 +382,7 @@ public class ClassmaticApplication {
 			alumnoServicio.edit(a8);
 
 			Asignatura as12 = new Asignatura();
+			as12.setHorarios(new ArrayList<Horario>());
 			as12.setNombre("Gestión de Recursos Humanos");
 			as12.setNHorasSemanales(8);
 			as12.setAlumnos(new ArrayList<Alumno>());
@@ -287,6 +393,458 @@ public class ClassmaticApplication {
 			asignaturaServicio.save(as12);
 			alumnoServicio.edit(a7);
 			alumnoServicio.edit(a8);
+
+
+			//Horarios
+			//-------------------------------SI
+			//Lunes
+			Horario hSi1=new Horario();
+			hSi1.setHoras(new ArrayList<Integer>());
+			hSi1.setDia(1);
+			hSi1.getHoras().add(4);
+			hSi1.addAsignatura(as1);
+			horarioServicio.save(hSi1);
+			asignaturaServicio.edit(as1);
+			//Martes
+			Horario hSi2=new Horario();
+			hSi2.setHoras(new ArrayList<Integer>());
+			hSi2.setDia(2);
+			hSi2.getHoras().add(4);
+			hSi2.getHoras().add(5);
+			hSi2.addAsignatura(as1);
+			horarioServicio.save(hSi2);
+			asignaturaServicio.edit(as1);
+			//Miercoles
+			Horario hSi3=new Horario();
+			hSi3.setHoras(new ArrayList<Integer>());
+			hSi3.setDia(3);
+			hSi3.getHoras().add(4);
+			hSi3.addAsignatura(as1);
+			horarioServicio.save(hSi3);
+			asignaturaServicio.edit(as1);
+			//Jueves
+			Horario hSi4=new Horario();
+			hSi4.setHoras(new ArrayList<Integer>());
+			hSi4.setDia(4);
+			hSi4.getHoras().add(5);
+			hSi4.addAsignatura(as1);
+			horarioServicio.save(hSi4);
+			asignaturaServicio.edit(as1);
+
+			//-----------------------------bases de datos --> as2
+			//lunes
+			Horario hBd1=new Horario();
+			hBd1.setHoras(new ArrayList<Integer>());
+			hBd1.setDia(1);
+			hBd1.getHoras().add(1);
+			hBd1.getHoras().add(2);
+			hBd1.addAsignatura(as2);
+			horarioServicio.save(hBd1);
+			asignaturaServicio.edit(as2);
+			//martes
+			Horario hBd2=new Horario();
+			hBd2.setHoras(new ArrayList<Integer>());
+			hBd2.setDia(2);
+			hBd2.getHoras().add(1);
+			hBd2.addAsignatura(as2);
+			horarioServicio.save(hBd2);
+			asignaturaServicio.edit(as2);
+			//miercoles
+			Horario hBd3=new Horario();
+			hBd3.setHoras(new ArrayList<Integer>());
+			hBd3.setDia(3);
+			hBd3.getHoras().add(5);
+			hBd3.addAsignatura(as2);
+			horarioServicio.save(hBd3);
+			asignaturaServicio.edit(as2);
+			//jueves
+			Horario hBd4=new Horario();
+			hBd4.setHoras(new ArrayList<Integer>());
+			hBd4.setDia(4);
+			hBd4.getHoras().add(6);
+			hBd4.addAsignatura(as2);
+			horarioServicio.save(hBd4);
+			asignaturaServicio.edit(as2);
+			//viernes
+			Horario hBd5=new Horario();
+			hBd5.setHoras(new ArrayList<Integer>());
+			hBd5.setDia(5);
+			hBd5.getHoras().add(2);
+			hBd5.addAsignatura(as2);
+			horarioServicio.save(hBd5);
+			asignaturaServicio.edit(as2);
+
+			//---------------------programacion --> as3
+			//lunes
+			Horario hP1=new Horario();
+			hP1.setHoras(new ArrayList<Integer>());
+			hP1.setDia(1);
+			hP1.getHoras().add(6);
+			hP1.addAsignatura(as3);
+			horarioServicio.save(hP1);
+			asignaturaServicio.edit(as3);
+			//martes
+			Horario hP2=new Horario();
+			hP2.setHoras(new ArrayList<Integer>());
+			hP2.setDia(2);
+			hP2.getHoras().add(6);
+			hP2.addAsignatura(as3);
+			horarioServicio.save(hP2);
+			asignaturaServicio.edit(as3);
+			//miercoles
+			Horario hP3=new Horario();
+			hP3.setHoras(new ArrayList<Integer>());
+			hP3.setDia(3);
+			hP3.getHoras().add(2);
+			hP3.getHoras().add(3);
+			hP3.addAsignatura(as3);
+			horarioServicio.save(hP3);
+			asignaturaServicio.edit(as3);
+			//jueves
+			Horario hP4=new Horario();
+			hP4.setHoras(new ArrayList<Integer>());
+			hP4.setDia(4);
+			hP4.getHoras().add(2);
+			hP4.getHoras().add(3);
+			hP4.addAsignatura(as3);
+			horarioServicio.save(hP4);
+			asignaturaServicio.edit(as3);
+			//viernes
+			Horario hP5=new Horario();
+			hP5.setHoras(new ArrayList<Integer>());
+			hP5.setDia(5);
+			hP5.getHoras().add(4);
+			hP5.getHoras().add(5);
+			hP5.addAsignatura(as3);
+			horarioServicio.save(hP5);
+			asignaturaServicio.edit(as3);
+			//-----------------------------------lenguaje marcas --> as4
+			//lunes
+			Horario hL1=new Horario();
+			hL1.setHoras(new ArrayList<Integer>());
+			hL1.setDia(1);
+			hL1.getHoras().add(3);
+			hL1.addAsignatura(as4);
+			horarioServicio.save(hL1);
+			asignaturaServicio.edit(as4);
+			//martes
+			Horario hL2=new Horario();
+			hL2.setHoras(new ArrayList<Integer>());
+			hL2.setDia(2);
+			hL2.getHoras().add(2);
+			hL2.addAsignatura(as4);
+			horarioServicio.save(hL2);
+			asignaturaServicio.edit(as4);
+			//jueves
+			Horario hL4=new Horario();
+			hL4.setHoras(new ArrayList<Integer>());
+			hL4.setDia(4);
+			hL4.getHoras().add(1);
+			hL4.addAsignatura(as4);
+			horarioServicio.save(hL4);
+			asignaturaServicio.edit(as4);
+			//viernes
+			Horario hL5=new Horario();
+			hL5.setHoras(new ArrayList<Integer>());
+			hL5.setDia(5);
+			hL5.getHoras().add(6);
+			hL5.addAsignatura(as4);
+			horarioServicio.save(hL5);
+			asignaturaServicio.edit(as4);
+			//---------------------------------------Entornos desarrollo --> as13
+			//lunes
+			Horario hE1=new Horario();
+			hE1.setHoras(new ArrayList<Integer>());
+			hE1.setDia(1);
+			hE1.getHoras().add(5);
+			hE1.addAsignatura(as13);
+			horarioServicio.save(hE1);
+			asignaturaServicio.edit(as13);
+			//miercoles
+			Horario hE3=new Horario();
+			hE3.setHoras(new ArrayList<Integer>());
+			hE3.setDia(3);
+			hE3.getHoras().add(1);
+			hE3.addAsignatura(as13);
+			horarioServicio.save(hE3);
+			asignaturaServicio.edit(as13);
+			//jueves
+			Horario hE4=new Horario();
+			hE4.setHoras(new ArrayList<Integer>());
+			hE4.setDia(4);
+			hE4.getHoras().add(4);
+			hE4.addAsignatura(as13);
+			horarioServicio.save(hE4);
+			asignaturaServicio.edit(as13);
+			//------------------------------------------fol --> as14
+			//martes
+			Horario hFL2=new Horario();
+			hFL2.setHoras(new ArrayList<Integer>());
+			hFL2.setDia(2);
+			hFL2.getHoras().add(3);
+			hFL2.addAsignatura(as14);
+			horarioServicio.save(hFL2);
+			asignaturaServicio.edit(as14);
+			//miercoles
+			Horario hFL3=new Horario();
+			hFL3.setHoras(new ArrayList<Integer>());
+			hFL3.setDia(3);
+			hFL3.getHoras().add(6);
+			hFL3.addAsignatura(as14);
+			horarioServicio.save(hFL3);
+			asignaturaServicio.edit(as14);
+			//viernes
+			Horario hFL5=new Horario();
+			hFL5.setHoras(new ArrayList<Integer>());
+			hFL5.setDia(5);
+			hFL5.getHoras().add(3);
+			hFL5.addAsignatura(as14);
+			horarioServicio.save(hFL5);
+			asignaturaServicio.edit(as14);
+			//----------------------------------------------fop --> as100
+			//viernes
+			Horario hFP5=new Horario();
+			hFP5.setHoras(new ArrayList<Integer>());
+			hFP5.setDia(5);
+			hFP5.getHoras().add(1);
+			hFP5.addAsignatura(as100);
+			horarioServicio.save(hFP5);
+			asignaturaServicio.edit(as100);
+			//----------------------------------Horario 2ºdam
+			//----------------------------------DI as5
+			//lunes
+			Horario hDI1=new Horario();
+			hDI1.setHoras(new ArrayList<Integer>());
+			hDI1.setDia(1);
+			hDI1.getHoras().add(4);
+			hDI1.getHoras().add(5);
+			hDI1.addAsignatura(as5);
+			horarioServicio.save(hDI1);
+			asignaturaServicio.edit(as5);
+			//martes
+			Horario hDI2=new Horario();
+			hDI2.setHoras(new ArrayList<Integer>());
+			hDI2.setDia(2);
+			hDI2.getHoras().add(2);
+			hDI2.getHoras().add(3);
+			hDI2.addAsignatura(as5);
+			horarioServicio.save(hDI2);
+			asignaturaServicio.edit(as5);
+			//miercoles
+			Horario hDI3=new Horario();
+			hDI3.setHoras(new ArrayList<Integer>());
+			hDI3.setDia(3);
+			hDI3.getHoras().add(1);
+			hDI3.addAsignatura(as5);
+			horarioServicio.save(hDI3);
+			asignaturaServicio.edit(as5);
+			//jueves
+			Horario hDI4=new Horario();
+			hDI4.setHoras(new ArrayList<Integer>());
+			hDI4.setDia(4);
+			hDI4.getHoras().add(6);
+			hDI4.addAsignatura(as5);
+			horarioServicio.save(hDI4);
+			asignaturaServicio.edit(as5);
+			//viernes
+			Horario hDI5=new Horario();
+			hDI5.setHoras(new ArrayList<Integer>());
+			hDI5.setDia(5);
+			hDI5.getHoras().add(4);
+			hDI5.addAsignatura(as5);
+			horarioServicio.save(hDI5);
+			asignaturaServicio.edit(as5);
+			//-------------------------------------------PMyDS --> as6
+			//lunes
+			Horario hPm1=new Horario();
+			hPm1.setHoras(new ArrayList<Integer>());
+			hPm1.setDia(1);
+			hPm1.getHoras().add(2);
+			hPm1.addAsignatura(as6);
+			horarioServicio.save(hPm1);
+			asignaturaServicio.edit(as6);
+			//martes
+			Horario hPm2=new Horario();
+			hPm2.setHoras(new ArrayList<Integer>());
+			hPm2.setDia(2);
+			hPm2.getHoras().add(6);
+			hPm2.addAsignatura(as6);
+			horarioServicio.save(hPm2);
+			asignaturaServicio.edit(as6);
+			//jueves
+			Horario hPm4=new Horario();
+			hPm4.setHoras(new ArrayList<Integer>());
+			hPm4.setDia(4);
+			hPm4.getHoras().add(5);
+			hPm4.addAsignatura(as6);
+			horarioServicio.save(hPm4);
+			asignaturaServicio.edit(as6);
+			//viernes
+			Horario hPm5=new Horario();
+			hPm5.setHoras(new ArrayList<Integer>());
+			hPm5.setDia(5);
+			hPm5.getHoras().add(6);
+			hPm5.addAsignatura(as6);
+			horarioServicio.save(hPm5);
+			asignaturaServicio.edit(as6);
+			//---------------------------------------------SGE  -> as7
+			//lunes
+			Horario hSge1=new Horario();
+			hSge1.setHoras(new ArrayList<Integer>());
+			hSge1.setDia(1);
+			hSge1.getHoras().add(3);
+			hSge1.addAsignatura(as7);
+			horarioServicio.save(hSge1);
+			asignaturaServicio.edit(as7);
+			//miercoles
+			Horario hSge3=new Horario();
+			hSge3.setHoras(new ArrayList<Integer>());
+			hSge3.setDia(3);
+			hSge3.getHoras().add(5);
+			hSge3.addAsignatura(as7);
+			horarioServicio.save(hSge3);
+			asignaturaServicio.edit(as7);
+			//jueves
+			Horario hSge4=new Horario();
+			hSge4.setHoras(new ArrayList<Integer>());
+			hSge4.setDia(4);
+			hSge4.getHoras().add(1);
+			hSge4.addAsignatura(as7);
+			horarioServicio.save(hSge4);
+			asignaturaServicio.edit(as7);
+			//viernes
+			Horario hSge5=new Horario();
+			hSge5.setHoras(new ArrayList<Integer>());
+			hSge5.setDia(5);
+			hSge5.getHoras().add(2);
+			hSge5.addAsignatura(as7);
+			horarioServicio.save(hSge5);
+			asignaturaServicio.edit(as7);
+			//-----------------------------------------empresa -> as8
+			//lunes
+			Horario hEmp1=new Horario();
+			hEmp1.setHoras(new ArrayList<Integer>());
+			hEmp1.setDia(1);
+			hEmp1.getHoras().add(6);
+			hEmp1.addAsignatura(as8);
+			horarioServicio.save(hEmp1);
+			asignaturaServicio.edit(as8);
+			//martes
+			Horario hEmp2=new Horario();
+			hEmp2.setHoras(new ArrayList<Integer>());
+			hEmp2.setDia(2);
+			hEmp2.getHoras().add(4);
+			hEmp2.addAsignatura(as8);
+			horarioServicio.save(hEmp2);
+			asignaturaServicio.edit(as8);
+			//miercoles
+			Horario hEmp3=new Horario();
+			hEmp3.setHoras(new ArrayList<Integer>());
+			hEmp3.setDia(3);
+			hEmp3.getHoras().add(4);
+			hEmp3.addAsignatura(as8);
+			horarioServicio.save(hEmp3);
+			asignaturaServicio.edit(as8);
+			//viernes
+			Horario hEmp5=new Horario();
+			hEmp5.setHoras(new ArrayList<Integer>());
+			hEmp5.setDia(5);
+			hEmp5.getHoras().add(5);
+			hEmp5.addAsignatura(as8);
+			horarioServicio.save(hEmp5);
+			asignaturaServicio.edit(as8);
+			//------------------------------------acceso a datos -> as15
+			//lunes
+			Horario hAcc1=new Horario();
+			hAcc1.setHoras(new ArrayList<Integer>());
+			hAcc1.setDia(1);
+			hAcc1.getHoras().add(1);
+			hAcc1.addAsignatura(as15);
+			horarioServicio.save(hAcc1);
+			asignaturaServicio.edit(as15);
+			//miercoles
+			Horario hAcc3=new Horario();
+			hAcc3.setHoras(new ArrayList<Integer>());
+			hAcc3.setDia(3);
+			hAcc3.getHoras().add(6);
+			hAcc3.addAsignatura(as15);
+			horarioServicio.save(hAcc3);
+			asignaturaServicio.edit(as15);
+			//jueves
+			Horario hAcc4=new Horario();
+			hAcc4.setHoras(new ArrayList<Integer>());
+			hAcc4.setDia(4);
+			hAcc4.getHoras().add(3);
+			hAcc4.addAsignatura(as15);
+			horarioServicio.save(hAcc4);
+			asignaturaServicio.edit(as15);
+			//viernes
+			Horario hAcc5=new Horario();
+			hAcc5.setHoras(new ArrayList<Integer>());
+			hAcc5.setDia(5);
+			hAcc5.getHoras().add(1);
+			hAcc5.addAsignatura(as15);
+			horarioServicio.save(hAcc5);
+			asignaturaServicio.edit(as15);
+			//----------------------------------------programacion servicios y procesos -> as16
+			//martes
+			Horario hPsyP2=new Horario();
+			hPsyP2.setHoras(new ArrayList<Integer>());
+			hPsyP2.setDia(2);
+			hPsyP2.getHoras().add(1);
+			hPsyP2.addAsignatura(as16);
+			horarioServicio.save(hPsyP2);
+			asignaturaServicio.edit(as16);
+			//miercoles
+			Horario hPsyP3=new Horario();
+			hPsyP3.setHoras(new ArrayList<Integer>());
+			hPsyP3.setDia(3);
+			hPsyP3.getHoras().add(2);
+			hPsyP3.addAsignatura(as16);
+			horarioServicio.save(hPsyP3);
+			asignaturaServicio.edit(as16);
+			//viernes
+			Horario hPsyP5=new Horario();
+			hPsyP5.setHoras(new ArrayList<Integer>());
+			hPsyP5.setDia(5);
+			hPsyP5.getHoras().add(3);
+			hPsyP5.addAsignatura(as16);
+			horarioServicio.save(hPsyP5);
+			asignaturaServicio.edit(as16);
+			//------------------------------------------------ingles -> as17
+			//martes
+			Horario hI2=new Horario();
+			hI2.setHoras(new ArrayList<Integer>());
+			hI2.setDia(2);
+			hI2.getHoras().add(5);
+			hI2.addAsignatura(as16);
+			horarioServicio.save(hI2);
+			asignaturaServicio.edit(as16);
+			//miercoles
+			Horario hI3=new Horario();
+			hI3.setHoras(new ArrayList<Integer>());
+			hI3.setDia(3);
+			hI3.getHoras().add(3);
+			hI3.addAsignatura(as16);
+			horarioServicio.save(hI3);
+			asignaturaServicio.edit(as16);
+			//jueves
+			Horario hI4=new Horario();
+			hI4.setHoras(new ArrayList<Integer>());
+			hI4.setDia(4);
+			hI4.getHoras().add(4);
+			hI4.addAsignatura(as16);
+			horarioServicio.save(hI4);
+			asignaturaServicio.edit(as16);
+			//-----------------------------------------------fop 2ºdam -> as18
+			//jueves
+			Horario hFop2=new Horario();
+			hFop2.setHoras(new ArrayList<Integer>());
+			hFop2.setDia(4);
+			hFop2.getHoras().add(2);
+			hFop2.addAsignatura(as18);
+			horarioServicio.save(hFop2);
+			asignaturaServicio.edit(as18);
 
 
 			//Cursos
@@ -300,15 +858,36 @@ public class ClassmaticApplication {
 			c1.addAsignatura(as2);
 			c1.addAsignatura(as3);
 			c1.addAsignatura(as4);
+			c1.addAsignatura(as13);
+			c1.addAsignatura(as14);
+			c1.addAsignatura(as15);
 			c1.addAlumno(a1);
 			c1.addAlumno(a2);
 			cursoServicio.edit(c1);
+			a1.addAsignatura(as1);
+			a2.addAsignatura(as1);
 			asignaturaServicio.edit(as1);
+			a1.addAsignatura(as2);
+			a2.addAsignatura(as2);
 			asignaturaServicio.edit(as2);
+			a1.addAsignatura(as3);
+			a2.addAsignatura(as3);
 			asignaturaServicio.edit(as3);
+			a1.addAsignatura(as4);
+			a2.addAsignatura(as4);
 			asignaturaServicio.edit(as4);
+			a1.addAsignatura(as13);
+			a2.addAsignatura(as13);
+			asignaturaServicio.edit(as13);
+			a1.addAsignatura(as14);
+			a2.addAsignatura(as14);
+			asignaturaServicio.edit(as14);
+			a1.addAsignatura(as15);
+			a2.addAsignatura(as15);
+			asignaturaServicio.edit(as15);
 			alumnoServicio.edit(a1);
 			alumnoServicio.edit(a2);
+
 
 			Curso c2 = new Curso();
 			c2.setNombre("2ºDAM");
@@ -322,9 +901,17 @@ public class ClassmaticApplication {
 			c2.addAlumno(a3);
 			c2.addAlumno(a4);
 			cursoServicio.edit(c2);
+			a3.addAsignatura(as5);
+			a4.addAsignatura(as5);
 			asignaturaServicio.edit(as5);
+			a3.addAsignatura(as6);
+			a4.addAsignatura(as6);
 			asignaturaServicio.edit(as6);
+			a3.addAsignatura(as7);
+			a4.addAsignatura(as7);
 			asignaturaServicio.edit(as7);
+			a3.addAsignatura(as8);
+			a4.addAsignatura(as8);
 			asignaturaServicio.edit(as8);
 			alumnoServicio.edit(a3);
 			alumnoServicio.edit(a4);
@@ -339,7 +926,11 @@ public class ClassmaticApplication {
 			c3.addAlumno(a5);
 			c3.addAlumno(a6);
 			cursoServicio.edit(c3);
+			a5.addAsignatura(as9);
+			a6.addAsignatura(as9);
 			asignaturaServicio.edit(as9);
+			a5.addAsignatura(as10);
+			a6.addAsignatura(as10);
 			asignaturaServicio.edit(as10);
 			alumnoServicio.edit(a5);
 			alumnoServicio.edit(a6);
@@ -354,7 +945,11 @@ public class ClassmaticApplication {
 			c4.addAlumno(a7);
 			c4.addAlumno(a8);
 			cursoServicio.edit(c4);
+			a7.addAsignatura(as11);
+			a8.addAsignatura(as11);
 			asignaturaServicio.edit(as11);
+			a7.addAsignatura(as12);
+			a8.addAsignatura(as12);
 			asignaturaServicio.edit(as12);
 			alumnoServicio.edit(a7);
 			alumnoServicio.edit(a8);
@@ -448,6 +1043,10 @@ public class ClassmaticApplication {
 			p5.setHabilitado(true);
 			p5.setCodigoInvitacion(15);
 			profesorServicio.save(p5);
+
+
+
+
 
 		};
 

@@ -371,6 +371,41 @@ public class JfController {
         profesorServicio.editarAlumnoMenosCurso( a, alumno, alumnoServicio, cursoServicio);
         return accederAlumnos(a.getCurso().getId(),  model);
     }
+    /*
+    //Accedr a listado asignaturas
+    @GetMapping("/adminAsignnaturas{id}")
+    public String accederAsignaturas(@PathVariable Long id, Model model){
+        Curso c=cursoServicio.findById(id);
+        model.addAttribute("asignaturas",c.getAsignaturas());
+        model.addAttribute("nombreCurso",c.getNombre());
+        model.addAttribute("idCurso",id);
+        model.addAttribute("idTitulo", c.getTitulo().getId());
+        model.addAttribute("nombreTitulo",c.getTitulo().getNombre());
+        return "jf/adminAsignaturas";
+    }
+    */
+     @GetMapping("/horarioAsignatura/{id}")
+    public String accederHorarioAsignatura(@PathVariable Long id, Model model){
+         Asignatura a=asignaturaServicio.findById(id);
+         Curso c=a.getCurso();
+         model.addAttribute("nombreCurso",c.getNombre());
+         model.addAttribute("idCurso",c.getId());
+         model.addAttribute("idTitulo",c.getTitulo().getId());
+         model.addAttribute("nombreTitulo",c.getTitulo().getNombre());
+         model.addAttribute("horarios",a.getHorarios());
+         model.addAttribute("asignatura",a);
+         return "jf/adminHorarioAsignatura";
+     }
 
+
+    /*
+    @GetMapping("/adminTitulos/adminCursos/{id}")
+    public String accederCursos(@PathVariable Long id, Model model){
+        model.addAttribute("cursos", tituloServicio.findById(id).getCursos());
+        model.addAttribute("idTitulo",id);
+        model.addAttribute("nombreTitulo",tituloServicio.findById(id).getNombre());
+        return "jf/adminCursos";
+    }
+     */
 
 }

@@ -248,6 +248,47 @@ public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRep
         alumnoServicio.delete(al);
     }
 
+    public void crearHorarioAlumno(Alumno al){
+        List<Asignatura> listaAsignaturas=new ArrayList<Asignatura>();
+        List<Horario>listaHorarios=new ArrayList<Horario>();
+        List<String> listaLunes=new ArrayList<String>();
+        List<String> listaMartes=new ArrayList<String>();
+        List<String> listaMiercoles=new ArrayList<String>();
+        List<String> listaJueves=new ArrayList<String>();
+        List<String> listaViernes=new ArrayList<String>();
+
+        //Creo lista horarios y asignaturas
+        for(Asignatura as: al.getAsignaturas()){
+            listaAsignaturas.add(as);
+            for(Horario h : as.getHorarios()){
+                listaHorarios.add(h);
+            }
+        }
+
+
+        List<List<Asignatura>>listaCompleta= new ArrayList();
+        for(int i=0;i<5;i++){
+            listaCompleta.add(new ArrayList<Asignatura>());
+        }
+        for(List l : listaCompleta){//relleno las 6 h de lo 5 d con falso
+            for(int i=0;i<6;i++){
+                l.add(false);
+            }
+        }
+
+        for(int i=0;i<5;i++){
+            for(int j=0;j<6;j++){
+                for(Horario h : listaHorarios){
+                    for(int hora : h.getHoras()){
+                        if(h.getDia()==(i+1)&&hora==(j+1)){
+                            listaCompleta.get(i).set(j,h.getAsignatura());
+                        }
+                    }
+                }
+            }
+        }
+
+    }
 
 }
 

@@ -25,6 +25,8 @@ public class Curso {
     @OneToMany(mappedBy = "curso")
     private List<Alumno> alumnos;
 
+
+
     //Helpers Asignatura
 
     public void addAsignatura(Asignatura a){
