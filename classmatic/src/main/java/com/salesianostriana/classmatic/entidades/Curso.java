@@ -25,18 +25,6 @@ public class Curso {
     @OneToMany(mappedBy = "curso")
     private List<Alumno> alumnos;
 
-    /*@OneToOne
-    private Horario horario;
-
-    //Helpers Horario
-    public void addHorario(Horario h){
-        this.setHorario(h);
-        h.setCurso(this);
-    }
-    public void removeHorario(Horario h){
-        this.setHorario(null);
-        h.setCurso(null);
-    }*/
 
 
     //Helpers Asignatura
