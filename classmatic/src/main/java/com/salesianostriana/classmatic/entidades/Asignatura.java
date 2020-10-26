@@ -22,7 +22,7 @@ public class Asignatura {
     @ManyToMany(mappedBy = "asignaturas")
     private List<Alumno> alumnos;
 
-    @ManyToOne
+    @OneToOne(mappedBy = "asignatura")
     private Horario horario;
 
 
@@ -46,6 +46,8 @@ public class Asignatura {
         situacionExc.remove(s);
         s.setAsignatura(null);
     }
+
+
 
 
 

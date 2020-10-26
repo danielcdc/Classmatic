@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootApplication
 public class ClassmaticApplication {
@@ -363,47 +364,20 @@ public class ClassmaticApplication {
 			alumnoServicio.edit(a8);
 
 
-			Horario horario1Dam= new Horario();
-			horario1Dam.setHLunes(new ArrayList<Asignatura>());
-			horario1Dam.setHMartes(new ArrayList<Asignatura>());
-			horario1Dam.setHMiercoles(new ArrayList<Asignatura>());
-			horario1Dam.setHJueves(new ArrayList<Asignatura>());
-			horario1Dam.setHViernes(new ArrayList<Asignatura>());
-			horarioServicio.save(horario1Dam);
-			horario1Dam.getHLunes().add(as2);
-			horario1Dam.getHLunes().add(as2);
-			horario1Dam.getHLunes().add(as4);
-			horario1Dam.getHLunes().add(as1);
-			horario1Dam.getHLunes().add(as13);
-			horario1Dam.getHLunes().add(as3);
-			horario1Dam.getHMartes().add(as2);
-			horario1Dam.getHMartes().add(as4);
-			horario1Dam.getHMartes().add(as14);
-			horario1Dam.getHMartes().add(as1);
-			horario1Dam.getHMartes().add(as1);
-			horario1Dam.getHMartes().add(as3);
-			horario1Dam.getHMiercoles().add(as13);
-			horario1Dam.getHMiercoles().add(as3);
-			horario1Dam.getHMiercoles().add(as3);
-			horario1Dam.getHMiercoles().add(as1);
-			horario1Dam.getHMiercoles().add(as2);
-			horario1Dam.getHMiercoles().add(as14);
-			horario1Dam.getHJueves().add(as4);
-			horario1Dam.getHJueves().add(as3);
-			horario1Dam.getHJueves().add(as3);
-			horario1Dam.getHJueves().add(as13);
-			horario1Dam.getHJueves().add(as1);
-			horario1Dam.getHJueves().add(as2);
-			horario1Dam.getHViernes().add(as18);
-			horario1Dam.getHViernes().add(as2);
-			horario1Dam.getHViernes().add(as14);
-			horario1Dam.getHViernes().add(as3);
-			horario1Dam.getHViernes().add(as3);
-			horario1Dam.getHViernes().add(as4);
-			horarioServicio.edit(horario1Dam);
-			/*c1.addHorario(horario1Dam);
-			cursoServicio.edit(c1);
-			horarioServicio.edit(horario1Dam);*/
+			//Horarios
+			Horario h1As1=new Horario();
+			h1As1.setHoras(new ArrayList<List<Boolean>>());
+			for(int i=0;i<5;i++){
+				h1As1.getHoras().add(new ArrayList<Boolean>());
+			}
+			horarioServicio.save(h1As1);
+			h1As1.setAsignatura(as1);
+			h1As1.addAsignatura(as1);
+			horarioServicio.edit(h1As1);
+			asignaturaServicio.edit(as1);
+
+
+
 
 			//Cursos
 
@@ -411,7 +385,6 @@ public class ClassmaticApplication {
 			c1.setNombre("1ºDAM");
 			c1.setAlumnos(new ArrayList<Alumno>());
 			c1.setAsignaturas(new ArrayList<Asignatura>());
-			//c1.setHorario(new Horario());
 			cursoServicio.save(c1);
 			c1.addAsignatura(as1);
 			c1.addAsignatura(as2);
@@ -432,9 +405,7 @@ public class ClassmaticApplication {
 			asignaturaServicio.edit(as15);
 			alumnoServicio.edit(a1);
 			alumnoServicio.edit(a2);
-			c1.addHorario(horario1Dam);
-			cursoServicio.edit(c1);
-			horarioServicio.edit(horario1Dam);
+
 
 			Curso c2 = new Curso();
 			c2.setNombre("2ºDAM");

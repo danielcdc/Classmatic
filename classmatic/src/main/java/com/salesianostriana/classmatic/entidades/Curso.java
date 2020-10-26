@@ -7,8 +7,8 @@ import java.util.List;
 
 @Entity @Data @Builder
 @NoArgsConstructor @AllArgsConstructor
- @EqualsAndHashCode(exclude={"titulo","asignaturas","alumnos","horario"})
-@ToString(exclude = {"titulo","asignaturas","alumnos","horario"})
+ @EqualsAndHashCode(exclude={"titulo","asignaturas","alumnos"})
+@ToString(exclude = {"titulo","asignaturas","alumnos"})
 public class Curso {
 
     @Id @GeneratedValue
@@ -25,7 +25,7 @@ public class Curso {
     @OneToMany(mappedBy = "curso")
     private List<Alumno> alumnos;
 
-    @OneToOne
+    /*@OneToOne
     private Horario horario;
 
     //Helpers Horario
@@ -36,7 +36,7 @@ public class Curso {
     public void removeHorario(Horario h){
         this.setHorario(null);
         h.setCurso(null);
-    }
+    }*/
 
 
     //Helpers Asignatura
