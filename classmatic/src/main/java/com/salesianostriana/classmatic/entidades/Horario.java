@@ -10,31 +10,34 @@ import java.util.List;
 @Data @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude={"asignatura"})
-@ToString(exclude = {"asignatura"})
+@EqualsAndHashCode(exclude={"asignatura","horas"})
+@ToString(exclude = {"asignatura","horas"})
 public class Horario {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    @OneToOne(mappedBy = "horario")
+    @ManyToOne
     private Asignatura asignatura;
 
-    //El Horario es de cada asignatura, por lo tanto guardará una lista que a su vez guardará cinco listas,
-    //una por cada día que contendrá seis espacios con booleanos,
-    //true si tiene ese día a esa hora, false de lo contrario
-    private List < List<Boolean> > horas;
+    private int dia;
+
+    @Column
+    @ElementCollection(targetClass=Integer.class)//Si esto o detecta el tipo Integer
+    //MappingException: Could not determine type for: java.util.List, at table: horario, for columns: [org.hibernate.mapping.Column(horas)]
+    private List<Integer> horas;
+
 
     //Helper asignatura
     public void addAsignatura(Asignatura a){
         setAsignatura(a);
-        a.setHorario(this);
+        a.getHorarios().add(this);
     }
 
     public void removeAsignatura(Asignatura a){
         setAsignatura(null);
-        a.setHorario(null);
+        a.getHorarios().remove(this);
     }
 
     /*

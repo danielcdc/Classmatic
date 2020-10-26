@@ -22,8 +22,8 @@ public class Asignatura {
     @ManyToMany(mappedBy = "asignaturas")
     private List<Alumno> alumnos;
 
-    @OneToOne(mappedBy = "asignatura")
-    private Horario horario;
+    @OneToMany(mappedBy = "asignatura")
+    private List<Horario> horarios;
 
 
     @ManyToOne
