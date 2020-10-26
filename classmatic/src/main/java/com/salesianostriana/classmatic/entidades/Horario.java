@@ -18,12 +18,13 @@ public class Horario {
     @GeneratedValue
     private Long id;
 
-    @OneToOne(mappedBy = "horario")
+
+    /*
     @JoinTable(
-            name = "curso_horario",
             joinColumns = @JoinColumn(name="curso_id"),
             inverseJoinColumns = @JoinColumn(name="horario_id")
-    )
+    )*/
+    @OneToOne(mappedBy = "horario")
     private Curso curso;
 
     @OneToMany(mappedBy = "horario")

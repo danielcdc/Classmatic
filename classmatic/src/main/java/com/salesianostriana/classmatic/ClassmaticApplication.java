@@ -362,7 +362,7 @@ public class ClassmaticApplication {
 			alumnoServicio.edit(a7);
 			alumnoServicio.edit(a8);
 
-/*
+
 			Horario horario1Dam= new Horario();
 			horario1Dam.setHLunes(new ArrayList<Asignatura>());
 			horario1Dam.setHMartes(new ArrayList<Asignatura>());
@@ -400,7 +400,7 @@ public class ClassmaticApplication {
 			horario1Dam.getHViernes().add(as3);
 			horario1Dam.getHViernes().add(as3);
 			horario1Dam.getHViernes().add(as4);
-			horarioServicio.edit(horario1Dam);*/
+			horarioServicio.edit(horario1Dam);
 			/*c1.addHorario(horario1Dam);
 			cursoServicio.edit(c1);
 			horarioServicio.edit(horario1Dam);*/
@@ -432,6 +432,9 @@ public class ClassmaticApplication {
 			asignaturaServicio.edit(as15);
 			alumnoServicio.edit(a1);
 			alumnoServicio.edit(a2);
+			c1.addHorario(horario1Dam);
+			cursoServicio.edit(c1);
+			horarioServicio.edit(horario1Dam);
 
 			Curso c2 = new Curso();
 			c2.setNombre("2ºDAM");
