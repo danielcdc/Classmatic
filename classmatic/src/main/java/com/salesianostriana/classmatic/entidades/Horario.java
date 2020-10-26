@@ -1,6 +1,7 @@
 package com.salesianostriana.classmatic.entidades;
 
 import lombok.*;
+import org.hibernate.annotations.Fetch;
 
 
 import javax.persistence.*;
@@ -24,7 +25,8 @@ public class Horario {
     private int dia;
 
     @Column
-    @ElementCollection(targetClass=Integer.class)//Si esto o detecta el tipo Integer
+    @ElementCollection(targetClass=Integer.class, fetch = FetchType.EAGER)
+    //Si esto o detecta el tipo Integer
     //MappingException: Could not determine type for: java.util.List, at table: horario, for columns: [org.hibernate.mapping.Column(horas)]
     private List<Integer> horas;
 

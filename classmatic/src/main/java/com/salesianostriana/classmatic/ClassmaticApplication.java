@@ -837,6 +837,14 @@ public class ClassmaticApplication {
 			horarioServicio.save(hI4);
 			asignaturaServicio.edit(as16);
 			//-----------------------------------------------fop 2ºdam -> as18
+			//jueves
+			Horario hFop2=new Horario();
+			hFop2.setHoras(new ArrayList<Integer>());
+			hFop2.setDia(4);
+			hFop2.getHoras().add(2);
+			hFop2.addAsignatura(as18);
+			horarioServicio.save(hFop2);
+			asignaturaServicio.edit(as18);
 
 
 			//Cursos
@@ -856,12 +864,26 @@ public class ClassmaticApplication {
 			c1.addAlumno(a1);
 			c1.addAlumno(a2);
 			cursoServicio.edit(c1);
+			a1.addAsignatura(as1);
+			a2.addAsignatura(as1);
 			asignaturaServicio.edit(as1);
+			a1.addAsignatura(as2);
+			a2.addAsignatura(as2);
 			asignaturaServicio.edit(as2);
+			a1.addAsignatura(as3);
+			a2.addAsignatura(as3);
 			asignaturaServicio.edit(as3);
+			a1.addAsignatura(as4);
+			a2.addAsignatura(as4);
 			asignaturaServicio.edit(as4);
+			a1.addAsignatura(as13);
+			a2.addAsignatura(as13);
 			asignaturaServicio.edit(as13);
+			a1.addAsignatura(as14);
+			a2.addAsignatura(as14);
 			asignaturaServicio.edit(as14);
+			a1.addAsignatura(as15);
+			a2.addAsignatura(as15);
 			asignaturaServicio.edit(as15);
 			alumnoServicio.edit(a1);
 			alumnoServicio.edit(a2);
@@ -879,9 +901,17 @@ public class ClassmaticApplication {
 			c2.addAlumno(a3);
 			c2.addAlumno(a4);
 			cursoServicio.edit(c2);
+			a3.addAsignatura(as5);
+			a4.addAsignatura(as5);
 			asignaturaServicio.edit(as5);
+			a3.addAsignatura(as6);
+			a4.addAsignatura(as6);
 			asignaturaServicio.edit(as6);
+			a3.addAsignatura(as7);
+			a4.addAsignatura(as7);
 			asignaturaServicio.edit(as7);
+			a3.addAsignatura(as8);
+			a4.addAsignatura(as8);
 			asignaturaServicio.edit(as8);
 			alumnoServicio.edit(a3);
 			alumnoServicio.edit(a4);
@@ -896,7 +926,11 @@ public class ClassmaticApplication {
 			c3.addAlumno(a5);
 			c3.addAlumno(a6);
 			cursoServicio.edit(c3);
+			a5.addAsignatura(as9);
+			a6.addAsignatura(as9);
 			asignaturaServicio.edit(as9);
+			a5.addAsignatura(as10);
+			a6.addAsignatura(as10);
 			asignaturaServicio.edit(as10);
 			alumnoServicio.edit(a5);
 			alumnoServicio.edit(a6);
@@ -911,7 +945,11 @@ public class ClassmaticApplication {
 			c4.addAlumno(a7);
 			c4.addAlumno(a8);
 			cursoServicio.edit(c4);
+			a7.addAsignatura(as11);
+			a8.addAsignatura(as11);
 			asignaturaServicio.edit(as11);
+			a7.addAsignatura(as12);
+			a8.addAsignatura(as12);
 			asignaturaServicio.edit(as12);
 			alumnoServicio.edit(a7);
 			alumnoServicio.edit(a8);
