@@ -610,8 +610,233 @@ public class ClassmaticApplication {
 			hFP5.addAsignatura(as100);
 			horarioServicio.save(hFP5);
 			asignaturaServicio.edit(as100);
-
-
+			//----------------------------------Horario 2ºdam
+			//----------------------------------DI as5
+			//lunes
+			Horario hDI1=new Horario();
+			hDI1.setHoras(new ArrayList<Integer>());
+			hDI1.setDia(1);
+			hDI1.getHoras().add(4);
+			hDI1.getHoras().add(5);
+			hDI1.addAsignatura(as5);
+			horarioServicio.save(hDI1);
+			asignaturaServicio.edit(as5);
+			//martes
+			Horario hDI2=new Horario();
+			hDI2.setHoras(new ArrayList<Integer>());
+			hDI2.setDia(2);
+			hDI2.getHoras().add(2);
+			hDI2.getHoras().add(3);
+			hDI2.addAsignatura(as5);
+			horarioServicio.save(hDI2);
+			asignaturaServicio.edit(as5);
+			//miercoles
+			Horario hDI3=new Horario();
+			hDI3.setHoras(new ArrayList<Integer>());
+			hDI3.setDia(3);
+			hDI3.getHoras().add(1);
+			hDI3.addAsignatura(as5);
+			horarioServicio.save(hDI3);
+			asignaturaServicio.edit(as5);
+			//jueves
+			Horario hDI4=new Horario();
+			hDI4.setHoras(new ArrayList<Integer>());
+			hDI4.setDia(4);
+			hDI4.getHoras().add(6);
+			hDI4.addAsignatura(as5);
+			horarioServicio.save(hDI4);
+			asignaturaServicio.edit(as5);
+			//viernes
+			Horario hDI5=new Horario();
+			hDI5.setHoras(new ArrayList<Integer>());
+			hDI5.setDia(5);
+			hDI5.getHoras().add(4);
+			hDI5.addAsignatura(as5);
+			horarioServicio.save(hDI5);
+			asignaturaServicio.edit(as5);
+			//-------------------------------------------PMyDS --> as6
+			//lunes
+			Horario hPm1=new Horario();
+			hPm1.setHoras(new ArrayList<Integer>());
+			hPm1.setDia(1);
+			hPm1.getHoras().add(2);
+			hPm1.addAsignatura(as6);
+			horarioServicio.save(hPm1);
+			asignaturaServicio.edit(as6);
+			//martes
+			Horario hPm2=new Horario();
+			hPm2.setHoras(new ArrayList<Integer>());
+			hPm2.setDia(2);
+			hPm2.getHoras().add(6);
+			hPm2.addAsignatura(as6);
+			horarioServicio.save(hPm2);
+			asignaturaServicio.edit(as6);
+			//jueves
+			Horario hPm4=new Horario();
+			hPm4.setHoras(new ArrayList<Integer>());
+			hPm4.setDia(4);
+			hPm4.getHoras().add(5);
+			hPm4.addAsignatura(as6);
+			horarioServicio.save(hPm4);
+			asignaturaServicio.edit(as6);
+			//viernes
+			Horario hPm5=new Horario();
+			hPm5.setHoras(new ArrayList<Integer>());
+			hPm5.setDia(5);
+			hPm5.getHoras().add(6);
+			hPm5.addAsignatura(as6);
+			horarioServicio.save(hPm5);
+			asignaturaServicio.edit(as6);
+			//---------------------------------------------SGE  -> as7
+			//lunes
+			Horario hSge1=new Horario();
+			hSge1.setHoras(new ArrayList<Integer>());
+			hSge1.setDia(1);
+			hSge1.getHoras().add(3);
+			hSge1.addAsignatura(as7);
+			horarioServicio.save(hSge1);
+			asignaturaServicio.edit(as7);
+			//miercoles
+			Horario hSge3=new Horario();
+			hSge3.setHoras(new ArrayList<Integer>());
+			hSge3.setDia(3);
+			hSge3.getHoras().add(5);
+			hSge3.addAsignatura(as7);
+			horarioServicio.save(hSge3);
+			asignaturaServicio.edit(as7);
+			//jueves
+			Horario hSge4=new Horario();
+			hSge4.setHoras(new ArrayList<Integer>());
+			hSge4.setDia(4);
+			hSge4.getHoras().add(1);
+			hSge4.addAsignatura(as7);
+			horarioServicio.save(hSge4);
+			asignaturaServicio.edit(as7);
+			//viernes
+			Horario hSge5=new Horario();
+			hSge5.setHoras(new ArrayList<Integer>());
+			hSge5.setDia(5);
+			hSge5.getHoras().add(2);
+			hSge5.addAsignatura(as7);
+			horarioServicio.save(hSge5);
+			asignaturaServicio.edit(as7);
+			//-----------------------------------------empresa -> as8
+			//lunes
+			Horario hEmp1=new Horario();
+			hEmp1.setHoras(new ArrayList<Integer>());
+			hEmp1.setDia(1);
+			hEmp1.getHoras().add(6);
+			hEmp1.addAsignatura(as8);
+			horarioServicio.save(hEmp1);
+			asignaturaServicio.edit(as8);
+			//martes
+			Horario hEmp2=new Horario();
+			hEmp2.setHoras(new ArrayList<Integer>());
+			hEmp2.setDia(2);
+			hEmp2.getHoras().add(4);
+			hEmp2.addAsignatura(as8);
+			horarioServicio.save(hEmp2);
+			asignaturaServicio.edit(as8);
+			//miercoles
+			Horario hEmp3=new Horario();
+			hEmp3.setHoras(new ArrayList<Integer>());
+			hEmp3.setDia(3);
+			hEmp3.getHoras().add(4);
+			hEmp3.addAsignatura(as8);
+			horarioServicio.save(hEmp3);
+			asignaturaServicio.edit(as8);
+			//viernes
+			Horario hEmp5=new Horario();
+			hEmp5.setHoras(new ArrayList<Integer>());
+			hEmp5.setDia(5);
+			hEmp5.getHoras().add(5);
+			hEmp5.addAsignatura(as8);
+			horarioServicio.save(hEmp5);
+			asignaturaServicio.edit(as8);
+			//------------------------------------acceso a datos -> as15
+			//lunes
+			Horario hAcc1=new Horario();
+			hAcc1.setHoras(new ArrayList<Integer>());
+			hAcc1.setDia(1);
+			hAcc1.getHoras().add(1);
+			hAcc1.addAsignatura(as15);
+			horarioServicio.save(hAcc1);
+			asignaturaServicio.edit(as15);
+			//miercoles
+			Horario hAcc3=new Horario();
+			hAcc3.setHoras(new ArrayList<Integer>());
+			hAcc3.setDia(3);
+			hAcc3.getHoras().add(6);
+			hAcc3.addAsignatura(as15);
+			horarioServicio.save(hAcc3);
+			asignaturaServicio.edit(as15);
+			//jueves
+			Horario hAcc4=new Horario();
+			hAcc4.setHoras(new ArrayList<Integer>());
+			hAcc4.setDia(4);
+			hAcc4.getHoras().add(3);
+			hAcc4.addAsignatura(as15);
+			horarioServicio.save(hAcc4);
+			asignaturaServicio.edit(as15);
+			//viernes
+			Horario hAcc5=new Horario();
+			hAcc5.setHoras(new ArrayList<Integer>());
+			hAcc5.setDia(5);
+			hAcc5.getHoras().add(1);
+			hAcc5.addAsignatura(as15);
+			horarioServicio.save(hAcc5);
+			asignaturaServicio.edit(as15);
+			//----------------------------------------programacion servicios y procesos -> as16
+			//martes
+			Horario hPsyP2=new Horario();
+			hPsyP2.setHoras(new ArrayList<Integer>());
+			hPsyP2.setDia(2);
+			hPsyP2.getHoras().add(1);
+			hPsyP2.addAsignatura(as16);
+			horarioServicio.save(hPsyP2);
+			asignaturaServicio.edit(as16);
+			//miercoles
+			Horario hPsyP3=new Horario();
+			hPsyP3.setHoras(new ArrayList<Integer>());
+			hPsyP3.setDia(3);
+			hPsyP3.getHoras().add(2);
+			hPsyP3.addAsignatura(as16);
+			horarioServicio.save(hPsyP3);
+			asignaturaServicio.edit(as16);
+			//viernes
+			Horario hPsyP5=new Horario();
+			hPsyP5.setHoras(new ArrayList<Integer>());
+			hPsyP5.setDia(5);
+			hPsyP5.getHoras().add(3);
+			hPsyP5.addAsignatura(as16);
+			horarioServicio.save(hPsyP5);
+			asignaturaServicio.edit(as16);
+			//------------------------------------------------ingles -> as17
+			//martes
+			Horario hI2=new Horario();
+			hI2.setHoras(new ArrayList<Integer>());
+			hI2.setDia(2);
+			hI2.getHoras().add(5);
+			hI2.addAsignatura(as16);
+			horarioServicio.save(hI2);
+			asignaturaServicio.edit(as16);
+			//miercoles
+			Horario hI3=new Horario();
+			hI3.setHoras(new ArrayList<Integer>());
+			hI3.setDia(3);
+			hI3.getHoras().add(3);
+			hI3.addAsignatura(as16);
+			horarioServicio.save(hI3);
+			asignaturaServicio.edit(as16);
+			//jueves
+			Horario hI4=new Horario();
+			hI4.setHoras(new ArrayList<Integer>());
+			hI4.setDia(4);
+			hI4.getHoras().add(4);
+			hI4.addAsignatura(as16);
+			horarioServicio.save(hI4);
+			asignaturaServicio.edit(as16);
+			//-----------------------------------------------fop 2ºdam -> as18
 
 
 			//Cursos
