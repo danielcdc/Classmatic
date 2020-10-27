@@ -13,7 +13,7 @@
 
 <div class="contenedor container-fluid">
 
-    <div class="row">
+    <div class="column ">
 
         <div class="col-6 offset-6 d-flex flex-row justify-content-end">
 
@@ -24,11 +24,11 @@
 
         </div>
 
-        <div class="d-flex flex-row">
-            <div  class="d-flex flex-column" th:each="dia : ${horario}">
+        <div class="d-flex flex-row col-6 offset-6 container-fluid justify-content-between horario">
+            <div  class="d-flex flex-column  dia" th:each="dia : ${horario}">
 
                 <div th:each="as : ${dia}">
-                    <div th:text="${as.nombre}"></div>
+                    <div th:text="${as.nombre}" class="cajaElementoHorario d-flex justify-content-center align-items-center"></div>
                 </div>
 
             </div>
