@@ -2,7 +2,7 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8">
-    <title>Convalidacion</title>
+    <title>Convalidar</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 
@@ -32,18 +32,25 @@
                     Horario
                 </div>
             </a>
+            <a th:href="@{/alumno/convalidaciones}" class="mx-3 h1 text-muted boton-redo d-flex flex-row justify-content-center align-items-center text-decoration-none" id="botonIniAdminUsu">
+                <div >
+                    Convalidaciones
+                </div>
+            </a>
             <a th:href="@{/alumno/ampliaciones}" class="mx-3 h1 text-muted boton-redo d-flex flex-row justify-content-center align-items-center text-decoration-none" id="botonIniAdminUsu">
                 <div >
                     Ampliaciones de matricula
                 </div>
             </a>
         </div>
-
-        <div class="d-flex flex-column col-12  container-fluid justify-content-center align-items-center">
-            <div th:each="asignatura : ${asignaturas}" class="my-2 d-flex flex-row align-items-center justify-content-between boton-redo bg-white col-8">
-                <h3 th:text="${asignatura.nombre}"></h3>
-                <a th:hraf="@{/alumno/convilidacionde/{i}(id=${asignatura.id})}"><div class="boton-redo bg-danger text-white">Solicitar convalidacion</div></a>
-            </div>
+        <h2 th:text="${asignatura.nombre}"></h2>
+        <div class="col-8 boton-redo bg-white ">
+            <form method="POST" th:action="@{/alumno//convalidar/{id}(id=${asignatura.id})" th:object="${convalidacion}" enctype="multipart/form-data" class="d-flex flex-column">
+                <div class="d-flex flex-column">
+                    <label for="archivo">Archivo</label>
+                    <input type="file" name="archivo" id="archivo">
+                </div>
+            </form>
         </div>
 
     </div>
