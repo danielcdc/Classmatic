@@ -2,6 +2,7 @@ package com.salesianostriana.classmatic.servicios;
 
 import com.salesianostriana.classmatic.entidades.Alumno;
 import com.salesianostriana.classmatic.entidades.Asignatura;
+import com.salesianostriana.classmatic.entidades.Curso;
 import com.salesianostriana.classmatic.entidades.Horario;
 import com.salesianostriana.classmatic.repositorios.AlumnoRepositorio;
 import com.salesianostriana.classmatic.servicios.base.ServicioBaseImp;
@@ -22,7 +23,6 @@ public class AlumnoServicio extends ServicioBaseImp<Alumno, Long, AlumnoReposito
     public List<List<Asignatura>> crearHorarioAlumno(Alumno al, HorarioServicio horarioServicio){
         List<Asignatura> listaAsignaturas=new ArrayList<Asignatura>();
         List<Horario>listaHorarios=new ArrayList<Horario>();
-
         //Creo lista horarios y asignaturas
         /*for(Asignatura as: al.getAsignaturas()){
             listaAsignaturas.add(as);
@@ -40,8 +40,6 @@ public class AlumnoServicio extends ServicioBaseImp<Alumno, Long, AlumnoReposito
         for(Horario horario : listaHorarios){
             listaHoras.addAll(horarioServicio.obtenerHoras(horario));
         }
-
-
         List<List<Asignatura>>listaCompleta= new ArrayList();
         for(int i=0;i<5;i++){
             listaCompleta.add(new ArrayList<Asignatura>());
@@ -51,7 +49,6 @@ public class AlumnoServicio extends ServicioBaseImp<Alumno, Long, AlumnoReposito
                 l.add(false);
             }
         }
-
         for(int i=0;i<5;i++){
             for(int j=0;j<6;j++){
                 for(Horario h : listaHorarios){
@@ -73,8 +70,38 @@ public class AlumnoServicio extends ServicioBaseImp<Alumno, Long, AlumnoReposito
                 System.out.println();
             }
         }*/
-
         return listaCompleta;
+    }
+
+    public List<Asignatura> sacarAsignaturas(Alumno a, AsignaturaServicio asignaturaServicio, CursoServicio cursoServicio){
+        List<Asignatura>listaFinal=new ArrayList<Asignatura>();
+        List<Asignatura>listaAsig=new ArrayList<Asignatura>();
+        List<Curso>listaCursos=new ArrayList<Curso>();
+        listaAsig.addAll(asignaturaServicio.findAll());
+        /*for(Asignatura as : listaAsig){
+            System.out.println(as.getNombre()+" "+as.getCurso().getNombre());
+        }*/
+
+        listaCursos.addAll(cursoServicio.findAll());
+        Long cursoId=a.getCurso().getId();
+        /*for(Asignatura as : listaAsig){
+            if(as.getCurso().getId() == cursoId){
+                listaFinal.add(as);
+            }
+        }*/
+        for(Curso c : listaCursos){
+            if(c.getId()==a.getCurso().getId()){
+                for(Asignatura as : listaAsig){
+                    System.out.println("--------------------------------------------------");
+                    System.out.println(as.getNombre()+" "+as.getCurso().getNombre()+" "+as.getCurso().getId());
+                    System.out.println("--------------------------------------------------");
+                    if(as.getCurso().getId()==c.getId()){
+                        listaFinal.add(as);
+                    }
+                }
+            }
+        }
+        return listaFinal;
     }
 
 

@@ -4,6 +4,8 @@ import com.salesianostriana.classmatic.entidades.Alumno;
 import com.salesianostriana.classmatic.entidades.Asignatura;
 import com.salesianostriana.classmatic.entidades.Usuario;
 import com.salesianostriana.classmatic.servicios.AlumnoServicio;
+import com.salesianostriana.classmatic.servicios.AsignaturaServicio;
+import com.salesianostriana.classmatic.servicios.CursoServicio;
 import com.salesianostriana.classmatic.servicios.HorarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -25,6 +27,12 @@ public class AlumnoController {
     @Autowired
     HorarioServicio horarioServicio;
 
+    @Autowired
+    AsignaturaServicio asignaturaServicio;
+
+    @Autowired
+    CursoServicio cursoServicio;
+
     /*@GetMapping("/alumnoIni")
     public String inicioAlumno(){
         return "alumno/alumnoIni";
@@ -40,7 +48,10 @@ public class AlumnoController {
     }
 
     @GetMapping("/convalidaciones")
-    public String accederConvalidaciones(){
+    public String accederConvalidaciones(@AuthenticationPrincipal Alumno alumno, Model model){
+        List<Asignatura>asignaturas;
+        asignaturas=alumnoServicio.sacarAsignaturas(alumno, asignaturaServicio, cursoServicio);
+        model.addAttribute("asignaturas",asignaturas);
         return "alumno/alumnoConvalidaciones";
     }
 
