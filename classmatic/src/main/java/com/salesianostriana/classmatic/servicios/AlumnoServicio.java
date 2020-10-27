@@ -22,19 +22,12 @@ public class AlumnoServicio extends ServicioBaseImp<Alumno, Long, AlumnoReposito
     public List<List<Asignatura>> crearHorarioAlumno(Alumno al, HorarioServicio horarioServicio){
         List<Asignatura> listaAsignaturas=new ArrayList<Asignatura>();
         List<Horario>listaHorarios=new ArrayList<Horario>();
-        List<String> listaLunes=new ArrayList<String>();
-        List<String> listaMartes=new ArrayList<String>();
-        List<String> listaMiercoles=new ArrayList<String>();
-        List<String> listaJueves=new ArrayList<String>();
-        List<String> listaViernes=new ArrayList<String>();
 
         //Creo lista horarios y asignaturas
-        for(Asignatura as: al.getAsignaturas()){
+        /*for(Asignatura as: al.getAsignaturas()){
             listaAsignaturas.add(as);
-            /*for(Horario h : as.getHorarios()){
-                listaHorarios.add(h);
-            }*/
-        }
+
+        }*/
         listaAsignaturas.addAll(al.getAsignaturas());
 
         for(Asignatura a : listaAsignaturas){
@@ -62,11 +55,13 @@ public class AlumnoServicio extends ServicioBaseImp<Alumno, Long, AlumnoReposito
         for(int i=0;i<5;i++){
             for(int j=0;j<6;j++){
                 for(Horario h : listaHorarios){
-                    for(int hora : h.getHoras()){
-                        if(h.getDia()==(i+1)&&hora==(j+1)){
-                            listaCompleta.get(i).set(j,h.getAsignatura());
-                            System.out.println("Asignatura introducida "+h.getAsignatura().getNombre());
-                            System.out.println("Asignatura almacenada "+listaCompleta.get(i).get(j).getNombre());
+                    if(h.getDia()==(i+1)){
+                        for(int hora : h.getHoras()){
+                            if(hora==(j+1)){
+                                listaCompleta.get(i).set(j,h.getAsignatura());
+                                //System.out.println("Asignatura introducida "+h.getAsignatura().getNombre());
+                                //System.out.println("Asignatura almacenada "+listaCompleta.get(i).get(j).getNombre());
+                            }
                         }
                     }
                 }

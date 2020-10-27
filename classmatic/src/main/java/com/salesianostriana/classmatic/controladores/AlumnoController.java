@@ -38,4 +38,14 @@ public class AlumnoController {
         model.addAttribute("horario",listaCompleta);
         return "alumno/alumnoHorario";
     }
+
+    @GetMapping("/convalidaciones")
+    public String accederConvalidaciones(){
+        return "alumno/alumnoConvalidaciones";
+    }
+
+    @GetMapping("/ampliaciones")
+    public String accederAmpliacion(){
+        return "alumno/alumnoAmpliaciones";
+    }
 }
