@@ -384,7 +384,7 @@ public class JfController {
         return "jf/adminAsignaturas";
     }
     */
-     @GetMapping("/horarioAsignatura/{id}")
+    @GetMapping("/horarioAsignatura/{id}")
     public String accederHorarioAsignatura(@PathVariable Long id, Model model){
          Asignatura a=asignaturaServicio.findById(id);
          Curso c=a.getCurso();
@@ -395,7 +395,21 @@ public class JfController {
          model.addAttribute("horarios",a.getHorarios());
          model.addAttribute("asignatura",a);
          return "jf/adminHorarioAsignatura";
-     }
+    }
+
+    @GetMapping("/horarioAsignaturaCompleto/{id}")
+    public String accederHorarioAsignaturaCompleto(@PathVariable Long id, Model model){
+        Asignatura a=asignaturaServicio.findById(id);
+        Curso c=a.getCurso();
+        model.addAttribute("nombreCurso",c.getNombre());
+        model.addAttribute("idCurso",c.getId());
+        model.addAttribute("idTitulo",c.getTitulo().getId());
+        model.addAttribute("nombreTitulo",c.getTitulo().getNombre());
+        model.addAttribute("horarios",a.getHorarios());
+        model.addAttribute("asignatura",a);
+        model.addAttribute("horario",asignaturaServicio.obtenerHorarioAsignatura(a));
+        return "jf/adminHorarioAsignaturaCompleto";
+    }
 
 
     /*
