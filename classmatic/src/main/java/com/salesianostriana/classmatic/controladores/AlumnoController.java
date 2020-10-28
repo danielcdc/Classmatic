@@ -98,8 +98,13 @@ public class AlumnoController {
     @GetMapping("/convalidarAsignatura/{id}")
     public String convalidarAsignatura(@PathVariable Long id, Model model){
         model.addAttribute("asignatura", asignaturaServicio.findById(id));
-        //model.addAttribute()
+        model.addAttribute("situacionExcepcional",new SituacionExcepcional());
         return "alumno/convalidarAsignatura";
+    }
+
+    @PostMapping()
+    public String enviarConvalidacion(){
+        return "";
     }
 
 

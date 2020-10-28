@@ -1,6 +1,7 @@
 package com.salesianostriana.classmatic;
 
 import com.salesianostriana.classmatic.entidades.*;
+import com.salesianostriana.classmatic.ficheros.StorageService;
 import com.salesianostriana.classmatic.servicios.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -21,11 +22,11 @@ public class ClassmaticApplication {
 	@Bean
 	public CommandLineRunner init(AlumnoServicio alumnoServicio, ProfesorServicio profesorServicio, PasswordEncoder passWordEncoder,
 								  AsignaturaServicio asignaturaServicio, CursoServicio cursoServicio, TituloServicio tituloServicio,
-								  HorarioServicio horarioServicio/*, StorageService storageService*/){
+								  HorarioServicio horarioServicio, StorageService storageService){
 		return args -> {
 
-			/*storageService.deleteAll();
-			storageService.init();*/
+			storageService.deleteAll();
+			storageService.init();
 
 			//Creacion alumnos de prueba
 			Alumno a1 =new Alumno();
