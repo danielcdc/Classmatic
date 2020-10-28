@@ -3,18 +3,13 @@ package com.salesianostriana.classmatic.controladores;
 import com.salesianostriana.classmatic.entidades.Alumno;
 import com.salesianostriana.classmatic.entidades.Asignatura;
 import com.salesianostriana.classmatic.entidades.SituacionExcepcional;
-import com.salesianostriana.classmatic.entidades.Usuario;
-import com.salesianostriana.classmatic.ficheros.StorageService;
 import com.salesianostriana.classmatic.servicios.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,8 +29,8 @@ public class AlumnoController {
     @Autowired
     CursoServicio cursoServicio;
 
-    @Autowired
-    StorageService storageService;
+    /*@Autowired
+    StorageService storageService;*/
 
     @Autowired
     SituacionExcepcionalServicio situacionExcepcionalServicio;
@@ -62,28 +57,30 @@ public class AlumnoController {
         return "alumno/alumnoConvalidaciones";
     }
 
-    @GetMapping("/convalidacionde/{i}")
+/*
+    @GetMapping("/convalidacionde/{id}")
     public String convalidarAsignatura(@PathVariable Long id, Model model, @AuthenticationPrincipal Alumno alumno){
-        SituacionExcepcional sit=new SituacionExcepcional();
-        sit.setAsignatura(asignaturaServicio.findById(id));
+        //SituacionExcepcional sit=new SituacionExcepcional();
+        *//*sit.setAsignatura(asignaturaServicio.findById(id));
         sit.setFechaSolicitud(LocalDate.now());
         sit.setResuelta(false);
         sit.setAlumno(alumno);
-        sit.setFechaResolucion(null);
+        sit.setFechaResolucion(null);*//*
+        *//*System.out.println("Ha entrado en la peticion de la convalidacion de una asignatura..................................................");
         model.addAttribute("convalidacion", new SituacionExcepcional());
+        System.out.println("Ha anyadido la SituacionExcepcional al model..................................................");
         model.addAttribute("asignatura",asignaturaServicio.findById(id));
-        return "alumno/alumnoconvalidar";
+        System.out.println("Ha anyadido la asignatura  al model..................................................");*//*
+        return "alumno/alumnoConvalidar";
     }
 
-    /*@GetMapping()
-    public String*/
 
-    @PostMapping("/convalidar/{i}")
-    public String convalidar(@RequestParam("archivo") MultipartFile archivo, @PathVariable Long id,
+    @PostMapping("/convalidacionde/{id}")
+    public String convalidar(*//*@RequestParam("archivo") MultipartFile archivo,*//* @PathVariable Long id,
                              @ModelAttribute("convalidacion")SituacionExcepcional situacionExcepcional,
                              @AuthenticationPrincipal Alumno alumno,
                              Model model){
-        if(archivo.isEmpty()){
+        *//*if(archivo.isEmpty()){
             return convalidarAsignatura( id,  model,  alumno);
         }else{
             //implementar tratamiento de fichero
@@ -93,9 +90,17 @@ public class AlumnoController {
                 .build().toUriString());
             situacionExcepcionalServicio.edit(situacionExcepcional);
             return accederConvalidaciones( alumno,  model);
-        }
-    }
+        }*//*
+        //alumnoServicio.solicitarConvalidacion(id, situacionExcepcional, situacionExcepcionalServicio);
+        return accederConvalidaciones( alumno,  model);
+    }*/
 
+    @GetMapping("/convalidarAsignatura/{id}")
+    public String convalidarAsignatura(@PathVariable Long id, Model model){
+        model.addAttribute("asignatura", asignaturaServicio.findById(id));
+        //model.addAttribute()
+        return "alumno/convalidarAsignatura";
+    }
 
 
     @GetMapping("/ampliaciones")

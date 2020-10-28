@@ -2,7 +2,7 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8">
-    <title>Convalidar</title>
+    <title>Convalidar asignatura</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 
@@ -32,26 +32,24 @@
                     Horario
                 </div>
             </a>
-            <a th:href="@{/alumno/convalidaciones}" class="mx-3 h1 text-muted boton-redo d-flex flex-row justify-content-center align-items-center text-decoration-none" id="botonIniAdminUsu">
-                <div >
-                    Convalidaciones
-                </div>
-            </a>
             <a th:href="@{/alumno/ampliaciones}" class="mx-3 h1 text-muted boton-redo d-flex flex-row justify-content-center align-items-center text-decoration-none" id="botonIniAdminUsu">
                 <div >
                     Ampliaciones de matricula
                 </div>
             </a>
         </div>
-        <h2 th:text="${asignatura.nombre}"></h2>
-        <div class="col-8 boton-redo bg-white ">
-            <form method="POST" th:action="@{/alumno//convalidar/{id}(id=${asignatura.id})" th:object="${convalidacion}" enctype="multipart/form-data" class="d-flex flex-column">
-                <div class="d-flex flex-column">
-                    <label for="archivo">Archivo</label>
-                    <input type="file" name="archivo" id="archivo">
-                </div>
+
+        <div class="my-5 col-6 offset-3 boton-redo bg-white d-flex justify-content-center align-items-center">
+
+            <form method="POST" action="#" class="d-flex flex-column">
+                <label for="archivo">Archivo</label>
+                <input type="file" id="archivo" name="archivo">
+                <input type="submit">
             </form>
+
         </div>
+
+
 
     </div>
 

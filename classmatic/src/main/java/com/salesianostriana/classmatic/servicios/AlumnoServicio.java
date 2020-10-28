@@ -1,9 +1,6 @@
 package com.salesianostriana.classmatic.servicios;
 
-import com.salesianostriana.classmatic.entidades.Alumno;
-import com.salesianostriana.classmatic.entidades.Asignatura;
-import com.salesianostriana.classmatic.entidades.Curso;
-import com.salesianostriana.classmatic.entidades.Horario;
+import com.salesianostriana.classmatic.entidades.*;
 import com.salesianostriana.classmatic.repositorios.AlumnoRepositorio;
 import com.salesianostriana.classmatic.servicios.base.ServicioBaseImp;
 import lombok.AllArgsConstructor;
@@ -102,6 +99,14 @@ public class AlumnoServicio extends ServicioBaseImp<Alumno, Long, AlumnoReposito
             }
         }
         return listaFinal;
+    }
+
+    public void solicitarConvalidacion(Long id, SituacionExcepcional situacionExcepcional,
+                                       SituacionExcepcionalServicio situacionExcepcionalServicio){
+        Alumno al=findById(id);
+        al.addSituacionExcepcional(situacionExcepcional);
+        edit(al);
+        situacionExcepcionalServicio.edit(situacionExcepcional);
     }
 
 
