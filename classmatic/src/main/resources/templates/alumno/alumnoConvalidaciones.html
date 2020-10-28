@@ -42,7 +42,7 @@
         <div class="d-flex flex-column col-12  container-fluid justify-content-center align-items-center">
             <div th:each="asignatura : ${asignaturas}" class="my-2 d-flex flex-row align-items-center justify-content-between boton-redo bg-white col-8">
                 <h3 th:text="${asignatura.nombre}"></h3>
-                <a th:hraf="@{/alumno/convilidacionde/{i}(id=${asignatura.id})}"><div class="boton-redo bg-danger text-white">Solicitar convalidacion</div></a>
+                <a th:href="@{/alumno/convalidacionde/{id}(id=${asignatura.id})}"><div class="boton-redo bg-danger text-white">Solicitar convalidacion</div></a>
             </div>
         </div>
 

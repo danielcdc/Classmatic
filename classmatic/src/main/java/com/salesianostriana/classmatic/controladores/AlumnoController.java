@@ -4,16 +4,15 @@ import com.salesianostriana.classmatic.entidades.Alumno;
 import com.salesianostriana.classmatic.entidades.Asignatura;
 import com.salesianostriana.classmatic.entidades.SituacionExcepcional;
 import com.salesianostriana.classmatic.entidades.Usuario;
-import com.salesianostriana.classmatic.servicios.AlumnoServicio;
-import com.salesianostriana.classmatic.servicios.AsignaturaServicio;
-import com.salesianostriana.classmatic.servicios.CursoServicio;
-import com.salesianostriana.classmatic.servicios.HorarioServicio;
+import com.salesianostriana.classmatic.ficheros.StorageService;
+import com.salesianostriana.classmatic.servicios.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -34,6 +33,12 @@ public class AlumnoController {
 
     @Autowired
     CursoServicio cursoServicio;
+
+    @Autowired
+    StorageService storageService;
+
+    @Autowired
+    SituacionExcepcionalServicio situacionExcepcionalServicio;
 
     /*@GetMapping("/alumnoIni")
     public String inicioAlumno(){
@@ -57,7 +62,7 @@ public class AlumnoController {
         return "alumno/alumnoConvalidaciones";
     }
 
-    @GetMapping("/convilidacionde/{i}")
+    @GetMapping("/convalidacionde/{i}")
     public String convalidarAsignatura(@PathVariable Long id, Model model, @AuthenticationPrincipal Alumno alumno){
         SituacionExcepcional sit=new SituacionExcepcional();
         sit.setAsignatura(asignaturaServicio.findById(id));
@@ -70,17 +75,28 @@ public class AlumnoController {
         return "alumno/alumnoconvalidar";
     }
 
+    /*@GetMapping()
+    public String*/
+
     @PostMapping("/convalidar/{i}")
     public String convalidar(@RequestParam("archivo") MultipartFile archivo, @PathVariable Long id,
-                             Model model, @AuthenticationPrincipal Alumno alumno){
+                             @ModelAttribute("convalidacion")SituacionExcepcional situacionExcepcional,
+                             @AuthenticationPrincipal Alumno alumno,
+                             Model model){
         if(archivo.isEmpty()){
             return convalidarAsignatura( id,  model,  alumno);
         }else{
             //implementar tratamiento de fichero
-            //String rutaArchivo =
+            String rutaArchivo = storageService.store(archivo, situacionExcepcional.getId());
+            situacionExcepcional.setArchivoConvalidacion(MvcUriComponentsBuilder
+                .fromMethodName(AlumnoController.class, "serverFile", rutaArchivo)
+                .build().toUriString());
+            situacionExcepcionalServicio.edit(situacionExcepcional);
             return accederConvalidaciones( alumno,  model);
         }
     }
+
+
 
     @GetMapping("/ampliaciones")
     public String accederAmpliacion(){

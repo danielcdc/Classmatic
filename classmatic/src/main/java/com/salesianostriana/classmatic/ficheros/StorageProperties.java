@@ -1,7 +1,9 @@
 package com.salesianostriana.classmatic.ficheros;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 
+@Configuration
 @ConfigurationProperties(prefix="storage")
 public class StorageProperties {
 
