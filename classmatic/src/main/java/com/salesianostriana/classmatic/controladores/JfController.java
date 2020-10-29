@@ -419,9 +419,6 @@ public class JfController {
     public String accederConvalidacionesAlumno(@PathVariable Long id, Model model){
         model.addAttribute("convalidaciones", profesorServicio.obtenerConvalidacionesPendientes(alumnoServicio, id));
         model.addAttribute("alumno", alumnoServicio.findById(id));
-        for(SituacionExcepcional sit : profesorServicio.obtenerConvalidacionesPendientes(alumnoServicio, id)){
-            System.out.println(sit.getAsignatura().getNombre());
-        }
         return "jf/adminAlumnoConvalidaciones";
     }
 
@@ -430,6 +427,12 @@ public class JfController {
         Long idAlumno=situacionExcepcionalServicio.findById(id).getAlumno().getId();
         profesorServicio.negarConvalidacion(id, situacionExcepcionalServicio, alumnoServicio, asignaturaServicio);
         return accederConvalidacionesAlumno( idAlumno,  model);
+    }
+
+    @GetMapping("/aceptarConvalidacion/{id}")
+    public String aceptarConvalidacion(@PathVariable Long id, Model model){
+        profesorServicio.aceptarConvalidacion(id, situacionExcepcionalServicio, alumnoServicio,asignaturaServicio);
+        return accederConvalidacionesAlumno( situacionExcepcionalServicio.findById(id).getAlumno().getId(),  model);
     }
 
 

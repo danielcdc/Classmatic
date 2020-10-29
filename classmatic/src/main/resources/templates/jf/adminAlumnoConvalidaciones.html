@@ -37,7 +37,7 @@
 
                 <div  class="col-3 text-center h3" th:text="${convalidacion.asignatura.nombre}">Nombre</div>
                 <div th:text="${convalidacion.fechaSolicitud}">Archivo</div>
-                <div class="col-2 text-center"><a th:href="@{/jf/adminAlumnos/editarAlumno/{id}(id=${alumno.id})}"><div class="botonEnvio d-flex justify-content-center align-items-center text-white">Aceptar</div></a></div>
+                <div class="col-2 text-center"><a th:href="@{/jf/aceptarConvalidacion/{id}(id=${convalidacion.id})}"><div class="botonEnvio d-flex justify-content-center align-items-center text-white">Aceptar</div></a></div>
                 <div class="col-2 text-center"><a th:href="@{/jf/negarConvalidacion/{id}(id=${convalidacion.id})}"><div class="botonEnvio bg-danger d-flex justify-content-center align-items-center text-white">Rechazar</div></a></div>
 
             </li>
