@@ -41,7 +41,7 @@
 
         <div class="my-5 col-6 offset-3 boton-redo bg-white d-flex justify-content-center align-items-center">
 
-            <form method="POST" action="#" class="d-flex flex-column">
+            <form method="POST" th:action="@{/alumno/convalidarAsignatura/{id}(id=${asignatura.id})}" class="d-flex flex-column" enctype="multipart/form-data">
                 <label for="archivo">Archivo</label>
                 <input type="file" id="archivo" name="archivo">
                 <input type="submit">
