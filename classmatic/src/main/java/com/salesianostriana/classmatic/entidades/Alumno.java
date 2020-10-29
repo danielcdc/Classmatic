@@ -32,7 +32,6 @@ public class Alumno extends Usuario {
             joinColumns = @JoinColumn(name="alumno_id"),
             inverseJoinColumns = @JoinColumn(name="asignatura_id")
     )
-
     private List<Asignatura> asignaturas;
 
     @EqualsAndHashCode.Exclude

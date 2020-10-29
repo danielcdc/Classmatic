@@ -2,7 +2,7 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8">
-    <title>Horario</title>
+    <title>Alumnos</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 
@@ -13,9 +13,14 @@
 
 <div class="contenedor container-fluid">
 
-    <div class="column ">
-
-        <div class="col-6 offset-6 d-flex flex-row justify-content-end">
+    <div class="row">
+        <div class="col-6 d-flex flex-row">
+            <h1>></h1>
+            <a th:href="@{/jf/adminInicio}" class="text-white"><h1>HOME</h1></a>
+            <h1>></h1>
+            <a th:href="@{/jf/adminAlumnos}"><h1>ALUMNOS</h1></a>
+        </div>
+        <div class="col-6 d-flex flex-row justify-content-end">
 
             <h3 class="px-2">NombreUsuarioAutenticado</h3>
             <!--Logout-->
@@ -23,37 +28,22 @@
             <a href="javascript:document.getElementById('logoutForm').submit()" class="text-dark text-decoration-none"><h3>Logout</h3></a>
 
         </div>
-
-        <div class="container-fluid col-12 row mx-0">
-            <div class="d-flex flex-column col-6  container-fluid justify-content-center align-items-center mx-0">
-                <a th:href="@{/alumno/convalidaciones}" class="my-3 h1 text-muted boton-redo d-flex flex-row justify-content-center align-items-center text-decoration-none" id="botonIniAdminTit">
-                    <div >
-                        Convalidaciones
-                    </div>
-                </a>
-                <a th:href="@{/alumno/ampliaciones}" class="my-3 h1 text-muted boton-redo d-flex flex-row justify-content-center align-items-center text-decoration-none" id="botonIniAdminUsu">
-                    <div >
-                        Ampliaciones de matricula
-                    </div>
-                </a>
-            </div>
-
-            <div class="d-flex flex-row col-6 offset-6 container-fluid justify-content-between horario mx-0"><!--offset-6-->
-                <div  class="d-flex flex-column  dia" th:each="dia : ${horario}">
-
-                    <div th:each="as : ${dia}">
-                        <div th:text="${as.nombre}" class="cajaElementoHorario d-flex justify-content-center align-items-center"></div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
     </div>
 
+    <div class="container-fluid d-flex flex-column">
+        <div><h1 th:text="${alumno.nombre}+' '+${alumno.apellidos}"></h1></div>
+        <ul>
+            <li th:each="convalidacion : ${convalidaciones}" class="container-fluid d-flex flex-row align-items-center cajaListarElementos col-10 offset-1 mt-3">
 
+                <div  class="col-3 text-center h3" th:text="${convalidacion.asignatura.nombre}">Nombre</div>
+                <div th:text="${convalidacion.fechaSolicitud}">Archivo</div>
+                <div class="col-2 text-center"><a th:href="@{/jf/aceptarConvalidacion/{id}(id=${convalidacion.id})}"><div class="botonEnvio d-flex justify-content-center align-items-center text-white">Aceptar</div></a></div>
+                <div class="col-2 text-center"><a th:href="@{/jf/negarConvalidacion/{id}(id=${convalidacion.id})}"><div class="botonEnvio bg-danger d-flex justify-content-center align-items-center text-white">Rechazar</div></a></div>
 
+            </li>
+        </ul>
 
+    </div>
 
 </div>
 

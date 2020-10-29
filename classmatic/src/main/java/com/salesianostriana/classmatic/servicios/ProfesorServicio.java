@@ -287,8 +287,49 @@ public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRep
                 }
             }
         }
-
     }
+
+    public List<SituacionExcepcional> obtenerConvalidacionesPendientes(AlumnoServicio alumnoServicio, Long id){
+        List<SituacionExcepcional> convalidacionesCompleta=alumnoServicio.findById(id).getSituacionesExc();
+        List<SituacionExcepcional> convalidacionesPendientes=new ArrayList<SituacionExcepcional>();
+        for(SituacionExcepcional sit : convalidacionesCompleta){
+            if(!sit.isResuelta()){
+                convalidacionesPendientes.add(sit);
+            }
+        }
+        return convalidacionesPendientes;
+    }
+
+    public void negarConvalidacion(Long id, SituacionExcepcionalServicio situacionExcepcionalServicio,
+                                   AlumnoServicio alumnoServicio, AsignaturaServicio asignaturaServicio){
+        SituacionExcepcional sit = situacionExcepcionalServicio.findById(id);
+        Alumno al = sit.getAlumno();
+        Asignatura as = sit.getAsignatura();
+        al.removeSituacionExcepcional(sit);
+        as.removeSituacionExcepcional(sit);
+        alumnoServicio.edit(al);
+        asignaturaServicio.edit(as);
+        situacionExcepcionalServicio.delete(sit);
+    }
+
+    public void aceptarConvalidacion(Long id, SituacionExcepcionalServicio situacionExcepcionalServicio,
+                                     AlumnoServicio alumnoServicio, AsignaturaServicio asignaturaServicio){
+        SituacionExcepcional sit = situacionExcepcionalServicio.findById(id);
+        sit.setResuelta(true);
+        Alumno al=sit.getAlumno();
+        Asignatura as=sit.getAsignatura();
+        for(Asignatura asi: al.getAsignaturas()){
+            System.out.println(asi.getNombre());
+        }
+        al.removeAsignatura(as);//No desvincula la asignatura
+        for(Asignatura asi: al.getAsignaturas()){
+            System.out.println(asi.getNombre());
+        }
+        alumnoServicio.edit(al);
+        asignaturaServicio.edit(as);
+        situacionExcepcionalServicio.edit(sit);
+    }
+
 
 }
 
