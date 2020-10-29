@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service @RequiredArgsConstructor
 public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRepositorio> {
@@ -295,11 +296,12 @@ public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRep
         List<SituacionExcepcional> convalidacionesCompleta=new ArrayList<SituacionExcepcional>();//alumnoServicio.findById(id).getSituacionesExc();
         convalidacionesCompleta.addAll(alumnoServicio.findById(id).getSituacionesExc());
         List<SituacionExcepcional> convalidacionesPendientes=new ArrayList<SituacionExcepcional>();
-        for(SituacionExcepcional sit : convalidacionesCompleta){
+        /*for(SituacionExcepcional sit : convalidacionesCompleta){
             if(!sit.isResuelta()){
                 convalidacionesPendientes.add(sit);
             }
-        }
+        }*/
+        convalidacionesPendientes=convalidacionesCompleta.stream().filter((x)-> x.isResuelta()==false).collect(Collectors.toList());
         return convalidacionesPendientes;
     }
 
@@ -320,11 +322,11 @@ public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRep
         SituacionExcepcional sit = situacionExcepcionalServicio.findById(id);
         sit.setResuelta(true);
         sit.setFechaResolucion(LocalDate.now());
-        /*Alumno al=sit.getAlumno();
+        Alumno al=sit.getAlumno();
         Asignatura as=sit.getAsignatura();
         al.removeAsignatura(as);//No desvincula la asignatura
         alumnoServicio.edit(al);
-        asignaturaServicio.edit(as);*/
+        asignaturaServicio.edit(as);
         sit.getAlumno().removeAsignatura(sit.getAsignatura());
         //alumnoServicio.edit(sit.getAlumno());
         //asignaturaServicio.edit(sit.getAsignatura());
