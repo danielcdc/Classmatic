@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -290,7 +291,9 @@ public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRep
     }
 
     public List<SituacionExcepcional> obtenerConvalidacionesPendientes(AlumnoServicio alumnoServicio, Long id){
-        List<SituacionExcepcional> convalidacionesCompleta=alumnoServicio.findById(id).getSituacionesExc();
+        //List<SituacionExcepcional> convalidacionesCompleta=alumnoServicio.findById(id).getSituacionesExc();
+        List<SituacionExcepcional> convalidacionesCompleta=new ArrayList<SituacionExcepcional>();//alumnoServicio.findById(id).getSituacionesExc();
+        convalidacionesCompleta.addAll(alumnoServicio.findById(id).getSituacionesExc());
         List<SituacionExcepcional> convalidacionesPendientes=new ArrayList<SituacionExcepcional>();
         for(SituacionExcepcional sit : convalidacionesCompleta){
             if(!sit.isResuelta()){
@@ -316,17 +319,15 @@ public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRep
                                      AlumnoServicio alumnoServicio, AsignaturaServicio asignaturaServicio){
         SituacionExcepcional sit = situacionExcepcionalServicio.findById(id);
         sit.setResuelta(true);
-        Alumno al=sit.getAlumno();
+        sit.setFechaResolucion(LocalDate.now());
+        /*Alumno al=sit.getAlumno();
         Asignatura as=sit.getAsignatura();
-        for(Asignatura asi: al.getAsignaturas()){
-            System.out.println(asi.getNombre());
-        }
         al.removeAsignatura(as);//No desvincula la asignatura
-        for(Asignatura asi: al.getAsignaturas()){
-            System.out.println(asi.getNombre());
-        }
         alumnoServicio.edit(al);
-        asignaturaServicio.edit(as);
+        asignaturaServicio.edit(as);*/
+        sit.getAlumno().removeAsignatura(sit.getAsignatura());
+        //alumnoServicio.edit(sit.getAlumno());
+        //asignaturaServicio.edit(sit.getAsignatura());
         situacionExcepcionalServicio.edit(sit);
     }
 

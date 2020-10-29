@@ -72,21 +72,15 @@ public class AlumnoServicio extends ServicioBaseImp<Alumno, Long, AlumnoReposito
     }
 
     public List<Asignatura> sacarAsignaturas(Alumno a, AsignaturaServicio asignaturaServicio, CursoServicio cursoServicio){
-        List<Asignatura>listaFinal=new ArrayList<Asignatura>();
+        /*List<Asignatura>listaFinal=new ArrayList<Asignatura>();
         List<Asignatura>listaAsig=new ArrayList<Asignatura>();
         List<Curso>listaCursos=new ArrayList<Curso>();
         listaAsig.addAll(asignaturaServicio.findAll());
-        /*for(Asignatura as : listaAsig){
-            System.out.println(as.getNombre()+" "+as.getCurso().getNombre());
-        }*/
+
 
         listaCursos.addAll(cursoServicio.findAll());
         Long cursoId=a.getCurso().getId();
-        /*for(Asignatura as : listaAsig){
-            if(as.getCurso().getId() == cursoId){
-                listaFinal.add(as);
-            }
-        }*/
+
         for(Curso c : listaCursos){
             if(c.getId()==a.getCurso().getId()){
                 for(Asignatura as : listaAsig){
@@ -99,7 +93,8 @@ public class AlumnoServicio extends ServicioBaseImp<Alumno, Long, AlumnoReposito
                 }
             }
         }
-        return listaFinal;
+        return listaFinal;*/
+        return a.getAsignaturas();
     }
 
     public void solicitarConvalidacion(Long id, SituacionExcepcional situacionExcepcional,

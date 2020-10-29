@@ -417,8 +417,10 @@ public class JfController {
 //----------------------------------------------------------------------------------------------------------------------
     @GetMapping("/accederConvalidaciones/{id}")
     public String accederConvalidacionesAlumno(@PathVariable Long id, Model model){
+        Alumno al = alumnoServicio.findById(id);
         model.addAttribute("convalidaciones", profesorServicio.obtenerConvalidacionesPendientes(alumnoServicio, id));
-        model.addAttribute("alumno", alumnoServicio.findById(id));
+        //model.addAttribute("alumno", alumnoServicio.findById(id));
+        model.addAttribute("alumno", al);
         return "jf/adminAlumnoConvalidaciones";
     }
 
