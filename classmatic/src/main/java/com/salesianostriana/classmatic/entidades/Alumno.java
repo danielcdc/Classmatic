@@ -27,12 +27,11 @@ public class Alumno extends Usuario {
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             joinColumns = @JoinColumn(name="alumno_id"),
             inverseJoinColumns = @JoinColumn(name="asignatura_id")
     )
-
     private List<Asignatura> asignaturas;
 
     @EqualsAndHashCode.Exclude

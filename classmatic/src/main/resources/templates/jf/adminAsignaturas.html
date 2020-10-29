@@ -54,7 +54,7 @@
 
         <div class="mx-3  col-10 offset-1 container-fluid  d-flex flex-row justify-content-around align-items-center cajaElemento" th:each="asignatura : ${asignaturas}">
 
-            <h3 class="my-3  col-5" th:text="${asignatura.nombre}">Nombre</h3>
+            <a th:href="@{/jf/horarioAsignaturaCompleto/{id}(id=${asignatura.id})}" class="my-3 text-dark col-5"><h3 th:text="${asignatura.nombre}">Nombre</h3></a>
             <h3 class="my-3  col-1" th:text="${asignatura.nHorasSemanales}"></h3>
             <!--Cambiar peticiones-->
             <a class="text-white my-3 col-3" th:href="@{/jf/adminAsignaturas/editAsignatura/{id}(id=${asignatura.id})}"><div class="botonEnvio d-flex justify-content-center align-items-center">Editar</div></a>

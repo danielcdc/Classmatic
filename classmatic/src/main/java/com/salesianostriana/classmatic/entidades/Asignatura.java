@@ -1,9 +1,6 @@
 package com.salesianostriana.classmatic.entidades;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -19,8 +16,13 @@ public class Asignatura {
     private String nombre;
     private int nHorasSemanales;
 
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     @ManyToMany(mappedBy = "asignaturas")
     private List<Alumno> alumnos;
+
+    @OneToMany(mappedBy = "asignatura", fetch = FetchType.EAGER)
+    private List<Horario> horarios;
 
 
     @ManyToOne
@@ -43,6 +45,8 @@ public class Asignatura {
         situacionExc.remove(s);
         s.setAsignatura(null);
     }
+
+
 
 
 

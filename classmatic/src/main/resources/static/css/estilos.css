@@ -58,6 +58,12 @@
 	background-color: #47D9FF;
 }
 
+.boton-redo{
+    border-radius: 100px;
+    box-shadow: 0px 4px #626262;
+    padding:15px;
+}
+
 #botonIniAdminUsu{
 	background-color: #92FF9A;
 }
@@ -97,4 +103,24 @@ ul{
     height : 270px;
     border-radius:30px;
 
+}
+
+.horario{
+    margin-top:80px;
+}
+
+.dia{
+    width:20%;
+    margin:0px;
+}
+
+.cajaElementoHorario{
+    background-color: white;
+    height: 80px;
+    width: 100%;
+    padding-left:0px;
+    padding-right: 0px;
+    margin: 0px;
+    border: 2px grey solid;
+    border-collapse:collapse;
 }

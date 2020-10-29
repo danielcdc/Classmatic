@@ -34,6 +34,9 @@ public class JfController {
     @Autowired
     UsuarioServicio usuarioServicio;
 
+    @Autowired
+    SituacionExcepcionalServicio situacionExcepcionalServicio;
+
 
 
     @GetMapping("/adminInicio")
@@ -371,6 +374,67 @@ public class JfController {
         profesorServicio.editarAlumnoMenosCurso( a, alumno, alumnoServicio, cursoServicio);
         return accederAlumnos(a.getCurso().getId(),  model);
     }
+    /*
+    //Accedr a listado asignaturas
+    @GetMapping("/adminAsignnaturas{id}")
+    public String accederAsignaturas(@PathVariable Long id, Model model){
+        Curso c=cursoServicio.findById(id);
+        model.addAttribute("asignaturas",c.getAsignaturas());
+        model.addAttribute("nombreCurso",c.getNombre());
+        model.addAttribute("idCurso",id);
+        model.addAttribute("idTitulo", c.getTitulo().getId());
+        model.addAttribute("nombreTitulo",c.getTitulo().getNombre());
+        return "jf/adminAsignaturas";
+    }
+    */
+    @GetMapping("/horarioAsignatura/{id}")
+    public String accederHorarioAsignatura(@PathVariable Long id, Model model){
+         Asignatura a=asignaturaServicio.findById(id);
+         Curso c=a.getCurso();
+         model.addAttribute("nombreCurso",c.getNombre());
+         model.addAttribute("idCurso",c.getId());
+         model.addAttribute("idTitulo",c.getTitulo().getId());
+         model.addAttribute("nombreTitulo",c.getTitulo().getNombre());
+         model.addAttribute("horarios",a.getHorarios());
+         model.addAttribute("asignatura",a);
+         return "jf/adminHorarioAsignatura";
+    }
+
+    @GetMapping("/horarioAsignaturaCompleto/{id}")
+    public String accederHorarioAsignaturaCompleto(@PathVariable Long id, Model model){
+        Asignatura a=asignaturaServicio.findById(id);
+        Curso c=a.getCurso();
+        model.addAttribute("nombreCurso",c.getNombre());
+        model.addAttribute("idCurso",c.getId());
+        model.addAttribute("idTitulo",c.getTitulo().getId());
+        model.addAttribute("nombreTitulo",c.getTitulo().getNombre());
+        model.addAttribute("horarios",a.getHorarios());
+        model.addAttribute("asignatura",a);
+        model.addAttribute("horario",asignaturaServicio.obtenerHorarioAsignatura(a));
+        return "jf/adminHorarioAsignaturaCompleto";
+    }
+
+//----------------------------------------------------------------------------------------------------------------------
+    @GetMapping("/accederConvalidaciones/{id}")
+    public String accederConvalidacionesAlumno(@PathVariable Long id, Model model){
+        model.addAttribute("convalidaciones", profesorServicio.obtenerConvalidacionesPendientes(alumnoServicio, id));
+        model.addAttribute("alumno", alumnoServicio.findById(id));
+        return "jf/adminAlumnoConvalidaciones";
+    }
+
+    @GetMapping("/negarConvalidacion/{id}")
+    public String negarConvalidacion(@PathVariable Long id, Model model){
+        Long idAlumno=situacionExcepcionalServicio.findById(id).getAlumno().getId();
+        profesorServicio.negarConvalidacion(id, situacionExcepcionalServicio, alumnoServicio, asignaturaServicio);
+        return accederConvalidacionesAlumno( idAlumno,  model);
+    }
+
+    @GetMapping("/aceptarConvalidacion/{id}")
+    public String aceptarConvalidacion(@PathVariable Long id, Model model){
+        profesorServicio.aceptarConvalidacion(id, situacionExcepcionalServicio, alumnoServicio,asignaturaServicio);
+        return accederConvalidacionesAlumno( situacionExcepcionalServicio.findById(id).getAlumno().getId(),  model);
+    }
+
 
 
 }
