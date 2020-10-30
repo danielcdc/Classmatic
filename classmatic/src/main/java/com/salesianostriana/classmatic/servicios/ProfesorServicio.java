@@ -175,14 +175,16 @@ public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRep
     }
 
     public Long eliminarCurso(Curso c,AsignaturaServicio asignaturaServicio,
-                              AlumnoServicio alumnoServicio, CursoServicio cursoServicio){
+                              AlumnoServicio alumnoServicio, CursoServicio cursoServicio,
+                              TituloServicio tituloServicio){
         List<Asignatura> listaAs=new ArrayList<Asignatura>();
         List<Alumno> listaAl=new ArrayList<Alumno>();
+        Long id=c.getTitulo().getId();
         //List<Asignatura> listaAs=c.getAsignaturas();
         //List<Alumno> listaAl=c.getAlumnos();
         listaAs.addAll(c.getAsignaturas());
         listaAl.addAll(c.getAlumnos());
-
+        Titulo tit= c.getTitulo();
 
         for(Asignatura as : listaAs)/*for(int i=0;i<c.getAsignaturas().size();i++)*/{
             c.removeAsignatura(as);
@@ -192,20 +194,30 @@ public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRep
             c.removeAlumno(al);
             alumnoServicio.edit(al);
         }
-        Long id=c.getTitulo().getId();
+        //Long id=c.getTitulo().getId();
+        tit.removeCurso(c);
+        tituloServicio.edit(tit);
         cursoServicio.delete(c);
+
         return id;
     }
 
     public Long eliminarAsignatura(Long id, AsignaturaServicio asignaturaServicio,
                                    CursoServicio cursoServicio,
-                                   AlumnoServicio alumnoServicio){
+                                   AlumnoServicio alumnoServicio,
+                                   HorarioServicio horarioServicio){
         Asignatura as=asignaturaServicio.findById(id);
         List<Alumno>listaAl=new ArrayList<Alumno>();
+        List<Horario>listaHorarios=new ArrayList<Horario>();
+        listaHorarios.addAll(as.getHorarios());
         listaAl.addAll(as.getAlumnos());
         for(Alumno a: listaAl){
             a.removeAsignatura(as);
             alumnoServicio.edit(a);
+        }
+        for(Horario hor: listaHorarios){
+            hor.removeAsignatura(as);
+            horarioServicio.delete(hor);
         }
         Curso c=as.getCurso();
         c.removeAsignatura(as);

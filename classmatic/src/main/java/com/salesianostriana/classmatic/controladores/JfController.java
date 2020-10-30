@@ -37,6 +37,9 @@ public class JfController {
     @Autowired
     SituacionExcepcionalServicio situacionExcepcionalServicio;
 
+    @Autowired
+    HorarioServicio horarioServicio;
+
 
 
     @GetMapping("/adminInicio")
@@ -230,8 +233,14 @@ public class JfController {
 
     @GetMapping("/eliminarCurso/{id}")
     public String eliminarCurso(@PathVariable Long id, Model model){
+        //Long idTit=cursoServicio.findById(id).getTitulo().getId();
         //Long idT=profesorServicio.eliminarCurso(cursoServicio.findById(id), asignaturaServicio, alumnoServicio, cursoServicio);
-        return accederCursos( profesorServicio.eliminarCurso(cursoServicio.findById(id), asignaturaServicio, alumnoServicio, cursoServicio),  model);
+        //profesorServicio.eliminarCurso(cursoServicio.findById(id), asignaturaServicio, alumnoServicio, cursoServicio);
+        return accederCursos( profesorServicio.eliminarCurso(cursoServicio.findById(id),
+                asignaturaServicio,
+                alumnoServicio,
+                cursoServicio, tituloServicio),  model);
+        //return accederCursos(idTit, model);
     }
 
     //Accedr a listado asignaturas
@@ -249,7 +258,7 @@ public class JfController {
     //Eliminar Asignatura
     @GetMapping("/adminAsignaturas/eliminarAsignatura/{id}")
     public String eliminarAsinatura(@PathVariable Long id, Model model){
-        return accederAsignaturas(profesorServicio.eliminarAsignatura(id, asignaturaServicio, cursoServicio, alumnoServicio), model);
+        return accederAsignaturas(profesorServicio.eliminarAsignatura(id, asignaturaServicio, cursoServicio, alumnoServicio, horarioServicio), model);
     }
 
     //Anyadir asignatura
