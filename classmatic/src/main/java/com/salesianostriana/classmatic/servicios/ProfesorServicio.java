@@ -325,12 +325,32 @@ public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRep
         Alumno al=sit.getAlumno();
         Asignatura as=sit.getAsignatura();
         al.removeAsignatura(as);//No desvincula la asignatura
+        System.out.println("Comprobacion 1");//Aqui ya se han multiplicado las asignaturas de alumno
+        for(Asignatura asign: al.getAsignaturas()){//comprobaciones
+            System.out.println(asign.getNombre());
+        }
         alumnoServicio.edit(al);
+        System.out.println("Comprobacion 2");
+        for(Asignatura asign: al.getAsignaturas()){//comprobaciones
+            System.out.println(asign.getNombre());
+        }
         asignaturaServicio.edit(as);
+        System.out.println("Comprobacion 3");
+        for(Asignatura asign: al.getAsignaturas()){//comprobaciones
+            System.out.println(asign.getNombre());
+        }
         sit.getAlumno().removeAsignatura(sit.getAsignatura());
+        System.out.println("Comprobacion 4");
+        for(Asignatura asign: al.getAsignaturas()){//comprobaciones
+            System.out.println(asign.getNombre());
+        }
         //alumnoServicio.edit(sit.getAlumno());
         //asignaturaServicio.edit(sit.getAsignatura());
         situacionExcepcionalServicio.edit(sit);
+        System.out.println("Comprobacion 5");
+        for(Asignatura asign: al.getAsignaturas()){//comprobaciones
+            System.out.println(asign.getNombre());
+        }
     }
 
 
