@@ -11,6 +11,10 @@ public class SituacionExcepcionalServicio extends ServicioBaseImp<SituacionExcep
 
     private final SituacionExcepcionalRepositorio situacionExcepcionalRepositorio;
 
+    /*private void serAceptada(SituacionExcepcional situacionExcepcional, Long id){
+
+    }*/
+
 
 
 }

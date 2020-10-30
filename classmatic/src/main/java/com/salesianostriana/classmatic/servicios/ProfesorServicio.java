@@ -7,8 +7,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service @RequiredArgsConstructor
 public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRepositorio> {
@@ -173,14 +175,16 @@ public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRep
     }
 
     public Long eliminarCurso(Curso c,AsignaturaServicio asignaturaServicio,
-                              AlumnoServicio alumnoServicio, CursoServicio cursoServicio){
+                              AlumnoServicio alumnoServicio, CursoServicio cursoServicio,
+                              TituloServicio tituloServicio){
         List<Asignatura> listaAs=new ArrayList<Asignatura>();
         List<Alumno> listaAl=new ArrayList<Alumno>();
+        Long id=c.getTitulo().getId();
         //List<Asignatura> listaAs=c.getAsignaturas();
         //List<Alumno> listaAl=c.getAlumnos();
         listaAs.addAll(c.getAsignaturas());
         listaAl.addAll(c.getAlumnos());
-
+        Titulo tit= c.getTitulo();
 
         for(Asignatura as : listaAs)/*for(int i=0;i<c.getAsignaturas().size();i++)*/{
             c.removeAsignatura(as);
@@ -190,20 +194,30 @@ public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRep
             c.removeAlumno(al);
             alumnoServicio.edit(al);
         }
-        Long id=c.getTitulo().getId();
+        //Long id=c.getTitulo().getId();
+        tit.removeCurso(c);
+        tituloServicio.edit(tit);
         cursoServicio.delete(c);
+
         return id;
     }
 
     public Long eliminarAsignatura(Long id, AsignaturaServicio asignaturaServicio,
                                    CursoServicio cursoServicio,
-                                   AlumnoServicio alumnoServicio){
+                                   AlumnoServicio alumnoServicio,
+                                   HorarioServicio horarioServicio){
         Asignatura as=asignaturaServicio.findById(id);
         List<Alumno>listaAl=new ArrayList<Alumno>();
+        List<Horario>listaHorarios=new ArrayList<Horario>();
+        listaHorarios.addAll(as.getHorarios());
         listaAl.addAll(as.getAlumnos());
         for(Alumno a: listaAl){
             a.removeAsignatura(as);
             alumnoServicio.edit(a);
+        }
+        for(Horario hor: listaHorarios){
+            hor.removeAsignatura(as);
+            horarioServicio.delete(hor);
         }
         Curso c=as.getCurso();
         c.removeAsignatura(as);
@@ -290,13 +304,16 @@ public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRep
     }
 
     public List<SituacionExcepcional> obtenerConvalidacionesPendientes(AlumnoServicio alumnoServicio, Long id){
-        List<SituacionExcepcional> convalidacionesCompleta=alumnoServicio.findById(id).getSituacionesExc();
+        //List<SituacionExcepcional> convalidacionesCompleta=alumnoServicio.findById(id).getSituacionesExc();
+        List<SituacionExcepcional> convalidacionesCompleta=new ArrayList<SituacionExcepcional>();//alumnoServicio.findById(id).getSituacionesExc();
+        convalidacionesCompleta.addAll(alumnoServicio.findById(id).getSituacionesExc());
         List<SituacionExcepcional> convalidacionesPendientes=new ArrayList<SituacionExcepcional>();
-        for(SituacionExcepcional sit : convalidacionesCompleta){
+        /*for(SituacionExcepcional sit : convalidacionesCompleta){
             if(!sit.isResuelta()){
                 convalidacionesPendientes.add(sit);
             }
-        }
+        }*/
+        convalidacionesPendientes=convalidacionesCompleta.stream().filter((x)-> x.isResuelta()==false).collect(Collectors.toList());
         return convalidacionesPendientes;
     }
 
@@ -316,18 +333,36 @@ public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRep
                                      AlumnoServicio alumnoServicio, AsignaturaServicio asignaturaServicio){
         SituacionExcepcional sit = situacionExcepcionalServicio.findById(id);
         sit.setResuelta(true);
+        sit.setFechaResolucion(LocalDate.now());
         Alumno al=sit.getAlumno();
         Asignatura as=sit.getAsignatura();
-        for(Asignatura asi: al.getAsignaturas()){
-            System.out.println(asi.getNombre());
-        }
         al.removeAsignatura(as);//No desvincula la asignatura
-        for(Asignatura asi: al.getAsignaturas()){
-            System.out.println(asi.getNombre());
+        System.out.println("Comprobacion 1");//Aqui ya se han multiplicado las asignaturas de alumno
+        for(Asignatura asign: al.getAsignaturas()){//comprobaciones
+            System.out.println(asign.getNombre());
         }
         alumnoServicio.edit(al);
+        System.out.println("Comprobacion 2");
+        for(Asignatura asign: al.getAsignaturas()){//comprobaciones
+            System.out.println(asign.getNombre());
+        }
         asignaturaServicio.edit(as);
+        System.out.println("Comprobacion 3");
+        for(Asignatura asign: al.getAsignaturas()){//comprobaciones
+            System.out.println(asign.getNombre());
+        }
+        sit.getAlumno().removeAsignatura(sit.getAsignatura());
+        System.out.println("Comprobacion 4");
+        for(Asignatura asign: al.getAsignaturas()){//comprobaciones
+            System.out.println(asign.getNombre());
+        }
+        //alumnoServicio.edit(sit.getAlumno());
+        //asignaturaServicio.edit(sit.getAsignatura());
         situacionExcepcionalServicio.edit(sit);
+        System.out.println("Comprobacion 5");
+        for(Asignatura asign: al.getAsignaturas()){//comprobaciones
+            System.out.println(asign.getNombre());
+        }
     }
 
 
