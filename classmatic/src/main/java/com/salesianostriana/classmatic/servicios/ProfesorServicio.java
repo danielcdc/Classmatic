@@ -262,18 +262,14 @@ public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRep
         alumnoServicio.delete(al);
     }
 
+    /**
+     * @deprecated Este método está definido en AlumnoServicio
+     */
     public void crearHorarioAlumno(Alumno al){
-        List<Asignatura> listaAsignaturas=new ArrayList<Asignatura>();
-        List<Horario>listaHorarios=new ArrayList<Horario>();
-        List<String> listaLunes=new ArrayList<String>();
-        List<String> listaMartes=new ArrayList<String>();
-        List<String> listaMiercoles=new ArrayList<String>();
-        List<String> listaJueves=new ArrayList<String>();
-        List<String> listaViernes=new ArrayList<String>();
+        List<Horario>listaHorarios = new ArrayList<Horario>();
 
-        //Creo lista horarios y asignaturas
+
         for(Asignatura as: al.getAsignaturas()){
-            listaAsignaturas.add(as);
             for(Horario h : as.getHorarios()){
                 listaHorarios.add(h);
             }
@@ -303,32 +299,49 @@ public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRep
         }
     }
 
+    /**
+     * Comprueba si un alumno tiene una o más situaciones excepcionales, guardando aquellas que estén resueltas
+     * (atributo "resulta" a True) en un arrayList, devolviendo este último.
+     * @param alumnoServicio Instancia de AlumnoServicio que envuelve al repositorio donde se guarda el Alumno.
+     * @param id El id del Alumno.
+     * @return Un array con las convalidaciones resueltas de un alumno.
+     */
     public List<SituacionExcepcional> obtenerConvalidacionesPendientes(AlumnoServicio alumnoServicio, Long id){
-        //List<SituacionExcepcional> convalidacionesCompleta=alumnoServicio.findById(id).getSituacionesExc();
-        List<SituacionExcepcional> convalidacionesCompleta=new ArrayList<SituacionExcepcional>();//alumnoServicio.findById(id).getSituacionesExc();
-        convalidacionesCompleta.addAll(alumnoServicio.findById(id).getSituacionesExc());
-        List<SituacionExcepcional> convalidacionesPendientes=new ArrayList<SituacionExcepcional>();
-        /*for(SituacionExcepcional sit : convalidacionesCompleta){
-            if(!sit.isResuelta()){
-                convalidacionesPendientes.add(sit);
-            }
-        }*/
-        convalidacionesPendientes=convalidacionesCompleta.stream().filter((x)-> x.isResuelta()==false).collect(Collectors.toList());
+        List<SituacionExcepcional> convalidacionesPendientes = alumnoServicio.findById(id)
+                .getSituacionesExc()
+                .stream()
+                .filter((x)-> x.isResuelta()==false)
+                .collect(Collectors.toList());
         return convalidacionesPendientes;
     }
 
+    /**
+     * Encuentra la situación excepcional mediante su id, eliminando las relaciones/asociaciones con alumno y asignatura
+     * para posteriormente borrar el objeto "situación excepcional".
+     * @param id El id del objeto situación excepcional.
+     * @param situacionExcepcionalServicio Instancia del servicio situación excepcional.
+     * @param alumnoServicio Instancia del servicio Alumno.
+     * @param asignaturaServicio Instancia del servicio Asignatura.
+     */
     public void negarConvalidacion(Long id, SituacionExcepcionalServicio situacionExcepcionalServicio,
                                    AlumnoServicio alumnoServicio, AsignaturaServicio asignaturaServicio){
+        // Encuentra mediante el id el objeto situaciónExcepcional
         SituacionExcepcional sit = situacionExcepcionalServicio.findById(id);
         Alumno al = sit.getAlumno();
         Asignatura as = sit.getAsignatura();
+        // Elimina las relaciones con alumno y y asignatura
         al.removeSituacionExcepcional(sit);
         as.removeSituacionExcepcional(sit);
+        // Acualiza los campos de "situación excepcional" de las entidades alumno y asingatura implicados.
         alumnoServicio.edit(al);
         asignaturaServicio.edit(as);
+        // Elimina la instancia de situaciónExcepcional.
         situacionExcepcionalServicio.delete(sit);
     }
 
+    /*
+    Pediente de revisión.
+     */
     public void aceptarConvalidacion(Long id, SituacionExcepcionalServicio situacionExcepcionalServicio,
                                      AlumnoServicio alumnoServicio, AsignaturaServicio asignaturaServicio){
         SituacionExcepcional sit = situacionExcepcionalServicio.findById(id);
