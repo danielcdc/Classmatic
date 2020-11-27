@@ -6,7 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.security.core.GrantedAuthority;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.Mockito.when;
@@ -15,8 +17,10 @@ public class repoTest {
 
     UsuarioRepositorio usuarioRepositorioMock = Mockito.mock(UsuarioRepositorio.class);
 
+
+
     @Test
-    public void email(){
+    public void findByEmail(){
         Usuario u1 = new Usuario() {
             @Override
             public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -30,5 +34,39 @@ public class repoTest {
 
     }
 
-    
+    @Test
+    public void findById(){
+        Usuario u1 = new Usuario() {
+            @Override
+            public Collection<? extends GrantedAuthority> getAuthorities() {
+                return null;
+            }
+        };
+
+
+        when(usuarioRepositorioMock.findById(u1.getId())).thenReturn(Optional.of(u1));
+    }
+
+    @Test
+    public void findByAll(){
+        Usuario u1 = new Usuario() {
+            @Override
+            public Collection<? extends GrantedAuthority> getAuthorities() {
+                return null;
+            }
+        };
+
+        Usuario u2 = new Usuario() {
+            @Override
+            public Collection<? extends GrantedAuthority> getAuthorities() {
+                return null;
+            }
+        };
+
+        List <Usuario> listado = new ArrayList<>();
+        listado.add(u1);
+        listado.add(u2);
+
+        when(usuarioRepositorioMock.findAll()).thenReturn(listado);
+    }
 }
