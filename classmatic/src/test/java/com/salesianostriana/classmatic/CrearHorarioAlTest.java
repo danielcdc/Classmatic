@@ -7,10 +7,7 @@ import com.salesianostriana.classmatic.entidades.Horario;
 import com.salesianostriana.classmatic.repositorios.AlumnoRepositorio;
 import com.salesianostriana.classmatic.servicios.AlumnoServicio;
 import com.salesianostriana.classmatic.servicios.HorarioServicio;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -46,30 +43,26 @@ public class CrearHorarioAlTest {
 
     static Alumno alumnoPrueba;
     static Asignatura asignaturaPrueba;
+    static List<List<Asignatura>>listaCompleta;
 
     @BeforeAll
     public static void prepararObjetos(){
         alumnoPrueba = new Alumno();
-        alumnoPrueba.setId(12345678);
+        alumnoPrueba.setId(12345678L);
+        alumnoPrueba.setAsignaturas(new ArrayList<Asignatura>());
         asignaturaPrueba =  new Asignatura();
-        asignaturaPrueba.setId(23456789);
+        asignaturaPrueba.setId(23456789L);
         asignaturaPrueba.setHorarios(new ArrayList<Horario>());
+        asignaturaPrueba.setAlumnos(new ArrayList<Alumno>());
         alumnoPrueba.setAsignaturas(new ArrayList<Asignatura>());
         //alumnoPrueba.getAsignaturas().add(asignaturaPrueba);
         //asignaturaPrueba.getHorarios();
+        listaCompleta = new ArrayList<>();
     }
 
-    /*
-    En este test se prueba un alumno sin asignatura, el resutado debería ser que el horario tenga todos los
-    huecos con false
-     */
-    @Test
-    @DisplayName("Alumno sin asignaturas")
-    public void crearHorarioSinAsignaturas(){
-        for (Horario h : asignaturaPrueba.getHorarios()) {
-            Mockito.when(horarioServicio.obtenerHoras(h)).thenReturn(h.getHoras());
-        }
-        List<List<Asignatura>>listaCompleta= new ArrayList();
+    @BeforeEach
+    public void restaurar(){
+        listaCompleta.clear();
         for(int i=0;i<5;i++){
             listaCompleta.add(new ArrayList<Asignatura>());
         }
@@ -78,8 +71,69 @@ public class CrearHorarioAlTest {
                 l.add(false);
             }
         }
+        asignaturaPrueba.getHorarios().clear();
+    }
+
+    /*
+    En este test se prueba un alumno sin asignatura, el resutado debería ser que el horario tenga todos los
+    huecos con false
+     */
+    @Disabled
+    @Test
+    @DisplayName("Alumno sin asignaturas")
+    public void crearHorarioSinAsignaturas(){
+        for (Horario h : asignaturaPrueba.getHorarios()) {
+            Mockito.when(horarioServicio.obtenerHoras(h)).thenReturn(h.getHoras());
+        }
         assertEquals(alumnoServicio.crearHorarioAlumno(alumnoPrueba, horarioServicio),listaCompleta);
     }
+
+    /*
+    En este test el alumno tendrá una asignatura con un par de horarios, debería devolver el horario con
+    todo a false excepto loas horas de esa asignatura que deberán contener dicha asignatura
+     */
+    @Disabled
+    @Test
+    @DisplayName("Alumno con una asignatura")
+    public void crearHorarioConUnaAsignatura(){
+
+        /*
+        Primero  asocio la asignatura y el alumno, posteriormente creo los horarios y lso asocio con asignatura,
+        las asociaciones se realizan setteando directamente para no intentar acceder a metodos del repositorio,
+        se almacena el resultado del metodo a testear en un ArrayList<ArrayList<Asignatura>>(),
+        y se comprueba recorriendo el resultado que  que todas las casillas almacenan false, excepto las que tienen
+        un horario de la asignatura que almacenan dicha asignatura
+         */
+        alumnoPrueba.getAsignaturas().add(asignaturaPrueba);
+        asignaturaPrueba.getAlumnos().add(alumnoPrueba);
+        Horario hor1 = new Horario();
+        Horario hor2 = new Horario();
+        hor1.setId(14532456L);
+        hor1.setDia(1);
+        hor1.setHoras(new ArrayList<>());
+        hor1.getHoras().add(1);
+        hor2.setId(14592456L);
+        hor2.setDia(3);
+        hor2.setHoras(new ArrayList<>());
+        hor2.getHoras().add(5);
+        hor1.addAsignatura(asignaturaPrueba);
+        hor2.addAsignatura(asignaturaPrueba);
+        for (Horario h : asignaturaPrueba.getHorarios()) {
+            Mockito.when(horarioServicio.obtenerHoras(h)).thenReturn(h.getHoras());
+        }
+        List <List<Asignatura>> horario = alumnoServicio.crearHorarioAlumno(alumnoPrueba, horarioServicio);
+        for(int i = 0; i< horario.size(); i++){
+            for(int j = 0; j < horario.get(i).size(); j++){
+                if((i+1)==hor1.getDia() && hor1.getHoras().contains((j+1)) ||
+                        (i+1)==hor2.getDia() && hor2.getHoras().contains((j+1))){
+                    assertEquals(horario.get(i).get(j),asignaturaPrueba);
+                }else{
+                    assertEquals(horario.get(i).get(j),false);
+                }
+            }
+        }
+    }
+
 
 
 
