@@ -21,22 +21,15 @@ public class AlumnoServicio extends ServicioBaseImp<Alumno, Long, AlumnoReposito
     public List<List<Asignatura>> crearHorarioAlumno(Alumno al, HorarioServicio horarioServicio){
         List<Asignatura> listaAsignaturas=new ArrayList<Asignatura>();
         List<Horario>listaHorarios=new ArrayList<Horario>();
-        //Creo lista horarios y asignaturas
-        /*for(Asignatura as: al.getAsignaturas()){
-            listaAsignaturas.add(as);
 
-        }*/
         listaAsignaturas.addAll(al.getAsignaturas());
 
         for(Asignatura a : listaAsignaturas){
-            listaHorarios.addAll(a.getHorarios());
-            /*for(Horario h : a.getHorarios()){
-                listaHorarios.add(h);
-            }*/
+            listaHorarios.addAll(a.getHorarios());//Se guardan todos los horarios de una asignatura
         }
         List<Integer>listaHoras=new ArrayList<Integer>();
         for(Horario horario : listaHorarios){
-            listaHoras.addAll(horarioServicio.obtenerHoras(horario));
+            listaHoras.addAll(horarioServicio.obtenerHoras(horario));//Se guardan todas la horas de una asignatura
         }
         List<List<Asignatura>>listaCompleta= new ArrayList();
         for(int i=0;i<5;i++){
@@ -54,20 +47,12 @@ public class AlumnoServicio extends ServicioBaseImp<Alumno, Long, AlumnoReposito
                         for(int hora : h.getHoras()){
                             if(hora==(j+1)){
                                 listaCompleta.get(i).set(j,h.getAsignatura());
-                                //System.out.println("Asignatura introducida "+h.getAsignatura().getNombre());
-                                //System.out.println("Asignatura almacenada "+listaCompleta.get(i).get(j).getNombre());
                             }
                         }
                     }
                 }
             }
         }
-        /*
-        for(List dia : listaCompleta){
-            for(Asignatura as : dia){
-                System.out.println();
-            }
-        }*/
         return listaCompleta;
     }
 

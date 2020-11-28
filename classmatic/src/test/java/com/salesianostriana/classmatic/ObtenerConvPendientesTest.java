@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(MockitoExtension.class)
-public class CarlosTest {
+public class ObtenerConvPendientesTest {
 
     //@Mock
     AlumnoServicio alumnoServicio = Mockito.mock(AlumnoServicio.class);
@@ -99,6 +99,6 @@ public class CarlosTest {
         assertEquals(profesorServicio.obtenerConvalidacionesPendientes(alumnoServicio, alumnoPrueba.getId()),lista);
     }
 
-    
+
 
 }
