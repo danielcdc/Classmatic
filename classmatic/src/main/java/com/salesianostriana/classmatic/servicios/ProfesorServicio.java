@@ -303,6 +303,14 @@ public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRep
         }
     }
 
+    /*
+    Tests:
+    -Alumno sin convalidaciones pendientes
+    -Alumno con  alguna convalidacion nula
+    -Alumno nulo
+    -Alumno inexistente
+    Hace falta un Mock alumnoServicio
+     */
     public List<SituacionExcepcional> obtenerConvalidacionesPendientes(AlumnoServicio alumnoServicio, Long id){
         //List<SituacionExcepcional> convalidacionesCompleta=alumnoServicio.findById(id).getSituacionesExc();
         List<SituacionExcepcional> convalidacionesCompleta=new ArrayList<SituacionExcepcional>();//alumnoServicio.findById(id).getSituacionesExc();
