@@ -4,7 +4,6 @@ import com.salesianostriana.classmatic.entidades.*;
 import com.salesianostriana.classmatic.repositorios.ProfesorRepositorio;
 import com.salesianostriana.classmatic.servicios.base.ServicioBaseImp;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
