@@ -3,6 +3,7 @@ package com.salesianostriana.classmatic.repositorioTest;
 import com.salesianostriana.classmatic.entidades.Usuario;
 import com.salesianostriana.classmatic.repositorios.UsuarioRepositorio;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -15,9 +16,12 @@ import static org.mockito.Mockito.when;
 
 public class repoTest {
 
+
     UsuarioRepositorio usuarioRepositorioMock = Mockito.mock(UsuarioRepositorio.class);
 
-
+    /*@Mock
+    UsuarioRepositorio usuarioRepositorioMock;*/
+    //Por alguna razón, si utilizo esta anotación, los tests me devuelven nullPointerException
 
     @Test
     public void findByEmail(){
@@ -68,5 +72,8 @@ public class repoTest {
         listado.add(u2);
 
         when(usuarioRepositorioMock.findAll()).thenReturn(listado);
+
+        System.out.println(listado);
+        //Por alguna razón, los dos usuarios creados tienen el mismo id, es probable que haya un fallo con el @GeneratedValue de la entidad Usuario
     }
 }
