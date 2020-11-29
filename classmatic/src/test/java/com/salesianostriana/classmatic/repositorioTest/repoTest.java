@@ -2,7 +2,9 @@ package com.salesianostriana.classmatic.repositorioTest;
 
 import com.salesianostriana.classmatic.entidades.Usuario;
 import com.salesianostriana.classmatic.repositorios.UsuarioRepositorio;
+import com.salesianostriana.classmatic.servicios.UsuarioServicio;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.security.core.GrantedAuthority;
@@ -76,4 +78,11 @@ public class repoTest {
         System.out.println(listado);
         //Por alguna razón, los dos usuarios creados tienen el mismo id, es probable que haya un fallo con el @GeneratedValue de la entidad Usuario
     }
+
+    //metodo -ProfesorServicio.negarConvalidacion
+
+    
+
+    @InjectMocks
+    UsuarioServicio servicio;
 }
