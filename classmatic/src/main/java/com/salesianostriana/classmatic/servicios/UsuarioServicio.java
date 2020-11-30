@@ -25,45 +25,47 @@ public class UsuarioServicio extends ServicioBaseImp <Usuario, Long, UsuarioRepo
         return usuarioRepositorio.findFirstByEmail(email);
     }
 
-
-    public int autogenerarCodigo(){
+    /**
+     * Genera un código de invitación de forma "aleatoria" y lo devuelve.
+     * @return Un número entero "aleatorio"
+     */
+    public int autogenerarCodigo() {
         int codigo;
-        boolean rechazado=true;
-        List<Integer> usados=new ArrayList<>();
-        for(Usuario us : findAll()){
+        boolean rechazado = true;
+        List<Integer> usados = new ArrayList<>();
+        // Guarda todos los códigos de invitación generados hasta el momento.
+        for (Usuario us : findAll()) {
             usados.add(us.getCodigoInvitacion());
         }
+        // Genera un código aleatorio entre 1 y un millón. Si está repetido,
+        // vuelve a generar otro número aleatorio.
         do {
             codigo = (int) Math.floor(Math.random() * 1000000 + 1);
-            if(!usados.contains(codigo)){
-                rechazado=false;
+            if (!usados.contains(codigo)) {
+                rechazado = false;
             }
-        }while(rechazado);
+        } while (rechazado);
         return codigo;
     }
 
-    public void  aceptarValidacion(int codigo, String contrasenya){
-        List<Usuario>listaU=findAll();
-        boolean  parar=false;
-        //boolean verificado=false;
-        /*for(Usuario usu : listaU){
-            if(usu.getCodigoInvitacion() == codigo){
-                usu.setHabilitado(true);
-                usu.setPassdword(passWordEncoder.encode(contrasenya));
-            }
-        }*/
-        for(int i=0;i<listaU.size()&&!parar;i++){
-            if(listaU.get(i).getCodigoInvitacion() == codigo){
-                listaU.get(i).setHabilitado(true);
-                System.out.println("La contrasenya es......................."+contrasenya);
+    /**
+     * Obtiene una lista de todos los alumnos y la recorre, buscando al usuario que tenga la clave proporcionada por
+     * parámetro, habilitándolo para usar la aplicación.
+     * @param codigo El código enviado por correo.
+     * @param contrasenya La nueva contraseña introducida por el usuario.
+     */
+    public void aceptarValidacion(int codigo, String contrasenya) {
+        List<Usuario> listaU = findAll();
+        boolean parar = false;
+        for (int i = 0; i < listaU.size() && !parar; i++) {
+            if (listaU.get(i).getCodigoInvitacion() == codigo) {
+                System.out.println("La contraseña es......................." + contrasenya);
                 listaU.get(i).setPassdword(passWordEncoder.encode(contrasenya));
                 listaU.get(i).setHabilitado(true);
                 edit(listaU.get(i));
-                parar=true;
-                //verificado=true;
+                parar = true;
             }
         }
-        //return verificado;
     }
 
 

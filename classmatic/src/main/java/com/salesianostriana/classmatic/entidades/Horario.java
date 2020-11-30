@@ -7,6 +7,9 @@ import org.hibernate.annotations.Fetch;
 import javax.persistence.*;
 import java.util.List;
 
+/**
+ * Contiene las horas de un día concreto de una asignatura concreta.
+ */
 @Entity
 @Data @Builder
 @NoArgsConstructor
@@ -41,31 +44,4 @@ public class Horario {
         setAsignatura(null);
         a.getHorarios().remove(this);
     }
-
-    /*
-    @JoinTable(
-            joinColumns = @JoinColumn(name="curso_id"),
-            inverseJoinColumns = @JoinColumn(name="horario_id")
-    )*/
-    /*@OneToOne(mappedBy = "horario")
-    private Curso curso;*/
-
-    /*
-    @OneToMany(mappedBy = "horario")
-    private List<Asignatura> hLunes;
-
-    @OneToMany(mappedBy = "horario")
-    private List<Asignatura> hMartes;
-
-    @OneToMany(mappedBy = "horario")
-    private List<Asignatura> hMiercoles;
-
-    @OneToMany(mappedBy = "horario")
-    private List<Asignatura> hJueves;
-
-    @OneToMany(mappedBy = "horario")
-    private List<Asignatura> hViernes;
-    */
-
-
 }

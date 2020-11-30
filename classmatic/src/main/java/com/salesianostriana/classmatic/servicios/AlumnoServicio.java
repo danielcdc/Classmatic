@@ -18,35 +18,51 @@ public class AlumnoServicio extends ServicioBaseImp<Alumno, Long, AlumnoReposito
 
     private final AlumnoRepositorio alumnoRepositorio;
 
+    /**
+     *  Determina el horario de un Alumno pasado como parámetro, con la finalidad de
+     *  mostrar por pantalla el horario del Alumno.
+     * @param al Una instancia de Alumno.
+     */
     public List<List<Asignatura>> crearHorarioAlumno(Alumno al, HorarioServicio horarioServicio){
-        List<Asignatura> listaAsignaturas=new ArrayList<Asignatura>();
         List<Horario>listaHorarios=new ArrayList<Horario>();
-        //Creo lista horarios y asignaturas
-        /*for(Asignatura as: al.getAsignaturas()){
-            listaAsignaturas.add(as);
 
-        }*/
+<<<<<<< HEAD
+
+        /* A través de las asignaturas que tiene un Alumno, se obtiene el horario de dichas asignaturas
+         y se configura el horario del alumno.
+         */
+        for(Asignatura as : al.getAsignaturas()){
+            listaHorarios.addAll(as.getHorarios());
+
+=======
         listaAsignaturas.addAll(al.getAsignaturas());
 
         for(Asignatura a : listaAsignaturas){
-            listaHorarios.addAll(a.getHorarios());
-            /*for(Horario h : a.getHorarios()){
-                listaHorarios.add(h);
-            }*/
+            listaHorarios.addAll(a.getHorarios());//Se guardan todos los horarios de una asignatura
         }
         List<Integer>listaHoras=new ArrayList<Integer>();
         for(Horario horario : listaHorarios){
-            listaHoras.addAll(horarioServicio.obtenerHoras(horario));
+            listaHoras.addAll(horarioServicio.obtenerHoras(horario));//Se guardan todas la horas de una asignatura
+>>>>>>> feature/carlos
         }
+        /*
+        Rellenamos el horario completo (de Lunes a Viernes con todas sus horas) el valor booleano False.
+        El valor booleano False es para imprimir en la plantilla Thymeleaf.
+         */
         List<List<Asignatura>>listaCompleta= new ArrayList();
         for(int i=0;i<5;i++){
             listaCompleta.add(new ArrayList<Asignatura>());
         }
+
         for(List l : listaCompleta){//relleno las 6 h de lo 5 d con falso
             for(int i=0;i<6;i++){
                 l.add(false);
             }
         }
+         /*
+        Se comparan los mismos elementos de las listas "listaHorario" y "listaCompleta", y en aquellos que el alumno
+        tenga un asignatura, se le asigna a "listaCompleta" el día y la hora en cuestión.
+         */
         for(int i=0;i<5;i++){
             for(int j=0;j<6;j++){
                 for(Horario h : listaHorarios){
@@ -54,20 +70,12 @@ public class AlumnoServicio extends ServicioBaseImp<Alumno, Long, AlumnoReposito
                         for(int hora : h.getHoras()){
                             if(hora==(j+1)){
                                 listaCompleta.get(i).set(j,h.getAsignatura());
-                                //System.out.println("Asignatura introducida "+h.getAsignatura().getNombre());
-                                //System.out.println("Asignatura almacenada "+listaCompleta.get(i).get(j).getNombre());
                             }
                         }
                     }
                 }
             }
         }
-        /*
-        for(List dia : listaCompleta){
-            for(Asignatura as : dia){
-                System.out.println();
-            }
-        }*/
         return listaCompleta;
     }
 
