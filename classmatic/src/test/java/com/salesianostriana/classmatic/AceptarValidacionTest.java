@@ -10,10 +10,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -34,6 +33,9 @@ public class AceptarValidacionTest {
     @InjectMocks
     static Usuario usuario;
 
+    @Mock
+    PasswordEncoder passwordEncoder;
+
     @BeforeAll
     public static void inicializando(){
         usuario = new Usuario() {
@@ -44,6 +46,8 @@ public class AceptarValidacionTest {
         };
         usuario.setCodigoInvitacion(1000);
         usuario.setId(123456);
+        usuario.setPassdword("4321");
+        usuario.setHabilitado(false);
 
     }
 
@@ -71,6 +75,29 @@ public class AceptarValidacionTest {
         //lista.add(usuario);
         Mockito.when(usuarioServicioMock.findById(usuario.getId())).thenReturn(usuario);
         assertNotEquals(usuarioServicioMock.findById(usuario.getId()), lista);
+
+    }
+
+    @Disabled
+    @Test
+    @DisplayName("Comprobar cambio de contraseña, no funciona")
+    public void cambiarcontrasenya(){
+        String contrasenya = "1234";
+        int codigo = 1000;
+        List<Usuario> lista = new ArrayList<Usuario>();
+        lista.add(usuario);
+
+        Mockito.when(usuarioRepositorio.findById(usuario.getId())).thenReturn(Optional.of(usuario));
+//      Mockito.when(usuarioServicio.edit(usuario)).thenReturn(usuario);
+//      Mockito.when(usuarioServicio.findAll()).thenReturn(lista);
+        Mockito.when(usuarioRepositorio.findAll()).thenReturn(lista);
+        Mockito.when(usuarioRepositorio.save(usuario)).thenReturn(null);
+        Mockito.when(passwordEncoder.encode(contrasenya)).thenReturn(contrasenya);
+
+        usuarioServicioMock.aceptarValidacion(codigo, contrasenya);
+
+        assertTrue(usuario.isHabilitado());
+        assertEquals(usuario.getPassdword(), contrasenya);
 
     }
 }
