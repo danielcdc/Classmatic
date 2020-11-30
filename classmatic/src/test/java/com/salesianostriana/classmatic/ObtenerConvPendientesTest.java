@@ -85,7 +85,7 @@ public class ObtenerConvPendientesTest {
     /*
     En este método se prueba que no exista ningun alumno con el Alumno.id que se le pasa al método
      */
-    @Disabled
+    //@Disabled
     @Test
     @DisplayName("Alumno no encontrado")
     public void obtenerConvalidacionAlumnoNoEncontradoTest(){
@@ -95,8 +95,9 @@ public class ObtenerConvPendientesTest {
         //alumnoPrueba.addSituacionExcepcional(convalidacion);
         List<SituacionExcepcional> lista = new ArrayList<SituacionExcepcional>();
         //lista.add(convalidacion);
-        Mockito.when(alumnoServicio.findById(alumnoPrueba.getId())).thenReturn(alumnoPrueba);
-        assertEquals(profesorServicio.obtenerConvalidacionesPendientes(alumnoServicio, alumnoPrueba.getId()),lista);
+        Mockito.when(alumnoServicio.findById(alumnoPrueba.getId())).thenReturn(/*alumnoPrueba*/null);
+        //assertEquals(profesorServicio.obtenerConvalidacionesPendientes(alumnoServicio, alumnoPrueba.getId()),lista);
+        assertTrue(profesorServicio.obtenerConvalidacionesPendientes(alumnoServicio, alumnoPrueba.getId()).isEmpty());
     }
 
 

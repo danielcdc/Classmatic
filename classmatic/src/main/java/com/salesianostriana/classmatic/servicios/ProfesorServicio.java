@@ -312,17 +312,15 @@ public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRep
     Hace falta un Mock alumnoServicio
      */
     public List<SituacionExcepcional> obtenerConvalidacionesPendientes(AlumnoServicio alumnoServicio, Long id){
-        //List<SituacionExcepcional> convalidacionesCompleta=alumnoServicio.findById(id).getSituacionesExc();
-        List<SituacionExcepcional> convalidacionesCompleta=new ArrayList<SituacionExcepcional>();//alumnoServicio.findById(id).getSituacionesExc();
-        convalidacionesCompleta.addAll(alumnoServicio.findById(id).getSituacionesExc());
-        List<SituacionExcepcional> convalidacionesPendientes=new ArrayList<SituacionExcepcional>();
-        /*for(SituacionExcepcional sit : convalidacionesCompleta){
-            if(!sit.isResuelta()){
-                convalidacionesPendientes.add(sit);
-            }
-        }*/
-        convalidacionesPendientes=convalidacionesCompleta.stream().filter((x)-> x.isResuelta()==false).collect(Collectors.toList());
-        return convalidacionesPendientes;
+        List<SituacionExcepcional> convalidacionesCompleta = new ArrayList<SituacionExcepcional>();
+        if(alumnoServicio.findById(id) != null) {
+            convalidacionesCompleta.addAll(alumnoServicio.findById(id).getSituacionesExc());
+            List<SituacionExcepcional> convalidacionesPendientes = new ArrayList<SituacionExcepcional>();
+            convalidacionesPendientes = convalidacionesCompleta.stream().filter((x) -> x.isResuelta() == false).collect(Collectors.toList());
+            return convalidacionesPendientes;
+        }else{
+            return convalidacionesCompleta;
+        }
     }
 
     public void negarConvalidacion(Long id, SituacionExcepcionalServicio situacionExcepcionalServicio,
