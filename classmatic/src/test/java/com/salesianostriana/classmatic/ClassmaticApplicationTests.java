@@ -7,9 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class ClassmaticApplicationTests {
 
-	/*@Disabled
 	@Test
 	void contextLoads() {
-	}*/
+	}
 
 }
