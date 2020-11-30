@@ -298,20 +298,26 @@ public class ProfesorServicio extends ServicioBaseImp<Profesor,Long, ProfesorRep
         }
     }
 
-    /**
-     * Comprueba si un alumno tiene una o más situaciones excepcionales, guardando aquellas que estén resueltas
-     * (atributo "resulta" a True) en un arrayList, devolviendo este último.
-     * @param alumnoServicio Instancia de AlumnoServicio que envuelve al repositorio donde se guarda el Alumno.
-     * @param id El id del Alumno.
-     * @return Un array con las convalidaciones resueltas de un alumno.
+
+    /*
+    Tests:
+    -Alumno sin convalidaciones pendientes
+    -Alumno con  alguna convalidacion nula
+    -Alumno nulo
+    -Alumno inexistente
+    Hace falta un Mock alumnoServicio
      */
     public List<SituacionExcepcional> obtenerConvalidacionesPendientes(AlumnoServicio alumnoServicio, Long id){
-        List<SituacionExcepcional> convalidacionesPendientes = alumnoServicio.findById(id)
-                .getSituacionesExc()
-                .stream()
-                .filter((x)-> x.isResuelta()==false)
-                .collect(Collectors.toList());
-        return convalidacionesPendientes;
+        List<SituacionExcepcional> convalidacionesCompleta = new ArrayList<SituacionExcepcional>();
+        if(alumnoServicio.findById(id) != null) {
+            convalidacionesCompleta.addAll(alumnoServicio.findById(id).getSituacionesExc());
+            List<SituacionExcepcional> convalidacionesPendientes = new ArrayList<SituacionExcepcional>();
+            convalidacionesPendientes = convalidacionesCompleta.stream().filter((x) -> x.isResuelta() == false).collect(Collectors.toList());
+            return convalidacionesPendientes;
+        }else{
+            return convalidacionesCompleta;
+        }
+
     }
 
     /**

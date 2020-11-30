@@ -26,6 +26,7 @@ public class AlumnoServicio extends ServicioBaseImp<Alumno, Long, AlumnoReposito
     public List<List<Asignatura>> crearHorarioAlumno(Alumno al, HorarioServicio horarioServicio){
         List<Horario>listaHorarios=new ArrayList<Horario>();
 
+<<<<<<< HEAD
 
         /* A través de las asignaturas que tiene un Alumno, se obtiene el horario de dichas asignaturas
          y se configura el horario del alumno.
@@ -33,6 +34,16 @@ public class AlumnoServicio extends ServicioBaseImp<Alumno, Long, AlumnoReposito
         for(Asignatura as : al.getAsignaturas()){
             listaHorarios.addAll(as.getHorarios());
 
+=======
+        listaAsignaturas.addAll(al.getAsignaturas());
+
+        for(Asignatura a : listaAsignaturas){
+            listaHorarios.addAll(a.getHorarios());//Se guardan todos los horarios de una asignatura
+        }
+        List<Integer>listaHoras=new ArrayList<Integer>();
+        for(Horario horario : listaHorarios){
+            listaHoras.addAll(horarioServicio.obtenerHoras(horario));//Se guardan todas la horas de una asignatura
+>>>>>>> feature/carlos
         }
         /*
         Rellenamos el horario completo (de Lunes a Viernes con todas sus horas) el valor booleano False.
